@@ -1,0 +1,37 @@
+ManifestFileVersion: 0
+CRC: 2970129116
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 34af11cb6402ce92a39eb56739ba1b46
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 86c11f1c2d9dcc275a9976cb137549ec
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 65
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: e4b8e07aa62a7e74cbc61244fe27f0a3, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+Assets:
+- Assets/AssetBundleSample/SampleAssets/Tanks/Materials/MyMaterial.mat
+- Assets/AssetBundleSample/SampleAssets/MyCube.prefab
+Dependencies: []

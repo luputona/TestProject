@@ -1,0 +1,178 @@
+ManifestFileVersion: 0
+CRC: 2569324151
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: c294e378c07baa9200dde42fe8558114
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 07535014fbb3be70736ef7da48d54b4e
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 20
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 49
+  Script: {instanceID: 0}
+- Class: 64
+  Script: {instanceID: 0}
+- Class: 81
+  Script: {instanceID: 0}
+- Class: 82
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 92
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: a4d90940619e6404e807179a78fa4789, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 79f99fe1257a44d44809141d79522d6e, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 13dfc044773a7104296f425282435d66, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 190d918d38714b446ad8b55640d0032a, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 124
+  Script: {instanceID: 0}
+- Class: 131
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/live2d/wanko/motions/touch_01.mtn.bytes
+- Assets/Resources/live2d/shizuku/expressions/f03.exp.json
+- Assets/Resources/live2d/wanko/wanko.model.json
+- Assets/Resources/live2d/shizuku/shizuku.1024/texture_00.png
+- Assets/Resources/live2d/shizuku/sounds/shake_02.mp3
+- Assets/Resources/live2d/haru/haru_01.1024/texture_01.png
+- Assets/Resources/live2d/haru/motions/tapBody_05.mtn.bytes
+- Assets/Resources/live2d/haru/expressions/f02.exp.json
+- Assets/Resources/live2d/shizuku/motions/shake_02.mtn.bytes
+- Assets/Live2D/Resources/shader/merged/Live2D.shader
+- Assets/Resources/live2d/shizuku/shizuku.1024/texture_04.png
+- Assets/Resources/Prefabs/Live2DTest/Main Camera.prefab
+- Assets/Resources/live2d/shizuku/sounds/pinchOut_01.mp3
+- Assets/Resources/live2d/shizuku/sounds/flickHead_00.mp3
+- Assets/Live2D/Resources/shader/merged/Live2D-NormalAndAddMasked.shader
+- Assets/Resources/live2d/shizuku/motions/idle_00.mtn.bytes
+- Assets/Resources/live2d/haru/haru_01.model.json
+- Assets/Resources/live2d/shizuku/expressions/f01.exp.json
+- Assets/Resources/live2d/haru/sounds/shake_00.mp3
+- Assets/Resources/image/Materials/back_class_normal.mat
+- Assets/Live2D/Resources/shader/merged/Live2D-MultMasked.shader
+- Assets/Resources/live2d/haru/motions/tapBody_02.mtn.bytes
+- Assets/Resources/live2d/shizuku/sounds/pinchOut_00.mp3
+- Assets/Resources/live2d/shizuku/motions/pinchOut_00.mtn.bytes
+- Assets/Resources/live2d/haru/haru_02.moc.bytes
+- Assets/Resources/live2d/shizuku/motions/pinchIn_01.mtn.bytes
+- Assets/Resources/live2d/shizuku/sounds/tapBody_02.mp3
+- Assets/Live2D/Resources/shader/merged/Live2D-NormalAndAdd.shader
+- Assets/Resources/live2d/haru/haru.model.json
+- Assets/Resources/live2d/haru/haru_02.1024/texture_02.png
+- Assets/Resources/live2d/shizuku/motions/idle_02.mtn.bytes
+- Assets/Resources/live2d/wanko/motions/shake_01.mtn.bytes
+- Assets/Resources/live2d/haru/haru_01.1024/texture_00.png
+- Assets/Resources/live2d/haru/motions/idle_02.mtn.bytes
+- Assets/Resources/live2d/shizuku/sounds/pinchIn_00.mp3
+- Assets/Resources/live2d/wanko/wanko.1024/texture_00.png
+- Assets/Resources/live2d/shizuku/sounds/tapBody_00.mp3
+- Assets/Resources/live2d/shizuku/motions/shake_01.mtn.bytes
+- Assets/Resources/live2d/shizuku/sounds/flickHead_02.mp3
+- Assets/Resources/live2d/shizuku/shizuku.model.json
+- Assets/Resources/live2d/haru/motions/tapBody_00.mtn.bytes
+- Assets/Resources/live2d/shizuku/motions/pinchOut_01.mtn.bytes
+- Assets/Resources/live2d/haru/motions/idle_00.mtn.bytes
+- Assets/Resources/live2d/haru/motions/tapBody_01.mtn.bytes
+- Assets/Resources/live2d/shizuku/shizuku.1024/texture_05.png
+- Assets/Resources/live2d/haru/motions/tapBody_03.mtn.bytes
+- Assets/Resources/live2d/shizuku/motions/idle_01.mtn.bytes
+- Assets/Resources/live2d/haru/sounds/tapBody_01.mp3
+- Assets/Resources/live2d/shizuku/motions/flickHead_01.mtn.bytes
+- Assets/Resources/live2d/shizuku/sounds/pinchOut_02.mp3
+- Assets/Resources/live2d/shizuku/sounds/shake_01.mp3
+- Assets/Resources/live2d/haru/expressions/f08.exp.json
+- Assets/Resources/live2d/haru/motions/flickHead_00.mtn.bytes
+- Assets/Resources/live2d/wanko/motions/idle_02.mtn.bytes
+- Assets/Resources/live2d/shizuku/sounds/flickHead_01.mp3
+- Assets/Resources/live2d/shizuku/motions/shake_00.mtn.bytes
+- Assets/Resources/live2d/shizuku/shizuku.physics.json
+- Assets/Resources/live2d/haru/expressions/f04.exp.json
+- Assets/Resources/live2d/shizuku/motions/flickHead_00.mtn.bytes
+- Assets/Resources/live2d/shizuku/sounds/pinchIn_01.mp3
+- Assets/Resources/live2d/shizuku/sounds/pinchIn_02.mp3
+- Assets/Resources/live2d/shizuku/sounds/tapBody_01.mp3
+- Assets/Resources/live2d/haru/haru_01.moc.bytes
+- Assets/Resources/live2d/haru/motions/tapBody_06.mtn.bytes
+- Assets/Resources/live2d/wanko/motions/idle_03.mtn.bytes
+- Assets/Resources/live2d/haru/sounds/tapBody_00.mp3
+- Assets/Resources/live2d/haru/motions/shake_00.mtn.bytes
+- Assets/Resources/live2d/wanko/motions/idle_01.mtn.bytes
+- Assets/Resources/Prefabs/Live2DTest/Live2D_haru.prefab
+- Assets/Resources/live2d/haru/haru_02.model.json
+- Assets/Resources/live2d/shizuku/shizuku.1024/texture_02.png
+- Assets/Resources/live2d/haru/motions/idle_01.mtn.bytes
+- Assets/Resources/live2d/haru/expressions/f03.exp.json
+- Assets/Resources/live2d/haru/sounds/flickHead_00.mp3
+- Assets/Resources/live2d/shizuku/shizuku.moc.bytes
+- Assets/Resources/live2d/wanko/wanko.moc.bytes
+- Assets/Resources/live2d/shizuku/motions/flickHead_02.mtn.bytes
+- Assets/Resources/live2d/shizuku/motions/tapBody_01.mtn.bytes
+- Assets/Live2D/Resources/shader/Live2D-SetupMask.shader
+- Assets/Resources/live2d/wanko/motions/idle_04.mtn.bytes
+- Assets/Resources/live2d/shizuku/motions/pinchIn_00.mtn.bytes
+- Assets/Resources/live2d/haru/haru_02.1024/texture_00.png
+- Assets/Resources/live2d/haru/motions/tapBody_09.mtn.bytes
+- Assets/Live2D/Resources/shader/merged/Live2D-Mult.shader
+- Assets/Resources/live2d/haru/haru_02.1024/texture_01.png
+- Assets/Resources/live2d/haru/sounds/pinchOut_00.mp3
+- Assets/Resources/live2d/shizuku/sounds/shake_00.mp3
+- Assets/Resources/live2d/haru/expressions/f01.exp.json
+- Assets/Resources/live2d/haru/expressions/f05.exp.json
+- Assets/Live2D/Resources/shader/merged/Live2D-PremultipliedAlpha.shader
+- Assets/Live2D/Resources/shader/merged/Live2D-Masked.shader
+- Assets/Resources/live2d/haru/haru_01.1024/texture_02.png
+- Assets/Resources/image/back_class_normal.png
+- Assets/Resources/live2d/haru/expressions/f06.exp.json
+- Assets/Resources/live2d/haru/expressions/f07.exp.json
+- Assets/Resources/live2d/haru/sounds/tapBody_02.mp3
+- Assets/Resources/live2d/shizuku/shizuku.1024/texture_03.png
+- Assets/Resources/live2d/haru/motions/pinchOut_00.mtn.bytes
+- Assets/Resources/live2d/haru/motions/tapBody_07.mtn.bytes
+- Assets/Resources/live2d/shizuku/shizuku.pose.json
+- Assets/Resources/live2d/haru/sounds/pinchIn_00.mp3
+- Assets/Resources/Prefabs/Live2DTest/llive2D_BackGround.prefab
+- Assets/Live2D/Resources/shader/merged/Live2D-Masked-PremultipliedAlpha.shader
+- Assets/Resources/live2d/haru/motions/pinchIn_00.mtn.bytes
+- Assets/Resources/live2d/shizuku/motions/pinchOut_02.mtn.bytes
+- Assets/Resources/Prefabs/Live2DTest/BtnChangeModel.prefab
+- Assets/Resources/live2d/shizuku/shizuku.1024/texture_01.png
+- Assets/Resources/live2d/shizuku/motions/tapBody_02.mtn.bytes
+- Assets/Resources/live2d/wanko/motions/touch_03.mtn.bytes
+- Assets/Resources/live2d/haru/haru.pose.json
+- Assets/Resources/live2d/shizuku/expressions/f02.exp.json
+- Assets/Resources/live2d/shizuku/motions/tapBody_00.mtn.bytes
+- Assets/Resources/live2d/shizuku/motions/pinchIn_02.mtn.bytes
+- Assets/Resources/image/Materials/haru.mat
+- Assets/Resources/Live2D_Canvas/Live2D_Canvas.asset
+- Assets/Resources/live2d/haru/motions/tapBody_04.mtn.bytes
+- Assets/Resources/live2d/haru/haru.physics.json
+- Assets/Resources/live2d/shizuku/expressions/f04.exp.json
+- Assets/Resources/live2d/haru/motions/tapBody_08.mtn.bytes
+- Assets/Resources/live2d/wanko/motions/shake_02.mtn.bytes
+- Assets/Resources/live2d/wanko/motions/touch_02.mtn.bytes
+Dependencies: []

@@ -1,0 +1,32 @@
+ManifestFileVersion: 0
+CRC: 130298341
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: b6538a4a9686e4d09e6b70f4b00a85c6
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 18f88a6a41a39d45481574f548d1d50a
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 23
+  Script: {instanceID: 0}
+- Class: 33
+  Script: {instanceID: 0}
+- Class: 43
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 90
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+Assets:
+- Assets/Resources/Prefabs/Background.prefab
+Dependencies: []
