@@ -1,0 +1,10 @@
+lastUpgrade=00934
+proj.pluginVersion=0.9.34
+proj.AppId=790993031746
+and.BundleId=com.Lu.Test
+proj.classDir=Assets%2fScripts
+proj.ConstantsClassName=TestAchievement
+and.ResourceData=%3c%3fxml+version%3d%221.0%22+encoding%3d%22utf-8%22%3f%3e%0d%0a%3c%21--%0d%0aGoogle+Play+game+services+IDs.%0d%0aSave+this+file+as+res%2fvalues%2fgames-ids.xml+in+your+project.%0d%0a--%3e%0d%0a%3cresources%3e%0d%0a++%3cstring+name%3d%22app_id%22%3e790993031746%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22package_name%22%3ecom.Lu.Test%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test1%22%3eCgkIwqTv1oIXEAIQAQ%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test2%22%3eCgkIwqTv1oIXEAIQAg%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test3%22%3eCgkIwqTv1oIXEAIQAw%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test4%22%3eCgkIwqTv1oIXEAIQBA%3c%2fstring%3e%0d%0a++%3cstring+name%3d%22achievement_test5%22%3eCgkIwqTv1oIXEAIQBQ%3c%2fstring%3e%0d%0a%3c%2fresources%3e
+and.ClientId=790993031746-78eqdjbo4lpgvnsmqd3voml8vnjfecca.apps.googleusercontent.com
+proj.requireGPlus=true
+android.SetupDone=true

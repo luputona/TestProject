@@ -1,0 +1,46 @@
+ManifestFileVersion: 0
+AssetBundleManifest:
+  AssetBundleInfos:
+    Info_0:
+      Name: scene-bundle
+      Dependencies:
+        Dependency_0: cube-bundle
+    Info_1:
+      Name: variants/myassets.hd
+      Dependencies: {}
+    Info_2:
+      Name: variants/variant-scene
+      Dependencies:
+        Dependency_0: variants/myassets.hd
+    Info_3:
+      Name: tanks-scene-bundle
+      Dependencies:
+        Dependency_0: tanks-albedo.normal-hd
+    Info_4:
+      Name: tanks-albedo.desert-hd
+      Dependencies: {}
+    Info_5:
+      Name: tanks-albedo.normal-sd
+      Dependencies: {}
+    Info_6:
+      Name: tanks-albedo.normal-hd
+      Dependencies: {}
+    Info_7:
+      Name: tanks-albedo.desert-sd
+      Dependencies: {}
+    Info_8:
+      Name: cube-bundle
+      Dependencies: {}
+    Info_9:
+      Name: variants/myassets.sd
+      Dependencies: {}
+    Info_10:
+      Name: live2dtest
+      Dependencies: {}
+    Info_11:
+      Name: tanks-albedo.hd
+      Dependencies:
+        Dependency_0: tanks-albedo.normal-hd
+    Info_12:
+      Name: banner
+      Dependencies: {}
