@@ -26,7 +26,11 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
             Instance = this;
         }
 
+<<<<<<< HEAD
         TextAsset textAsset = Resources.Load
+=======
+        //TextAsset textAsset = Resources.Load
+>>>>>>> f8b4bcb3893195b07b8c289eab711eaa13559902
     }
 
     // Use this for initialization

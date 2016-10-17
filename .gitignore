@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /[Ll]ibrary/
 /[Tt]emp/
 /[Oo]bj/
@@ -28,3 +29,52 @@ sysinfo.txt
 # Builds
 *.apk
 *.unitypackage
+=======
+<<<<<<< HEAD
+Temp/
+Library/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
+# Builds
+*.apk
+
+=======
+Temp/
+Library/
+
+# ===================================== #
+# Visual Studio / MonoDevelop generated #
+# ===================================== #
+ExportedObj/
+obj/
+*.svd
+*.userprefs
+/*.csproj
+*.pidb
+*.suo
+/*.sln
+*.user
+*.unityproj
+*.booproj
+
+
+# Builds
+*.apk
+
+>>>>>>> init
+>>>>>>> f8b4bcb3893195b07b8c289eab711eaa13559902
