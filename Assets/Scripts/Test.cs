@@ -53,9 +53,7 @@ public class Test : MonoBehaviour {
         m_statText[1].text = string.Format("Health : {0}", LoadData.GetInstance.m_playerhealth);
         m_statText[2].text = string.Format("count : {0}", LoadData.GetInstance.m_playerscore);
 
-        m_statText[3].text = string.Format("Name : {0}", LoadData.GetInstance.m_playernamear[1]);
-        m_statText[4].text = string.Format("Health : {0}", LoadData.GetInstance.m_playerhealthar[1]);
-        m_statText[5].text = string.Format("count : {0}", LoadData.GetInstance.m_playerscorear[1]);
+       
 
         
         //time.text = string.Format("{0}/{1:00}/{2:00}\n{3:00}/{4:00}/{5:00} ", DateTime.Now.Year, DateTime.Now.Month ,DateTime.Now.Day ,DateTime.Now.Hour, DateTime.Now.Minute, DateTime.Now.Second);

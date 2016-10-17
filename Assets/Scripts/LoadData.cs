@@ -6,11 +6,6 @@ using UnityEngine.UI;
 
 public class LoadData : Singleton<LoadData>
 {
-
-	public string[] m_playernamear { get; set; }
-    public float[] m_playerhealthar { get; set; }
-    public int[] m_playerscorear { get; set; }
-
     public string m_playername { get; set; }
     public float m_playerhealth { get; set; }
     public int m_playerscore { get; set; }

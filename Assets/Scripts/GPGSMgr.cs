@@ -123,11 +123,11 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         //    });
         //}
 
-        if (!Social.localUser.authenticated)
-        {
-            Social.localUser.Authenticate(LoginCallBackGPGS);
-            LoadGame();
-        }
+        //if (!Social.localUser.authenticated)
+        //{
+        //    Social.localUser.Authenticate(LoginCallBackGPGS);
+        //    LoadGame();
+        //}
         
     }
 
@@ -257,17 +257,13 @@ public class GPGSMgr : Singleton<GPGSMgr> {
                             //m_playerhealth = saveData.Playerhealth;
 
                             GetLoadData(saveData.PlayerName, saveData.Playerhealth, saveData.PlayerScore);
-                            
-
+                         
                             //LoadData LoadData = new LoadData(saveData.PlayerName, saveData.Playerhealth, saveData.PlayerScore);
                           
 
                             health = saveData.Playerhealth;
                             count = saveData.PlayerScore;
-
-                            savedata[1] = SaveData.FromBytes(data);
-                            GetAryLoadData(savedata[1].PlayerName, savedata[1].Playerhealth, savedata[1].PlayerScore);
-                           
+ 
 
                         }
                         catch (Exception e)
@@ -290,13 +286,7 @@ public class GPGSMgr : Singleton<GPGSMgr> {
             ReadSaveGame("MySaveGame", readCallback);           
         }
     }
-    void GetAryLoadData(string _playername, float _playerhealth, int _playerscore)
-    {
-        LoadData.GetInstance.m_playernamear[0] = _playername;
-        LoadData.GetInstance.m_playerhealthar[0] = _playerhealth;
-        LoadData.GetInstance.m_playerscorear[0] = _playerscore;
-    }
-
+ 
     void GetLoadData(string _playername , float _playerhealth , int _playerscore )
     {
         //LoadData LoadData = new LoadData(_playername, _playerhealth, _playerscore);

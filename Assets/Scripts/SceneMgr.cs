@@ -2,7 +2,9 @@
 using System.Collections;
 using UnityEngine.SceneManagement;
 
-public class SceneMgr : MonoBehaviour {
+public class SceneMgr : MonoBehaviour
+{
+    public static int m_sceneCheck;
 
 
 
@@ -10,6 +12,7 @@ public class SceneMgr : MonoBehaviour {
     {
         AssetLoader.GetInstance.m_sceneChek = _sceneNumber;
         SceneManager.LoadScene(_sceneNumber);
+        m_sceneCheck = _sceneNumber;
     }
 
 

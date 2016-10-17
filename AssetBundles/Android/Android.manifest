@@ -44,3 +44,6 @@ AssetBundleManifest:
     Info_12:
       Name: banner
       Dependencies: {}
+    Info_13:
+      Name: monsterdata
+      Dependencies: {}
