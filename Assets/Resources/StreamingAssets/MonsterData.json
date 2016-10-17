@@ -1,0 +1,22 @@
+[
+    {
+        "ID": 1,
+        "Category": "Normal",
+        "Name": "Bottle",
+        "HP": 10,
+        "Defence": 1,
+        "Attack": 10,
+        "RecoverSP": 5,
+        "GetScore": 10
+    },
+    { 
+        "ID": 2,
+        "Category": "Normal",
+        "Name": "Can",
+        "HP": 15,
+        "Defence": 2,
+        "Attack": 12,
+        "RecoverSP": 6,
+        "GetScore": 11
+    }
+]
