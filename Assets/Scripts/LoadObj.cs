@@ -12,12 +12,7 @@ public class LoadObj : MonoBehaviour {
 	
     void InitObject()
     {
-        if(SceneMgr.m_sceneCheck == 3)
-        {
-            //Instantiate(AssetLoader.GetInstance.assetObjects["MonsterData"])
-        }
-
-
+        
         Instantiate(AssetLoader.GetInstance.assetObjects["Background"],new Vector3(0,0,0),Quaternion.identity);
         Instantiate(AssetLoader.GetInstance.assetObjects["MyCube"], new Vector3(5.0f, 1.0f, 5.0f), Quaternion.identity);
         Instantiate(AssetLoader.GetInstance.assetObjects["Tank"], new Vector3(5.0f, 0, 5.0f), Quaternion.identity);

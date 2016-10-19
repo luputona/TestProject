@@ -712,7 +712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 07d943140663548458a60b0140b8d97c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  url: file:///F:/GitHub/GoogleConnectTest/AssetBundles/Android/
+  url: https://s3-ap-northeast-1.amazonaws.com/luputona/AssetBundles/Android/
   m_names: []
   m_sceneChek: 0
   m_caching: {fileID: 1022050692}
@@ -882,7 +882,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2137,7 +2137,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 1
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -2404,7 +2404,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 2
+          m_IntArgument: 3
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -4098,6 +4098,7 @@ GameObject:
   - 114: {fileID: 2128986400}
   - 114: {fileID: 2128986402}
   - 114: {fileID: 2128986403}
+  - 114: {fileID: 2128986404}
   m_Layer: 0
   m_Name: GPGSMgr
   m_TagString: Untagged
@@ -4154,6 +4155,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c6d38ab37780e8a45b3313a0e009a804, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2128986404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2128986399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e957db0c360ea274eb17525a3397cab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &2129952762

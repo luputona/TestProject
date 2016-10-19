@@ -9,8 +9,7 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
 {
     private static LoadMonsterData Instance;  
 
-    private JsonData m_monsterData;
-    private string m_jsonString;
+    private JsonData m_monsterData;   
 
     public List<MonsterInfo> m_monsterList = new List<MonsterInfo>();
     
@@ -25,33 +24,26 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
             GameObject.DontDestroyOnLoad(gameObject);
             Instance = this;
         }
-
-        //TextAsset textAsset = 
-        StartCoroutine(GetMonsterData());
         
+        StartCoroutine(GetMonsterData());        
     }
-
-    // Use this for initialization
-    void Start ()
-    {
-        
-	}
-
+    
     IEnumerator GetMonsterData()
     {
-        WWW www = new WWW("http://54.238.128.34/GetDB.php");
+        WWW www = new WWW("http://54.238.128.34/GetMonsterDB.php");
         yield return www;
 
         string serverDB = www.text;
 
         m_monsterData = JsonMapper.ToObject(serverDB);
         
-        ConstructMonsterData();
-
         if (www.isDone)
+        {
             Debug.Log("isdone");
+        }
 
-        Debug.Log("monster DB: " + m_monsterList[0].Name);
+        ConstructMonsterData();
+        Debug.Log("monster DB: " + m_monsterList[1].Name);
     }
 	
 	
@@ -59,8 +51,15 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
     {
         for(int i = 0; i < m_monsterData.Count; i++)
         {
-            m_monsterList.Add(new MonsterInfo((int)m_monsterData["ID"],m_monsterData["Category"].ToString(),m_monsterData["Name"].ToString(),(int)m_monsterData["HP"],
-                (int)m_monsterData["Defence"],(int)m_monsterData["Attack"], (int)m_monsterData["RecoverSP"],(int)m_monsterData["GetScore"]));
+            m_monsterList.Add(new MonsterInfo(
+                (int)m_monsterData[i]["ID"], 
+                m_monsterData[i]["Category"].ToString(), 
+                m_monsterData[i]["Name"].ToString(), 
+                (int)m_monsterData[i]["HP"], 
+                (int)m_monsterData[i]["Defence"],
+                (int)m_monsterData[i]["Attack"], 
+                (int)m_monsterData[i]["RecoverSP"],
+                (int)m_monsterData[i]["GetScore"]));
         }
     }
 }
