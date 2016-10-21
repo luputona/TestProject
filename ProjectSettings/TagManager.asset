@@ -6,6 +6,12 @@ TagManager:
   tags:
   - SaveLoadData
   - ImageTarget_Obj
+  - UserInfoUI_Panel
+  - ShopUI_Panel
+  - Inven_Panel
+  - MapUI_Panel
+  - Button
+  - DynamicUI_Panel
   layers:
   - Default
   - TransparentFX
