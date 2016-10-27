@@ -27,7 +27,7 @@ public class MainUIAnimController : MonoBehaviour
     private Animator m_mapUiAnim;
     private Animator m_invenAnim;
 
-    public Dictionary<string, Animator> m_dicUiAnim;
+    public static Dictionary<string, Animator> m_dicUiAnim;
     public Animator[] m_uiAnim;
 
 
@@ -36,14 +36,20 @@ public class MainUIAnimController : MonoBehaviour
 
     void Awake()
     {
-
+        
+        InitializeUI();
+        
     }
 
 	// Use this for initialization
 	void Start ()
     {
-        InitializeUI();
 
+        var enumerator = m_dicUiAnim.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            enumerator.Current.Value.gameObject.SetActive(false);
+        }
     }
 	
 	// Update is called once per frame
@@ -138,7 +144,7 @@ public class MainUIAnimController : MonoBehaviour
         m_dynamicUI_Panel = new GameObject[panelcount];
         m_dicUiAnim = new Dictionary<string, Animator>();
         m_dynamicUI_Panel = GameObject.FindGameObjectsWithTag("DynamicUI_Panel");
-
+                
         for (int i = 0; i < panelcount; i++)
         {
             m_dicUiAnim.Add(m_dynamicUI_Panel[i].name, m_dynamicUI_Panel[i].GetComponent<Animator>());
@@ -168,11 +174,7 @@ public class MainUIAnimController : MonoBehaviour
             m_mainUIBtn[i] = m_mainUIBtnobj[i].GetComponent<Button>();
         }
 
-        var enumerator = m_dicUiAnim.GetEnumerator();
-        while (enumerator.MoveNext())
-        {
-            enumerator.Current.Value.gameObject.SetActive(false);
-        }
+       
     }
 
     void InteractableCheck()

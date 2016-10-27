@@ -51,7 +51,6 @@ public class SaveData
     }
     public SaveData()
     {
-
     }
     public SaveData(string _playername, float _playerhealth, int _playerscore)
     {

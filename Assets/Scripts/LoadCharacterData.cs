@@ -37,12 +37,11 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
         string serverDB = www.text;
 
         m_charData = JsonMapper.ToObject(serverDB);
-
         
         if (www.isDone)
         {            
             
-            Debug.Log("CharDB isDone");
+            //Debug.Log("CharDB isDone");
         }
         ConstructCharacterData();
         //Debug.Log("Character DB: " + m_charList[1].Name);
@@ -64,6 +63,7 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
                 (int)m_charData[i]["SkillMP"],
                 (int)m_charData[i]["SkillDamage"], 
                 (int)m_charData[i]["Attack"], 
+                m_charData[i]["AttackName"].ToString(),
                 (int)m_charData[i]["Defence"], 
                 m_charData[i]["QName"].ToString(), 
                 (int)m_charData[i]["QSP"], 
@@ -77,29 +77,30 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
 	}
 
 }
-
+[System.Serializable]
 public class CharacterData
 {
-    public int      Id      { get; set; }
-    public string   Name    { get; set; }
-    public int      Cost    { get; set; }
-    public int      Hp      { get; set; }
-    public int      Mp      { get; set; }
-    public int      Sp      { get; set; }
+    public string Name; //{ get; set; }
+    public int Id; //{ get; set; }    
+    public int Cost;// { get; set; }
+    public int Hp;// { get; set; }
+    public int Mp; //{ get; set; }
+    public int Sp; //{ get; set; }
 
-    public string   SkillName       { get; set; }
-    public int      SkillMp     { get; set; }
-    public int      SkillDamage { get; set; }
+    public string SkillName; //{ get; set; }
+    public int SkillMp; //{ get; set; }
+    public int SkillDamage; //{ get; set; }
 
-    public int      Attack      { get; set; }
-    public int      Defence     { get; set; }
+    public int Attack; //{ get; set; }
+    public string AttackName;
+    public int Defence; //{ get; set; }
 
-    public string   QName       { get; set; }
-    public int      QSp         { get; set; }
-    public int      QDamage     { get; set; }
+    public string QName; //{ get; set; }
+    public int QSp; //{ get; set; }
+    public int QDamage; //{ get; set; }
    
 
-    public CharacterData(int id, string name, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack, int defence, string qname, int qsp, int qDamage )
+    public CharacterData(int id, string name, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack,string attackname , int defence, string qname, int qsp, int qDamage )
     {
         this.Id = id;
         this.Name = name;
@@ -111,6 +112,7 @@ public class CharacterData
         this.SkillMp = skillMp;
         this.SkillDamage = skillDamage;
         this.Attack = attack;
+        this.AttackName = attackname;
         this.Defence = defence;
         this.QName = qname;
         this.QSp = qsp;

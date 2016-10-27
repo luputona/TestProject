@@ -12,6 +12,11 @@ TagManager:
   - MapUI_Panel
   - Button
   - DynamicUI_Panel
+  - CharInvenContent
+  - InvenStatusText
+  - InvenStatusImage
+  - MainCharacter
+  - CurrentCharStatus
   layers:
   - Default
   - TransparentFX

@@ -1,0 +1,46 @@
+[
+    {
+        "ID": 1,
+        "Name": "Korea",
+        "Difficulty": 
+		[
+            {
+                "AreaID": 1,
+                "AreaName": "Seoul-GangNam",
+                "Info": "서울의 번화가"
+            },
+            {
+                "AreaID": 2,
+                "AreaName": "Seongnam",
+                "Info": "성지영의 출신지"
+            },
+            {
+                "ID": 3,
+                "AreaName": "Pusan",
+                "Info": "항구도시"
+            }
+        ]
+    },
+    {
+        "ID": 2,
+        "Name": "Japan",
+        "Difficulty": 
+		[
+            {
+                "AreaID": 1,
+                "AreaName": "Tokyo-Akihabara",
+                "Info": "오덕의성지"
+            },
+            {
+                "AreaID": 2,
+                "AreaName": "Kyoto",
+                "Info": ""
+            },
+            {
+                "AreaID": 3,
+                "AreaName": "Oarai",
+                "Info": "모 땅크 애니의 성지"
+            }
+        ]
+    }
+]

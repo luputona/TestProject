@@ -39,11 +39,11 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
         
         if (www.isDone)
         {
-            Debug.Log("isdone");
+            //Debug.Log("isdone");
         }
 
         ConstructMonsterData();
-        Debug.Log("monster DB: " + m_monsterList[1].Name);
+        //Debug.Log("monster DB: " + m_monsterList[1].Name);
     }
 	
 	
