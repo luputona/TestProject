@@ -21,9 +21,13 @@ using System.Runtime.Serialization.Formatters.Binary;
 public class SaveData
 {
     public string PlayerName;// { get; set; }
-    public float Playerhealth { get; set; }
-    public int PlayerScore { get; set; }
-    
+    public int PlayerHp { get; set; }
+    public int PlayerMp { get; set; }
+    public int PlayerAttack { get; set; }
+    public int PlayerDefence { get; set; }
+    public int PlayerLevel { get; set; }
+
+    public int PlayerGold { get; set; }
     
     // Convert class instance to byte array
     public static byte[] ToBytes (SaveData data)
@@ -52,11 +56,14 @@ public class SaveData
     public SaveData()
     {
     }
-    public SaveData(string _playername, float _playerhealth, int _playerscore)
+    public SaveData(string _playername, int _playerhealth, int _playermp, int _attack, int _defence, int _level)
     {
         PlayerName = _playername;
-        Playerhealth = _playerhealth;
-        PlayerScore = _playerscore;
+        PlayerHp = _playerhealth;
+        PlayerMp = _playermp;
+        PlayerAttack = _attack;
+        PlayerDefence = _defence;
+        PlayerLevel = _level;
     }
 }
 
@@ -66,8 +73,12 @@ public class GPGSMgr : Singleton<GPGSMgr> {
 
     public bool m_bLogin { get; set; }
 
-    public Text[] m_statText;    
-    public int count;
+    public Text[] m_statText;
+
+    public int hp;
+    public int mp;
+    public int attack;
+    public int defence;
     public float health;
 
 
@@ -97,8 +108,8 @@ public class GPGSMgr : Singleton<GPGSMgr> {
     void Start()
     {
         InitializeGPGS();
-        
-        count = 0;
+         
+
         health = 100;
     }
 
@@ -215,8 +226,10 @@ public class GPGSMgr : Singleton<GPGSMgr> {
             //SaveData saveData = new SaveData(GetNameGPGS(), health , count);
             SaveData saveData = new SaveData();
             saveData.PlayerName = GetNameGPGS();
-            saveData.Playerhealth = health;
-            saveData.PlayerScore = count;
+            saveData.PlayerHp = hp;
+            saveData.PlayerMp = mp;
+            saveData.PlayerAttack = attack;
+            saveData.PlayerDefence = defence;
 
             //savedata[1] = new SaveData(GetNameGPGS(), health+10, count+10);
             //{
@@ -255,14 +268,11 @@ public class GPGSMgr : Singleton<GPGSMgr> {
                             //m_playername = saveData.PlayerName;
                             //m_playerhealth = saveData.Playerhealth;
 
-                            GetLoadData(saveData.PlayerName, saveData.Playerhealth, saveData.PlayerScore);
+                            GetLoadData(saveData.PlayerName, saveData.PlayerHp, saveData.PlayerMp, saveData.PlayerAttack, saveData.PlayerDefence, saveData.PlayerLevel);
                          
                             //LoadData LoadData = new LoadData(saveData.PlayerName, saveData.Playerhealth, saveData.PlayerScore);
-                          
-
-                            health = saveData.Playerhealth;
-                            count = saveData.PlayerScore;
- 
+                            
+                        
 
                         }
                         catch (Exception e)
@@ -286,12 +296,16 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         }
     }
  
-    void GetLoadData(string _playername , float _playerhealth , int _playerscore )
+    void GetLoadData(string _playername , int _hp , int _mp, int _attack, int _defence , int _level)
     {
         //LoadData LoadData = new LoadData(_playername, _playerhealth, _playerscore);
         LoadData.GetInstance.m_playername = _playername;
-        LoadData.GetInstance.m_playerhealth = _playerhealth;
-        LoadData.GetInstance.m_playerscore = _playerscore;
+        LoadData.GetInstance.m_hp = _hp;
+        LoadData.GetInstance.m_mp = _mp;
+        LoadData.GetInstance.m_attack = _attack;
+        LoadData.GetInstance.m_defence = _defence;
+        LoadData.GetInstance.m_level = _level;
+        
     }
 
     void OnApplicationPause(bool pauseStatus)

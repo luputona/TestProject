@@ -50,8 +50,8 @@ public class Test : MonoBehaviour {
     {
         StartCoroutine(GetTime());
         m_statText[0].text = string.Format("Name : {0}", LoadData.GetInstance.m_playername);
-        m_statText[1].text = string.Format("Health : {0}", LoadData.GetInstance.m_playerhealth);
-        m_statText[2].text = string.Format("count : {0}", LoadData.GetInstance.m_playerscore);
+        //m_statText[1].text = string.Format("Health : {0}", LoadData.GetInstance.m_playerhealth);
+        //m_statText[2].text = string.Format("count : {0}", LoadData.GetInstance.m_playerscore);
 
        
 
@@ -113,25 +113,25 @@ public class Test : MonoBehaviour {
     {
         ++m_count;
         //++health;
-        ++GPGSMgr.GetInstance.count;
-        ++GPGSMgr.GetInstance.health;
+        //++GPGSMgr.GetInstance.count;
+        //++GPGSMgr.GetInstance.health;
         m_text.text = string.Format("{0}", m_count);
 
-        countText.text = string.Format("count : {0}", GPGSMgr.GetInstance.count);
-        healthText.text = string.Format("Health : {0}", GPGSMgr.GetInstance.health);
+        //countText.text = string.Format("count : {0}", GPGSMgr.GetInstance.count);
+        //healthText.text = string.Format("Health : {0}", GPGSMgr.GetInstance.health);
 
     }
     public void CountDown()
     {
         --m_count;
         //--health;
-        --GPGSMgr.GetInstance.count;// -= m_count;
-        --GPGSMgr.GetInstance.health; //-= health;
+        //--GPGSMgr.GetInstance.count;// -= m_count;
+        //--GPGSMgr.GetInstance.health; //-= health;
 
         m_text.text = string.Format("{0}", m_count);
 
-        countText.text = string.Format("count : {0}", GPGSMgr.GetInstance.count);
-        healthText.text = string.Format("Health : {0}", GPGSMgr.GetInstance.health);
+        //countText.text = string.Format("count : {0}", GPGSMgr.GetInstance.count);
+        //healthText.text = string.Format("Health : {0}", GPGSMgr.GetInstance.health);
     }
 
     

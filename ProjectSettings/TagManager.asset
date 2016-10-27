@@ -17,6 +17,8 @@ TagManager:
   - InvenStatusImage
   - MainCharacter
   - CurrentCharStatus
+  - CurrentUserStatus
+  - UserTotalStatus
   layers:
   - Default
   - TransparentFX
