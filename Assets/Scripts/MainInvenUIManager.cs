@@ -19,9 +19,16 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
 
     public Dictionary<string, Text> m_invenStatusText = new Dictionary<string, Text>();
     public Dictionary<string, Image> m_invenStatusImage = new Dictionary<string, Image>();
-    
+    public Dictionary<string, Sprite> m_image = new Dictionary<string, Sprite>();
+    public Dictionary<string, Image> m_slotDic = new Dictionary<string, Image>();
+   // public List<Sprite> m_sprite = new List<Sprite>();
+
+    public List<Sprite> m_sprite = new List<Sprite>();
     public List<GameObject> m_slotList = new List<GameObject>();
+    
     public Image[] m_thumbnailSprite;
+
+
 
     private LoadCharacterData m_charData;
     private int hp;
@@ -33,11 +40,9 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
     private string qName;
     private int index;
 
+    private Sprite[] m_spriteobj;
 
-    void Awake()
-    {
-        InitInvenPanel();
-    }
+    
 	// Use this for initialization
 	void Start ()
     {
@@ -46,13 +51,11 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         m_charData = LoadCharacterData.GetInstance.GetComponent<LoadCharacterData>();
         //m_select_charstatus = GameObject.Find("Select_Character_Status_BG");
 
-
-        CreateCharList();
-
         m_mainChar = GameObject.FindGameObjectWithTag("MainCharacter");
         m_maincharacterImage = m_mainChar.GetComponent<SpriteRenderer>();
-
-
+        CreateCharList();
+        UserInfomation.GetInstance.InitailizeCharacterInfo();        
+        
 
         StartCoroutine(MainUpdate());
     }
@@ -61,21 +64,41 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
     {
         while (true)
         {
-
+            
             yield return null;
         }
         
     }
 
+    public void AddInventoryCharacter(int _id)
+    {
+        GameObject charslot = Instantiate(m_charslot) as GameObject;
+        charslot.transform.parent = m_charContent.transform;
+        charslot.transform.localPosition = Vector2.zero;
+        charslot.transform.localScale = Vector3.one;
+        
+
+        for (int i = 0; i < m_inventory.Count; i++)
+        {            
+            charslot.transform.name = m_inventory[i].Name;
+        }
+        m_slotDic.Add(charslot.transform.name, charslot.transform.GetChild(0).GetComponent<Image>());
+        m_slotList.Add(charslot);
+        
+    }
     
     void CreateCharList()
     {
-        for (int i = 0; i < m_charData.m_charList.Count; i++)
-        {
-            //현재 가지고있는 캐릭터의 인벤토리
-            m_inventory.Add(m_charData.m_charList[i]);
-        }
-       
+        //for (int i = 0; i < m_charData.m_charList.Count; i++)
+        //{
+        //    //현재 가지고있는 캐릭터의 인벤토리
+        //    m_inventory.Add(m_charData.m_charList[i]);
+        //}
+
+        //기본으로 가지고있는 캐릭터를 하나 추가
+        m_inventory.Add(m_charData.m_charList[0]);
+
+        InitThumbnailSprite();
         //인벤토리 UI리스트 클론 생성, 인벤토리 리스트에 담긴 수 만큼 생성
         for (int i = 0; i < m_inventory.Count; i++)
         {
@@ -84,9 +107,13 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
             charslot.transform.localPosition = Vector2.zero;
             charslot.transform.localScale = Vector3.one;
             charslot.transform.name = m_inventory[i].Name;
+            charslot.transform.GetChild(i).transform.name = m_inventory[i].Name;
             m_slotList.Add(charslot);
+            m_slotDic.Add(charslot.transform.name, charslot.transform.GetChild(0).GetComponent<Image>());
+            
+            UpdateThumbnail();
         }
-        InitThumbnailSprite();
+        
     }
     public void InitInvenPanel()
     {
@@ -106,62 +133,118 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
             m_invenStatusImage.Add(m_InvenStatusImageArray[i].name, m_InvenStatusImageArray[i].GetComponent<Image>());
         }
     }
+
+    public void UpdateThumbnail()
+    {
+        for(int i = 0; i < m_slotList.Count; i++)
+        {
+            if(m_slotList[i].name == "UnityChan")
+            {
+                m_slotDic["UnityChan"].sprite = m_image["01_portrait_kohaku_01"];
+            }
+            else if (m_slotList[i].name == "Yuko")
+            {
+                m_slotDic["Yuko"].sprite = m_image["02_portrait_yuko_01"];
+            }
+            else if(m_slotList[i].name == "Toko")
+            {
+                m_slotDic["Toko"].sprite = m_image["03_portrait_toko_01"];
+            }
+            else if(m_slotList[i].name == "Cindy")
+            {
+                m_slotDic["Cindy"].sprite = m_image["05_성지영"];
+            }
+            else if(m_slotList[i].name == "Mariabell")
+            {                
+                m_slotDic["Mariabell"].sprite = m_image["04_portrait_marie_01"];
+            }
+            else if(m_slotList[i].name == "Misaki")
+            {
+                m_slotDic["Misaki"].sprite = m_image["06_portrait_misaki_01"];
+            }
+        }
+    }
+
     public void InitThumbnailSprite()
     {
-        //GameObject childBtnName = _slot.transform.GetChild(2).gameObject;
-        m_slotList[0].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("image/illust/portrait_kohaku_01");
-        m_slotList[1].transform.GetChild(0).GetComponent<Image>().sprite = Resources.Load<Sprite>("image/illust/portrait_Yuko_01");
+        m_spriteobj = Resources.LoadAll<Sprite>("image/illust/");
 
-        for(int i = 0; i<m_slotList.Count; i++)
+       
+        for(int i = 0; i<m_spriteobj.Length; i++)
         {
-            m_slotList[i].transform.GetChild(2).name = m_slotList[i].name;
-        }      
+            m_image.Add(m_spriteobj[i].name, m_spriteobj[i]);
+            
+        }
+        for(int i = 0; i<m_spriteobj.Length; i++)
+        {
+            m_sprite.Add(m_spriteobj[i]);
+        }
+
+        
+
+        //UserInfomation.GetInstance.ShowCharacterSpec(PlayerPrefs.GetInt("hp"), PlayerPrefs.GetInt("mp"), PlayerPrefs.GetInt("attack"), PlayerPrefs.GetInt("defence"), PlayerPrefs.GetString("SelectCharacter"), m_slotDic[PlayerPrefs.GetString("SelectCharacter")].sprite);
+        //m_maincharacterImage.sprite = m_slotDic[PlayerPrefs.GetString("SelectCharacter")].sprite;
     }
 
     public void CharacterTouchCheck(string _charname)
     {
-        //int hp;
-        //int mp;
-        //int attack;
-        //int defence;
-        //string attackName;
-        //string skillName;
-        //string qName;
-        
+        m_childBtnName = _charname;
         if (_charname == "UnityChan")
         {
-            attack = m_charData.m_charList[0].Attack;
-            defence = m_charData.m_charList[0].Defence;
-            hp = m_charData.m_charList[0].Hp;
-            mp = m_charData.m_charList[0].Mp;
-            attackName = m_charData.m_charList[0].AttackName;
-            skillName = m_charData.m_charList[0].SkillName;
-            qName = m_charData.m_charList[0].QName;
-            index = 0;
+            SetCharacterStatus(0);
         }
-        if (_charname == "Yuko")
+        else if (_charname == "Yuko")
         {
-            attack = m_charData.m_charList[1].Attack;
-            defence = m_charData.m_charList[1].Defence;
-            hp = m_charData.m_charList[1].Hp;
-            mp = m_charData.m_charList[1].Mp;
-            attackName = m_charData.m_charList[1].AttackName;
-            skillName = m_charData.m_charList[1].SkillName;
-            qName = m_charData.m_charList[1].QName;
-            index = 1;
+            SetCharacterStatus(1);
         }
-        m_childBtnName = _charname;
-        ShowCharacterStatus(attack, defence, hp, mp, attackName, skillName, qName, index);
+        else if (_charname == "Toko")
+        {
+            SetCharacterStatus(2);
+        }
+        else if (_charname == "Cindy")
+        {
+            SetCharacterStatus(3);
+        }
+        else if (_charname == "Mariabell")
+        {
+            SetCharacterStatus(4);
+        }
+        else if (_charname == "Misaki")
+        {
+            SetCharacterStatus(5);
+        }
+        
 
-
-        //저장루틴 나중에 서버연동으로 변경
+        // 캐릭 저장루틴 나중에 서버연동으로 변경
         PlayerPrefs.SetInt("hp", hp);
         PlayerPrefs.SetInt("mp", mp);
         PlayerPrefs.SetInt("attack", attack);
         PlayerPrefs.SetInt("defence", defence);
         
     }
-    void ShowCharacterStatus(int _attack, int _defence, int _hp, int _mp, string _attackname, string _skillname, string _qname, int _index)
+    void SetCharacterStatus(int _id)
+    {
+        attack = LoadCharacterData.GetInstance.m_charList[_id].Attack;
+        defence = LoadCharacterData.GetInstance.m_charList[_id].Defence;
+        hp = LoadCharacterData.GetInstance.m_charList[_id].Hp;
+        mp = LoadCharacterData.GetInstance.m_charList[_id].Mp;
+        attackName = LoadCharacterData.GetInstance.m_charList[_id].AttackName;
+        skillName = LoadCharacterData.GetInstance.m_charList[_id].SkillName;
+        qName = LoadCharacterData.GetInstance.m_charList[_id].QName;
+        index = _id;
+
+        m_invenStatusText["Attack_Status_Text"].text = string.Format("{0}", attack);
+        m_invenStatusText["Defence_Status_Text"].text = string.Format("{0}", defence);
+        m_invenStatusText["Hp_Status_Text"].text = string.Format("{0}", hp);
+        m_invenStatusText["Mp_Status_Text"].text = string.Format("{0}", mp);
+        m_invenStatusText["Normal_Attack_Text"].text = string.Format("{0}", attackName);
+        m_invenStatusText["Skill_Text"].text = string.Format("{0}", skillName);
+        m_invenStatusText["Q_Text"].text = string.Format("{0}", qName);
+
+        UserInfomation.GetInstance.ShowCharacterSpec(hp, mp, attack, defence, m_childBtnName, m_slotDic[m_childBtnName].sprite);
+    }
+
+    void ShowCharacterStatus(int _attack, int _defence, int _hp, int _mp, string _attackname, string _skillname, string _qname)
     {
         m_invenStatusText["Attack_Status_Text"].text = string.Format("{0}", _attack);
         m_invenStatusText["Defence_Status_Text"].text = string.Format("{0}", _defence);
@@ -170,26 +253,41 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         m_invenStatusText["Normal_Attack_Text"].text = string.Format("{0}", _attackname);
         m_invenStatusText["Skill_Text"].text = string.Format("{0}", _skillname);
         m_invenStatusText["Q_Text"].text = string.Format("{0}", _qname);
-
-        UserInfomation.GetInstance.ShowCharacterSpec(_hp,_mp,_attack,_defence, PlayerPrefs.GetString("SelectCharacter"), m_slotList[_index].transform.GetChild(0).GetComponent<Image>());
+        
     }
+
+
     public void SelectCharacterButton(string _charname)
     {
         _charname = m_childBtnName;
-        PlayerPrefs.SetString("SelectCharacter", _charname); // 추후 구글 서버쪽으로 저장되게 변경
+        PlayerPrefs.SetString("SelectCharacter", _charname); //선택한 캐릭명, 추후 구글 서버쪽으로 저장되게 변경
         
-
-
-        if (PlayerPrefs.GetString("SelectCharacter") == "UnityChan")
+        if (m_childBtnName == "UnityChan")
         {
-            m_maincharacterImage.sprite = m_slotList[0].transform.GetChild(0).GetComponent<Image>().sprite;
+            m_maincharacterImage.sprite = m_slotDic[m_childBtnName].sprite;
         }
-        if (PlayerPrefs.GetString("SelectCharacter") == "Yuko")
+        else if (m_childBtnName == "Yuko")
         {
-            m_maincharacterImage.sprite = m_slotList[1].transform.GetChild(0).GetComponent<Image>().sprite;
+            m_maincharacterImage.sprite = m_slotDic[m_childBtnName].sprite;
+        }
+        else if (m_childBtnName == "Toko")
+        {
+            m_maincharacterImage.sprite = m_slotDic[m_childBtnName].sprite;
+        }
+        else if (m_childBtnName == "Cindy")
+        {
+            m_maincharacterImage.sprite = m_slotDic[m_childBtnName].sprite;
+        }
+        else if (m_childBtnName == "Mariabell")
+        {
+            m_maincharacterImage.sprite = m_slotDic[m_childBtnName].sprite;
+        }
+        else if (m_childBtnName == "Misaki")
+        {
+            m_maincharacterImage.sprite = m_slotDic[m_childBtnName].sprite;
         }
 
-        print(PlayerPrefs.GetString("SelectCharacter"));
+        
     }
     
 

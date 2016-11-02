@@ -45,6 +45,7 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
         }
         ConstructCharacterData();
         //Debug.Log("Character DB: " + m_charList[1].Name);
+        //CharacterControllManager.GetInstance.InitializeCharacter();
     }
 
 
@@ -67,7 +68,8 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
                 (int)m_charData[i]["Defence"], 
                 m_charData[i]["QName"].ToString(), 
                 (int)m_charData[i]["QSP"], 
-                (int)m_charData[i]["QDamage"]));
+                (int)m_charData[i]["QDamage"],
+                m_charData[i]["Profile"].ToString()));
         }
 
     }
@@ -98,9 +100,11 @@ public class CharacterData
     public string QName; //{ get; set; }
     public int QSp; //{ get; set; }
     public int QDamage; //{ get; set; }
+
+    public string Profile;
    
 
-    public CharacterData(int id, string name, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack,string attackname , int defence, string qname, int qsp, int qDamage )
+    public CharacterData(int id, string name, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack,string attackname , int defence, string qname, int qsp, int qDamage, string _profile )
     {
         this.Id = id;
         this.Name = name;
@@ -117,6 +121,7 @@ public class CharacterData
         this.QName = qname;
         this.QSp = qsp;
         this.QDamage = qDamage;
+        this.Profile = _profile;
         
 
     }

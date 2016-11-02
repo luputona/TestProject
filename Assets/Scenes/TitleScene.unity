@@ -158,6 +158,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eeb7048b65f1c9047bc49039280eaa1e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &331965935 stripped
+MonoBehaviour:
+  m_PrefabParentObject: {fileID: 11426044, guid: 93118fe78b1865d42b76f408d9077de9,
+    type: 2}
+  m_PrefabInternal: {fileID: 331965932}
+  m_Script: {fileID: 11500000, guid: 2c12047c97a3e1249ba8a89884d50aa5, type: 3}
 --- !u!1 &559881989
 GameObject:
   m_ObjectHideFlags: 0
@@ -273,6 +279,17 @@ MonoBehaviour:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 1
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 331965935}
+        m_MethodName: LoadGame
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -772,12 +789,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c12047c97a3e1249ba8a89884d50aa5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_statText: []
-  count: 0
-  health: 0
+  hp: 0
+  mp: 0
+  attack: 0
+  defence: 0
+  level: 0
+  gold: 0
+  item: 0
   m_playername: 
-  m_playerhealth: 0
-  m_playerscore: 0
 --- !u!4 &2080750319
 Transform:
   m_ObjectHideFlags: 0

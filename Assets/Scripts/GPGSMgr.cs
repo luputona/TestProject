@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using GooglePlayGames;
 using GooglePlayGames.BasicApi;
 using GooglePlayGames.BasicApi.SavedGame;
@@ -26,8 +27,12 @@ public class SaveData
     public int PlayerAttack { get; set; }
     public int PlayerDefence { get; set; }
     public int PlayerLevel { get; set; }
-
     public int PlayerGold { get; set; }
+    public int Item { get; set; }
+
+    public string SelectCharacter { get; set; }
+
+    public List<CharacterData> m_saveInventory = new List<CharacterData>();
     
     // Convert class instance to byte array
     public static byte[] ToBytes (SaveData data)
@@ -56,14 +61,28 @@ public class SaveData
     public SaveData()
     {
     }
-    public SaveData(string _playername, int _playerhealth, int _playermp, int _attack, int _defence, int _level)
+    public SaveData(string _playername, int _playerhp, int _playermp, int _attack, int _defence, int _level,int _gold ,int _item, string _selectCharacter, List<CharacterData> _chardata)
     {
+        _chardata = new List<CharacterData>();
         PlayerName = _playername;
-        PlayerHp = _playerhealth;
+        PlayerHp = _playerhp;
         PlayerMp = _playermp;
         PlayerAttack = _attack;
         PlayerDefence = _defence;
         PlayerLevel = _level;
+        PlayerGold = _gold;
+        Item = _item;
+        SelectCharacter = _selectCharacter;
+        m_saveInventory = _chardata;
+
+    }
+
+    public void SaveInventory()
+    {
+        for(int i = 0; i < MainInvenUIManager.GetInstance.m_inventory.Count; i++)
+        {
+            m_saveInventory.Add(MainInvenUIManager.GetInstance.m_inventory[i]);
+        }
     }
 }
 
@@ -72,23 +91,18 @@ public class SaveData
 public class GPGSMgr : Singleton<GPGSMgr> {
 
     public bool m_bLogin { get; set; }
-
-    public Text[] m_statText;
-
+    
+    //유저 첫 접속 초기화 스탯
     public int hp;
     public int mp;
     public int attack;
     public int defence;
-    public float health;
+    public int level;
+    public int gold;
+    public int item; 
+    public string  selectCharacter;
 
-
-    public string   m_playername;
-    public float    m_playerhealth;
-    public int      m_playerscore;
-
-
-    SaveData[] savedata;// = new SaveData[10];
-
+    
     private ISavedGameMetadata m_currentGame = null;
 
     void Awake()
@@ -101,16 +115,28 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         {
             GameObject.DontDestroyOnLoad(gameObject);
             m_instance = this;
-        }
-        
+        }        
     }
 
     void Start()
     {
         InitializeGPGS();
-         
+        InitializeUserStatus();
 
-        health = 100;
+    }
+
+    void InitializeUserStatus()
+    {
+        gold = 2000;
+        item = 1;
+        hp = 100;
+        mp = 100;
+        attack = 5;
+        defence = 5;
+        level = 1;
+        
+        selectCharacter = "UnityChan";
+        
     }
 
     public void InitializeGPGS()
@@ -133,11 +159,13 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         //    });
         //}
 
-        //if (!Social.localUser.authenticated)
-        //{
-        //    Social.localUser.Authenticate(LoginCallBackGPGS);
-        //    LoadGame();
-        //}
+        if (!Social.localUser.authenticated)
+        {
+            Social.localUser.Authenticate(LoginCallBackGPGS);
+            
+            SaveGame();
+            LoadGame();
+        }
         
     }
 
@@ -157,6 +185,7 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         if (!Social.localUser.authenticated)
         {
             Social.localUser.Authenticate(LoginCallBackGPGS);
+            SaveGame();
             LoadGame();
         }
             
@@ -223,15 +252,9 @@ public class GPGSMgr : Singleton<GPGSMgr> {
                 };
 
             // Create new save data
-            //SaveData saveData = new SaveData(GetNameGPGS(), health , count);
-            SaveData saveData = new SaveData();
-            saveData.PlayerName = GetNameGPGS();
-            saveData.PlayerHp = hp;
-            saveData.PlayerMp = mp;
-            saveData.PlayerAttack = attack;
-            saveData.PlayerDefence = defence;
+            SaveData saveData = new SaveData(GetNameGPGS(), hp, mp, attack, defence ,level ,gold ,item , selectCharacter, MainInvenUIManager.GetInstance.m_inventory);
+           
 
-            //savedata[1] = new SaveData(GetNameGPGS(), health+10, count+10);
             //{
                 // These values are hard coded for the purpose of this tutorial.
                 // Normally, you would replace these values with whatever you want to save.
@@ -268,11 +291,30 @@ public class GPGSMgr : Singleton<GPGSMgr> {
                             //m_playername = saveData.PlayerName;
                             //m_playerhealth = saveData.Playerhealth;
 
-                            GetLoadData(saveData.PlayerName, saveData.PlayerHp, saveData.PlayerMp, saveData.PlayerAttack, saveData.PlayerDefence, saveData.PlayerLevel);
-                         
+                            LoadData loadData = new LoadData();
+                            GetLoadData(saveData.PlayerName, saveData.PlayerHp, saveData.PlayerMp, saveData.PlayerAttack, saveData.PlayerDefence, saveData.PlayerLevel, saveData.PlayerGold, saveData.Item, saveData.SelectCharacter);
+
+                            hp = saveData.PlayerHp;
+                            mp = saveData.PlayerMp;
+                            attack = saveData.PlayerAttack;
+                            defence = saveData.PlayerDefence;
+                            level = saveData.PlayerLevel;
+                            gold = saveData.PlayerGold;
+                            item = 0;
+                            for(int i = 0; i< saveData.m_saveInventory.Count; i++)
+                            {
+                                if(MainInvenUIManager.GetInstance.m_inventory.Contains(saveData.m_saveInventory[i]))
+                                {
+                                    return;
+                                }
+                                else
+                                {
+                                    MainInvenUIManager.GetInstance.m_inventory.Add(saveData.m_saveInventory[i]);
+                                }                                
+                            }                           
+
+                            //loadData.LoadInventory(saveData.m_saveInventory);
                             //LoadData LoadData = new LoadData(saveData.PlayerName, saveData.Playerhealth, saveData.PlayerScore);
-                            
-                        
 
                         }
                         catch (Exception e)
@@ -296,15 +338,9 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         }
     }
  
-    void GetLoadData(string _playername , int _hp , int _mp, int _attack, int _defence , int _level)
+    void GetLoadData(string _playername , int _hp , int _mp, int _attack, int _defence , int _level, int _gold, int _item, string _selectcharacter)
     {
-        //LoadData LoadData = new LoadData(_playername, _playerhealth, _playerscore);
-        LoadData.GetInstance.m_playername = _playername;
-        LoadData.GetInstance.m_hp = _hp;
-        LoadData.GetInstance.m_mp = _mp;
-        LoadData.GetInstance.m_attack = _attack;
-        LoadData.GetInstance.m_defence = _defence;
-        LoadData.GetInstance.m_level = _level;
+        LoadData.GetInstance.GetUserData(_playername,_level , _hp,  _mp,  _attack,  _defence, _gold,  _item, _selectcharacter );      
         
     }
 

@@ -8,14 +8,18 @@ using UnityEngine.UI;
 public class LoadData : Singleton<LoadData>
 {
 
+    public string m_playername;// { get; set; }
 
-    public string m_playername { get; set; }
-    public int m_playerhealth { get; set; }
-    public int m_hp { get; set; }
-    public int m_mp { get; set; }
-    public int m_attack { get; set; }
-    public int m_defence { get; set; }
-    public int m_level { get; set; }
+    public int m_hp; //{ get; set; }
+    public int m_mp; //{ get; set; }
+    public int m_attack; //{ get; set; }
+    public int m_defence; //{ get; set; }
+    public int m_level; //{ get; set; }
+    public int m_gold; //{ get; set; }
+    public int m_item; //{ get; set; }
+
+    public string m_selectCharacter;
+    public string m_selectVehicle;
 
 
 
@@ -23,7 +27,28 @@ public class LoadData : Singleton<LoadData>
     {
        
     }
+    public void GetUserData(string _userName, int _level, int _hp, int _mp, int _attack, int _defence, int _gold, int _item, string _selectcharacter)
+    {
+        m_playername = _userName;
+        m_hp = _hp;
+        m_mp = _mp;
+        m_attack = _attack;
+        m_defence = _defence;
+        m_level = _level;
+        m_gold = _gold;
+        m_item = _item;
+        m_selectCharacter = _selectcharacter;
 
-   
+        UserInfomation.GetInstance.GetUserData(_userName,_level ,_hp, _mp, _attack, _defence, _gold, _item, _selectcharacter);
+    }
 
+    public void LoadInventory(List<CharacterData> _loadinven)
+    {
+        _loadinven = new List<CharacterData>();
+        for(int i = 0; i < _loadinven.Count; i++ )
+        {
+            MainInvenUIManager.GetInstance.m_inventory.Add(_loadinven[i]);
+        }
+        
+    }
 }

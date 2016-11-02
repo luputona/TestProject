@@ -12,6 +12,12 @@ public class MainUIManager : MonoBehaviour
  
     private string m_mapArea;
 
+    void Awake()
+    {
+        UserInfomation.GetInstance.InitializeUI();
+        MainInvenUIManager.GetInstance.InitInvenPanel();
+        ShopUIManager.GetInstance.InitGetcompnent();
+    }
 
 	// Use this for initialization
 	void Start ()
@@ -36,20 +42,6 @@ public class MainUIManager : MonoBehaviour
         //}
 
     }
-	
-	// Update is called once per frame
-	void Update ()
-    { 
-        //for(int i =0;i<m_loadmapNameList.Count;i++)
-        //{
-        //    for(int j = 0; j<m_loadmapNameList[i].Count; j++)
-        //    {
-        //        print("namelist : " + m_loadmapNameList[i][j]);
-        //    }
-            
-        //}
-    }
-
     void InitMapName()
     {
         for(int i = 0; i< LoadMapData.GetInstance.m_mapJson.Count; i++ )

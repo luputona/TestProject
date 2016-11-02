@@ -15,15 +15,15 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
     
     void Awake()
     {
-        if (Instance != null)
-        {
-            GameObject.Destroy(gameObject);
-        }
-        else
-        {
-            GameObject.DontDestroyOnLoad(gameObject);
-            Instance = this;
-        }
+        //if (Instance != null)
+        //{
+        //    GameObject.Destroy(gameObject);
+        //}
+        //else
+        //{
+        //    GameObject.DontDestroyOnLoad(gameObject);
+        //    Instance = this;
+        //}
         
         StartCoroutine(GetMonsterData());        
     }

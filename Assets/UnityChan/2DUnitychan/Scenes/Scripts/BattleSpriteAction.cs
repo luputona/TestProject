@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BattleSpriteAction : MonoBehaviour
+public class BattleSpriteAction : Singleton<BattleSpriteAction>
 {
 	static int hashSpeed = Animator.StringToHash ("Speed");
 	static int hashFallSpeed = Animator.StringToHash ("FallSpeed");
@@ -18,7 +18,7 @@ public class BattleSpriteAction : MonoBehaviour
 	[SerializeField] private float characterHeightOffset = 0.2f;
 	[SerializeField] LayerMask groundMask;
 
-	[SerializeField, HideInInspector] Animator animator;
+	public Animator animator;
 	[SerializeField, HideInInspector]SpriteRenderer spriteRenderer;
 	[SerializeField, HideInInspector]Rigidbody2D rig2d;
 
@@ -33,7 +33,7 @@ public class BattleSpriteAction : MonoBehaviour
 
 	void Update ()
 	{
-		float axis = Input.GetAxisRaw ("Horizontal");
+		float axis = 1;
 		bool isDown = Input.GetAxisRaw ("Vertical") < 0;
 
 		if (Input.GetButtonDown ("Jump")) {
@@ -47,12 +47,34 @@ public class BattleSpriteAction : MonoBehaviour
 		animator.SetFloat (hashGroundDistance, distanceFromGround.distance == 0 ? 99 : distanceFromGround.distance - characterHeightOffset);
 		animator.SetFloat (hashFallSpeed, rig2d.velocity.y);
 		animator.SetFloat (hashSpeed, Mathf.Abs (axis));
-		if( Input.GetKeyDown(KeyCode.Z) ){  animator.SetTrigger(hashAttack1); }
-		if( Input.GetKeyDown(KeyCode.X) ){  animator.SetTrigger(hashAttack2); }
-		if( Input.GetKeyDown(KeyCode.C) ){  animator.SetTrigger(hashAttack3); }
+		//if( CharacterControllManager.GetInstance.m_normalAttackCheck )
+  //      {
+  //          animator.SetTrigger(hashAttack1);
+  //      }
+		//if(CharacterControllManager.GetInstance.m_normalAttackAnimCheck)
+  //      {
+  //          animator.SetTrigger(hashAttack2);
+  //      }
+		//if(CharacterControllManager.GetInstance.m_skillAnimCheck)
+  //      {
+  //          animator.SetTrigger(hashAttack3);
+  //      }
 
 		// flip sprite
 		if (axis != 0)
 			spriteRenderer.flipX = axis < 0;
 	}
+
+    public void NormalAttack()
+    {
+        animator.SetTrigger(hashAttack1);
+    }
+    public void SkillAttack()
+    {
+        animator.SetTrigger(hashAttack2);
+    }
+    public void QAttack()
+    {
+        animator.SetTrigger(hashAttack3);
+    }
 }

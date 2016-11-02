@@ -7,8 +7,8 @@ TagManager:
   - SaveLoadData
   - ImageTarget_Obj
   - UserInfoUI_Panel
-  - ShopUI_Panel
-  - Inven_Panel
+  - Shop_Show_Status_Text
+  - Shop_Show_Status_Image
   - MapUI_Panel
   - Button
   - DynamicUI_Panel
@@ -19,6 +19,10 @@ TagManager:
   - CurrentCharStatus
   - CurrentUserStatus
   - UserTotalStatus
+  - ShopContent
+  - CharacterControllManager
+  - SkillPanel
+  - PotionPanel
   layers:
   - Default
   - TransparentFX

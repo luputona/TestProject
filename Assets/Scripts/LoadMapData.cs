@@ -14,15 +14,7 @@ public class LoadMapData : Singleton<LoadMapData>
 
     void Awake()
     {
-        if(Instance != null)
-        {
-            GameObject.Destroy(this);
-        }
-        else
-        {
-            GameObject.DontDestroyOnLoad(gameObject);
-            Instance = this;
-        }
+       
 
         StartCoroutine(GetMapData());
     }
