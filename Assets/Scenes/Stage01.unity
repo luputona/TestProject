@@ -1175,22 +1175,6 @@ Prefab:
       propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
-    - target: {fileID: 5812632, guid: b3293ecac01ab554eaea3825998d3ecc, type: 2}
-      propertyPath: m_Radius
-      value: 0.09
-      objectReference: {fileID: 0}
-    - target: {fileID: 5812632, guid: b3293ecac01ab554eaea3825998d3ecc, type: 2}
-      propertyPath: m_Offset.y
-      value: -0.13
-      objectReference: {fileID: 0}
-    - target: {fileID: 6105992, guid: b3293ecac01ab554eaea3825998d3ecc, type: 2}
-      propertyPath: m_Size.y
-      value: 0.35
-      objectReference: {fileID: 0}
-    - target: {fileID: 11414978, guid: b3293ecac01ab554eaea3825998d3ecc, type: 2}
-      propertyPath: characterHeightOffset
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 149536, guid: b3293ecac01ab554eaea3825998d3ecc, type: 2}
       propertyPath: m_IsActive
       value: 0
@@ -1715,7 +1699,7 @@ GameObject:
   - 222: {fileID: 1162661928}
   - 114: {fileID: 1162661927}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Gold_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2470,7 +2454,7 @@ GameObject:
   - 222: {fileID: 1837545672}
   - 114: {fileID: 1837545671}
   m_Layer: 5
-  m_Name: Image (1)
+  m_Name: Score_Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

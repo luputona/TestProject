@@ -185,6 +185,7 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         m_skillUI.transform.FindChild("Normal_Attack_Image_BG").GetComponent<Button>().interactable = false;
         
         StartCoroutine(NormalAttackTimer());
+        
     }
     public void SkillAttack()
     {
@@ -195,6 +196,7 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         m_skillUI.transform.FindChild("Skill_Attack_Image_BG").GetComponent<Button>().interactable = false;
        
         StartCoroutine(SkillButtonTimer());
+        
     }
 
     public void QAttack()
@@ -225,12 +227,14 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
     {
         yield return Yielders.Get(m_normalAttackTime);
         m_normalAttackCheck = true;
+        BattleSpriteAction.GetInstance.m_emotion = MOTIONCHECK.E_IDLE;
     }
 
     IEnumerator SkillButtonTimer()
     {
         yield return Yielders.Get(m_skillTime);
         m_skillbtnCheck = true;
+        BattleSpriteAction.GetInstance.m_emotion = MOTIONCHECK.E_IDLE;
     }
     IEnumerator QTimer()
     {

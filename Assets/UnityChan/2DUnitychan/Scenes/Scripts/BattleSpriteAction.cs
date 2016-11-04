@@ -1,8 +1,18 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+public enum MOTIONCHECK
+{
+    E_IDLE,
+    E_NORMALATTACK,
+    E_SKILL,
+    E_Q
+}
+ 
 public class BattleSpriteAction : Singleton<BattleSpriteAction>
 {
+    
+
 	static int hashSpeed = Animator.StringToHash ("Speed");
 	static int hashFallSpeed = Animator.StringToHash ("FallSpeed");
 	static int hashGroundDistance = Animator.StringToHash ("GroundDistance");
@@ -24,13 +34,26 @@ public class BattleSpriteAction : Singleton<BattleSpriteAction>
 
 	public int hp = 4;
 
+    public GameObject m_normalAttack_collCheck;
+    public GameObject m_skill_collCheck;
+    public MOTIONCHECK m_emotion;
+
+
 	void Awake ()
 	{
 		animator = GetComponent<Animator> ();
 		spriteRenderer = GetComponent<SpriteRenderer> ();
 		rig2d = GetComponent<Rigidbody2D> ();
-	}
 
+        m_normalAttack_collCheck = this.gameObject.transform.FindChild("Normal_CollCheck").gameObject;
+        m_skill_collCheck = gameObject.transform.FindChild("Skill_CollCheck").gameObject;
+    }
+
+    void Start()
+    {
+        m_normalAttack_collCheck.SetActive(false);
+        m_skill_collCheck.SetActive(false);
+    }
 	void Update ()
 	{
 		float axis = 1;
@@ -63,18 +86,53 @@ public class BattleSpriteAction : Singleton<BattleSpriteAction>
 		// flip sprite
 		if (axis != 0)
 			spriteRenderer.flipX = axis < 0;
-	}
 
-    public void NormalAttack()
+        MotionCheck();
+       // print(animator.GetCurrentAnimatorStateInfo(0).IsName);
+    }
+
+    void MotionCheck()
     {
+        
+
+        if (m_emotion == MOTIONCHECK.E_NORMALATTACK)
+        {
+            m_normalAttack_collCheck.SetActive(true);
+            m_skill_collCheck.SetActive(false);
+        }
+        else if(m_emotion == MOTIONCHECK.E_SKILL)
+        {
+            m_normalAttack_collCheck.SetActive(false);
+            m_skill_collCheck.SetActive(true);
+        }
+        else if(m_emotion == MOTIONCHECK.E_Q)
+        {
+            m_normalAttack_collCheck.SetActive(false);
+            m_skill_collCheck.SetActive(false);
+        }
+        else if(m_emotion == MOTIONCHECK.E_IDLE)
+        {
+            m_normalAttack_collCheck.SetActive(false);
+            m_skill_collCheck.SetActive(false);
+        }
+
+    }
+    public void NormalAttack()
+    {        
         animator.SetTrigger(hashAttack1);
+        m_emotion = MOTIONCHECK.E_NORMALATTACK;
+        
     }
     public void SkillAttack()
     {
         animator.SetTrigger(hashAttack2);
+        m_emotion = MOTIONCHECK.E_SKILL;
+        
     }
     public void QAttack()
     {
         animator.SetTrigger(hashAttack3);
+        m_emotion = MOTIONCHECK.E_Q;
+        
     }
 }
