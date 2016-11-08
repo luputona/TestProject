@@ -56,6 +56,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
     {
         m_charContent = GameObject.FindGameObjectWithTag("ShopContent");
     }
+
+    //상점에 캐릭터 목록을 db만큼 생성.
     void CreateCharacterList()
     {
 
@@ -142,6 +144,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
         //m_shop_ShowStatus_text[""].text = string.Format("");
     }
 
+    //이미 구매한 캐릭터인지 체크
     public void CheckBuyID()
     {
         for(int i = 0; i< LoadCharacterData.GetInstance.m_charList.Count; i++)
@@ -156,6 +159,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
             }
         }
     }
+
+
     public void Buy()
     {
         for (int i = 0; i < LoadCharacterData.GetInstance.m_charList.Count; i++)
@@ -168,7 +173,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
             {
                 m_buyBtn.interactable = true;
                 MainInvenUIManager.GetInstance.m_inventory.Add(LoadCharacterData.GetInstance.m_charList[m_charID]);
-                MainInvenUIManager.GetInstance.AddInventoryCharacter(m_charID);
+                MainInvenUIManager.GetInstance.AddInventoryCharacter(m_charID); //인벤에 추가된 수만큼 인벤슬롯 갱신.
                 MainInvenUIManager.GetInstance.UpdateThumbnail();
                
             }

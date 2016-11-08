@@ -51,7 +51,8 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
     {
         InitializeUI();
         StartCoroutine(Init());
-        
+
+        //PlayerPrefs.SetString("SelectCharacter", "Yuko");
         print(PlayerPrefs.GetString("SelectCharacter"));
 	}
 	
@@ -105,7 +106,29 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         }
         else if(PlayerPrefs.GetString("SelectCharacter") == "Yuko")
         {
-
+            m_characterObj = Resources.Load("Prefabs/Character/Yuko") as GameObject;
+            GameObject obj = Instantiate(m_characterObj, m_respawnPosition.transform.position, Quaternion.identity) as GameObject;
+            m_charIndex = 1;
+            m_recoveryMp = 11;
+            m_normalAttackTime = 0.5f;
+            m_skillTime = 0.3f;
+            m_totalHp = UserInfomation.GetInstance.m_hp + LoadCharacterData.GetInstance.m_charList[1].Hp;
+            m_totalMp = UserInfomation.GetInstance.m_mp + LoadCharacterData.GetInstance.m_charList[1].Mp;
+            m_normalDamage = LoadCharacterData.GetInstance.m_charList[1].Attack;
+            m_skillDamage = LoadCharacterData.GetInstance.m_charList[1].SkillDamage;
+            m_qDamage = LoadCharacterData.GetInstance.m_charList[0].QDamage;
+            m_curStatusText[0].text = string.Format("{0} / {1}", m_totalHp, m_totalHp);
+            m_curStatusText[1].text = string.Format("{0} / {1}", m_totalMp, m_totalMp);
+            m_curStatusText[2].text = string.Format("{0} / {1}", LoadCharacterData.GetInstance.m_charList[1].Sp, LoadCharacterData.GetInstance.m_charList[1].Sp);
+            m_curHp = m_totalHp;
+            m_curMp = m_totalMp;
+            m_curSp = LoadCharacterData.GetInstance.m_charList[1].Sp;
+            m_hpBar.maxValue = m_totalHp;
+            m_mpBar.maxValue = m_totalMp;
+            m_spBar.maxValue = LoadCharacterData.GetInstance.m_charList[1].Sp;
+            m_hpBar.value = m_totalHp;
+            m_mpBar.value = m_totalMp;
+            m_spBar.value = LoadCharacterData.GetInstance.m_charList[1].Sp;
         }
     }
 

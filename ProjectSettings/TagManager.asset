@@ -23,6 +23,7 @@ TagManager:
   - CharacterControllManager
   - SkillPanel
   - PotionPanel
+  - Monster
   layers:
   - Default
   - TransparentFX

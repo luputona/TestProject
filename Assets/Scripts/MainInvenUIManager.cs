@@ -70,6 +70,8 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         
     }
 
+    //인벤토리에 구매한 캐릭터의 슬롯을 추가
+    //해야 할것 : 인벤토리.add 된 목록을 서버로 전송 - 
     public void AddInventoryCharacter(int _id)
     {
         GameObject charslot = Instantiate(m_charslot) as GameObject;
@@ -95,6 +97,8 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         //    m_inventory.Add(m_charData.m_charList[i]);
         //}
 
+        //서버에 json 형태로 저장한걸 불러와서 파싱한후 
+        //인벤토리add에 m_charData.m_charList[0] 대신 파싱한 리스트를 넣는다.
         //기본으로 가지고있는 캐릭터를 하나 추가
         m_inventory.Add(m_charData.m_charList[0]);
 

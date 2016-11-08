@@ -3,20 +3,31 @@
         "ID": 1,
         "Category": "Normal",
         "Name": "Bottle",
-        "HP": 10,
-        "Defence": 1,
-        "Attack": 10,
+        "HP": 13,
+        "Defence": 3,
+        "Attack": 12,
         "RecoverSP": 5,
         "GetScore": 10
     },
-    { 
+    {
         "ID": 2,
         "Category": "Normal",
         "Name": "Can",
         "HP": 15,
-        "Defence": 2,
-        "Attack": 12,
+        "Defence": 3,
+        "Attack": 14,
         "RecoverSP": 6,
         "GetScore": 11
+    },
+    {
+        "ID": 3,
+        "Category": "Normal",
+        "Name": "Paper",
+        "HP": 11,
+        "Defence": 1,
+        "Attack": 10,
+        "RecoverSP": 4,
+        "GetScore": 9
     }
+
 ]

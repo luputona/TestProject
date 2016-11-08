@@ -9,6 +9,7 @@ using System.Collections;
 //-----------------------------------------------------------------------------------------
 //MonoBehaviour 상속 안받음. IEnumerable 상속시 foreach 사용 가능
 //System.IDisposable 관리되지 않는 메모리(리소스)를 해제 함
+[System.Serializable]
 public class MemoryPool : IEnumerable, System.IDisposable
 {
     class Item

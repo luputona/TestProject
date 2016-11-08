@@ -200,6 +200,10 @@ MonoBehaviour:
   spriteRenderer: {fileID: 0}
   rig2d: {fileID: 0}
   hp: 4
+  m_normalAttack_collCheck: {fileID: 0}
+  m_skill_collCheck: {fileID: 0}
+  m_emotion: 0
+  m_distance: 1
 --- !u!212 &21267904
 SpriteRenderer:
   m_ObjectHideFlags: 1
