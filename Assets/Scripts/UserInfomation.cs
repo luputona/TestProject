@@ -10,20 +10,26 @@ public class UserInfomation : Singleton<UserInfomation>
     public GameObject[] m_currentCharSpec;
     public GameObject[] m_currentUserInfo;
     public GameObject[] m_userTotalStatus;
+    public GameObject m_statusPopUp_Obj;
     public Dictionary<string, Text> m_currentUserInfoText = new Dictionary<string, Text>();
     public Dictionary<string, Text> m_currentCharSpecText = new Dictionary<string, Text>();
     public Dictionary<string, Text> m_totalSpecText = new Dictionary<string, Text>();
     public Image m_charInfoImage;
 
-    public string m_name;
-    public int m_hp;
-    public int m_mp;
-    public int m_attack;
-    public int m_defence; 
-    public int m_level; 
-    public int m_gold; 
-    public int m_item;
+    //public string m_name;
+    //public int m_hp;
+    //public int m_mp;
+    //public int m_attack;
+    //public int m_defence; 
+
+    //public int m_gold; 
+    //public int m_item;
     public string m_selectCharacter;
+    public string m_statusPopup_info;
+
+    public int m_upgradeCost = 0;
+    
+
 
     SaveData savedata = new SaveData();
 
@@ -37,7 +43,7 @@ public class UserInfomation : Singleton<UserInfomation>
         GPGSMgr.GetInstance.LoadGame();
 
         StartCoroutine(UserInfoUpdate());
-
+        m_statusPopUp_Obj.SetActive(false);
     }
     
     void Update()
@@ -63,9 +69,11 @@ public class UserInfomation : Singleton<UserInfomation>
     }
 
     void InitializeUserInfo()
-    {   
-        
+    {
+      
     }
+
+
     public void InitailizeCharacterInfo()
     {
         //PlayerPrefs 나중에 서버연동으로 변경 
@@ -126,7 +134,7 @@ public class UserInfomation : Singleton<UserInfomation>
                 m_totalSpecText.Add(m_userTotalStatus[i].transform.name, m_userTotalStatus[i].GetComponent<Text>());
             }
         }
-
+        
     }
     public void ShowCharacterSpec(int _hp, int _mp, int _attack, int _defence, string _name, Sprite _sprite)
     {
@@ -137,49 +145,101 @@ public class UserInfomation : Singleton<UserInfomation>
         m_currentCharSpecText["Char_Specs_Title_Text"].text = string.Format("{0}", _name);
         m_charInfoImage.sprite = _sprite;
     }
-    public void GetUserData(string _userName, int _level, int _hp, int _mp, int _attack, int _defence, int _gold, int _item, string _selectcharacter)
-    {
-        m_name = _userName;
-        m_hp = _hp;
-        m_mp = _mp;
-        m_attack = _attack;
-        m_defence = _defence;
-        m_level = _level;
-        m_gold = _gold;
-        m_item = _item;
-        m_selectCharacter = _selectcharacter;
-    }
+   
 
     public void ShowUserInfomation()
     {
         if(m_currentUserInfo != null)
         {
-            m_currentUserInfoText["User_Current_Name_Text"].text = string.Format("{0}", m_name);
-            m_currentUserInfoText["Cur_Default_Hp_Text"].text = string.Format("{0}", m_hp);
-            m_currentUserInfoText["Cur_Default_Mp_Text"].text = string.Format("{0}", m_mp);
-            m_currentUserInfoText["Cur_Default_Attack_Text"].text = string.Format("{0}", m_attack);
-            m_currentUserInfoText["Cur_Default_Defence_Text"].text = string.Format("{0}", m_defence);
-            m_currentUserInfoText["Cur_User_Level_Text"].text = string.Format("{0}", m_level);
-            m_currentUserInfoText["Cur_User_Gold_Text"].text = string.Format("{0}", m_gold);
-            m_currentUserInfoText["Cur_User_item_Text"].text = string.Format("{0}", m_item);
+            m_currentUserInfoText["User_Current_Name_Text"].text = string.Format("{0}", LoadData.GetInstance.m_playername);
+            m_currentUserInfoText["Cur_Default_Hp_Text"].text = string.Format("{0}", LoadData.GetInstance.m_hp);
+            m_currentUserInfoText["Cur_Default_Mp_Text"].text = string.Format("{0}", LoadData.GetInstance.m_mp);
+            m_currentUserInfoText["Cur_Default_Attack_Text"].text = string.Format("{0}", LoadData.GetInstance.m_attack);
+            m_currentUserInfoText["Cur_Default_Defence_Text"].text = string.Format("{0}", LoadData.GetInstance.m_defence);
+            //m_currentUserInfoText["Cur_User_Level_Text"].text = string.Format("{0}", m_level);
+            m_currentUserInfoText["Cur_User_Gold_Text"].text = string.Format("{0}", LoadData.GetInstance.m_gold);
+            m_currentUserInfoText["Cur_User_item_Text"].text = string.Format("{0}", LoadData.GetInstance.m_item);
         }
     }
     public void ShowUserTotalStatus()
     {
         if(m_userTotalStatus != null)
         {
-            m_totalSpecText["Cur_Total_Hp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("hp") + m_hp);
-            m_totalSpecText["Cur_Total_Mp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("mp") + m_mp);
-            m_totalSpecText["Cur_Total_Attack_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("attack") + m_attack);
-            m_totalSpecText["Cur_Total_Defence_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("defence") + m_defence);
+            m_totalSpecText["Cur_Total_Hp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("hp") + LoadData.GetInstance.m_hp);
+            m_totalSpecText["Cur_Total_Mp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("mp") + LoadData.GetInstance.m_mp);
+            m_totalSpecText["Cur_Total_Attack_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("attack") + LoadData.GetInstance.m_attack);
+            m_totalSpecText["Cur_Total_Defence_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("defence") + LoadData.GetInstance.m_defence);
         }
     }
 
-    public void TestBtn()
+    public void HpUpButton(string _statusinfo)
     {
-        ++m_hp;
-        GPGSMgr.GetInstance.hp = m_hp;
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_hp, LoadData.GetInstance.m_hp , 1);
     }
+    public void MpUpButton(string _statusinfo)
+    {
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_mp, LoadData.GetInstance.m_initmp , 1);    
+    }
+    public void AttackUpButton(string _statusinfo)
+    {
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_attack, LoadData.GetInstance.m_initattack , 5);
+    }
+    public void DefenceUpButton(string _statusinfo)
+    {
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_defence, LoadData.GetInstance.m_initdefence , 5);
+    }
+
+    public void StatusUpPopupOkButton()
+    {
+        if(m_statusPopup_info == "HP")
+        {
+            ++LoadData.GetInstance.m_hp;
+            LoadData.GetInstance.m_gold = LoadData.GetInstance.m_gold - m_upgradeCost;
+        }
+        else if(m_statusPopup_info == "MP")
+        {
+            ++LoadData.GetInstance.m_mp;
+            LoadData.GetInstance.m_gold = LoadData.GetInstance.m_gold - m_upgradeCost;
+        }
+        else if (m_statusPopup_info == "Attack")
+        {
+            ++LoadData.GetInstance.m_attack;
+            LoadData.GetInstance.m_gold = LoadData.GetInstance.m_gold - m_upgradeCost;
+        }
+        else if (m_statusPopup_info == "Defence")
+        {
+            ++LoadData.GetInstance.m_defence;
+            LoadData.GetInstance.m_gold = LoadData.GetInstance.m_gold - m_upgradeCost;
+        }
+        if(LoadData.GetInstance.m_gold < m_upgradeCost)
+        {
+            m_statusPopUp_Obj.transform.FindChild("Ok_Button").GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            m_statusPopUp_Obj.transform.FindChild("Ok_Button").GetComponent<Button>().interactable = true;
+        }
+        
+        m_statusPopUp_Obj.SetActive(false);
+    }
+
+    void UpdgradeCheck(string _statusinfo, int _curstat, int _initstat, int _stat)
+    {
+        m_statusPopup_info = _statusinfo;
+        m_statusPopUp_Obj.SetActive(true);
+        m_upgradeCost = ((_curstat - _initstat) * (_curstat + _stat) + 10) * 2;
+        m_statusPopUp_Obj.transform.FindChild("Current_status_Text").GetComponent<Text>().text = string.Format("{0}", _curstat);
+        m_statusPopUp_Obj.transform.FindChild("Upgrade_status_Text").GetComponent<Text>().text = string.Format("{0}", _curstat + _stat);
+        m_statusPopUp_Obj.transform.FindChild("Upgrade_cost_Text").GetComponent<Text>().text = string.Format("Cost : {0}", m_upgradeCost);
+    }
+
+
+    public void StatusUpPopupCancelButton()
+    {
+        m_statusPopUp_Obj.SetActive(false);
+    }
+
+
 
     public void SaveBtn()
     {

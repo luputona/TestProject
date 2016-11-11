@@ -47,3 +47,6 @@ AssetBundleManifest:
     Info_13:
       Name: monsterdata
       Dependencies: {}
+    Info_14:
+      Name: monsters
+      Dependencies: {}

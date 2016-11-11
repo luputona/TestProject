@@ -10,9 +10,10 @@ GameObject:
   - 4: {fileID: 493118}
   - 61: {fileID: 6188638}
   - 212: {fileID: 21278736}
+  - 50: {fileID: 5069562}
   m_Layer: 8
   m_Name: Normal_CollCheck
-  m_TagString: Untagged
+  m_TagString: NormalAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -34,7 +35,7 @@ GameObject:
   - 114: {fileID: 11474010}
   m_Layer: 8
   m_Name: Yuko
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -53,7 +54,7 @@ GameObject:
   - 114: {fileID: 11467836}
   m_Layer: 8
   m_Name: Skill_CollCheck
-  m_TagString: Monster
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -104,15 +105,15 @@ Rigidbody2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 146822}
   m_UseAutoMass: 0
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: 0.05
+  m_Mass: 10000
+  m_LinearDrag: 10000
+  m_AngularDrag: 10000
   m_GravityScale: 1
   m_IsKinematic: 0
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!50 &5067900
 Rigidbody2D:
   serializedVersion: 2
@@ -130,6 +131,23 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 6
+--- !u!50 &5069562
+Rigidbody2D:
+  serializedVersion: 2
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 120892}
+  m_UseAutoMass: 0
+  m_Mass: 1000
+  m_LinearDrag: 1000
+  m_AngularDrag: 1000
+  m_GravityScale: 0
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 7
 --- !u!58 &5861028
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -179,7 +197,7 @@ BoxCollider2D:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 120892}
   m_Enabled: 1
-  m_Density: 1
+  m_Density: 37.89
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_UsedByEffector: 0
@@ -233,7 +251,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1e8716a123bbe304e9a82650b400ea69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_monsterCollCheck: 0
   m_bulletSpeed: 3
+  m_damage: 0
 --- !u!114 &11474010
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -253,9 +273,10 @@ MonoBehaviour:
   m_skill_collCheck: {fileID: 0}
   m_bulletPrefabs: []
   m_bullet: []
-  m_bulletCount: 0
   m_emotion: 0
   m_distance: 2
+  m_collCheck: 0
+  m_bulletCount: 0
 --- !u!212 &21251600
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -63,16 +63,17 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
         }
     }
 }
+[System.Serializable]
 public class MonsterInfo
 {
-    public int Id { get; set; }
-    public string Category { get; set; }
-    public string Name { get; set; }
-    public int Hp { get; set; }
-    public int Defence { get; set; }
-    public int Attack { get; set; }
-    public int RecoverSP { get; set; }
-    public int Score { get; set; }
+    public int Id;// { get; set; }
+    public string Category;// { get; set; }
+    public string Name;// { get; set; }
+    public int Hp; //{ get; set; }
+    public int Defence; //{ get; set; }
+    public int Attack;// { get; set; }
+    public int RecoverSP; //{ get; set; }
+    public int Score; //{ get; set; }
 
     public MonsterInfo(int id, string category, string name, int hp, int defence, int attack, int recoversp, int score)
     {

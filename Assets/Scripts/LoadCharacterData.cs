@@ -15,15 +15,15 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
 
     void Awake()
     {
-        if(Instance != null)
-        {
-            GameObject.Destroy(this);
-        }
-        else
-        {
-            GameObject.DontDestroyOnLoad(gameObject);
-            Instance = this;
-        }
+        //if(Instance != null)
+        //{
+        //    GameObject.Destroy(this);
+        //}
+        //else
+        //{
+        //    GameObject.DontDestroyOnLoad(gameObject);
+        //    Instance = this;
+        //}
 
         StartCoroutine(GetCharacterData());
         

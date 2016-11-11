@@ -7,15 +7,19 @@ using UnityEngine.UI;
 public class AssetLoader : Singleton<AssetLoader> 
 {
     public string url;
+    public string monsterurl;
     public Dictionary<string, GameObject> assetObjects = new Dictionary<string, GameObject>();
     //public List<GameObject> assetObjects_list = new List<GameObject>();
+    public List<GameObject> monster_list = new List<GameObject>();
     public string[] m_names;
+    public string[] m_monstersnames;
 
     public int m_sceneChek;
 
    // public AssetBundle bundleManifest;
 
     public Text m_caching;
+    public Text m_monsterCaching;
 
     void Awake()
     {
@@ -33,8 +37,10 @@ public class AssetLoader : Singleton<AssetLoader>
     void Start()
     {        
         StartCoroutine(InitAssetBundle());
+        
     }
 	// Use this for initialization
+    
     IEnumerator InitAssetBundle()
     {
         WWW www = new WWW(url + "Android");
@@ -85,21 +91,25 @@ public class AssetLoader : Singleton<AssetLoader>
                     GameObject gObj = bundle.LoadAsset<GameObject>(names[j]);
                     
                     if (gObj != null)
-                    {
-                        assetObjects.Add(gObj.name, gObj.gameObject);
-                        //assetObjects_list.Add(gObj);
-                       
+                    {                     
+                        if(gObj.CompareTag("Monster"))
+                        {
+                            monster_list.Add(gObj);
+                        }
+                        else
+                        {
+                            assetObjects.Add(gObj.name, gObj.gameObject);
+                        }
+                            
                     }
 
-                    foreach (KeyValuePair<string, GameObject> element in assetObjects)
-                    {
-                        
-                        //Debug.Log("key : " + element.Key + " / value : " + element.Value);
-                    }
-
-                    //for(int a = 0; a<assetObjects_list.Count; a++)
+                    //foreach (KeyValuePair<string, GameObject> element in assetObjects)
                     //{
-                    //    //Debug.Log("List name : " + assetObjects_list[a].name );
+                    //    Debug.Log("key : " + element.Key + " / value : " + element.Value);
+                    //}
+                    //for (int a = 0; a < monster_list.Count; a++)
+                    //{
+                    //    Debug.Log("List name : " + monster_list[a].name );                        
                     //}
                 }
                 // 번들을 언로드해줍니다.

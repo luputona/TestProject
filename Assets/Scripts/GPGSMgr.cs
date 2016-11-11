@@ -26,7 +26,7 @@ public class SaveData
     public int PlayerMp { get; set; }
     public int PlayerAttack { get; set; }
     public int PlayerDefence { get; set; }
-    public int PlayerLevel { get; set; }
+    
     public int PlayerGold { get; set; }
     public int Item { get; set; }
 
@@ -61,7 +61,7 @@ public class SaveData
     public SaveData()
     {
     }
-    public SaveData(string _playername, int _playerhp, int _playermp, int _attack, int _defence, int _level,int _gold ,int _item, string _selectCharacter, List<CharacterData> _chardata)
+    public SaveData(string _playername, int _playerhp, int _playermp, int _attack, int _defence,int _gold ,int _item, string _selectCharacter, List<CharacterData> _chardata)
     {
         _chardata = new List<CharacterData>();
         PlayerName = _playername;
@@ -69,7 +69,7 @@ public class SaveData
         PlayerMp = _playermp;
         PlayerAttack = _attack;
         PlayerDefence = _defence;
-        PlayerLevel = _level;
+        
         PlayerGold = _gold;
         Item = _item;
         SelectCharacter = _selectCharacter;
@@ -127,15 +127,6 @@ public class GPGSMgr : Singleton<GPGSMgr> {
 
     void InitializeUserStatus()
     {
-        gold = 2000;
-        item = 1;
-        hp = 100;
-        mp = 100;
-        attack = 5;
-        defence = 5;
-        level = 1;
-        
-        selectCharacter = "UnityChan";
         
     }
 
@@ -252,7 +243,7 @@ public class GPGSMgr : Singleton<GPGSMgr> {
                 };
 
             // Create new save data
-            SaveData saveData = new SaveData(GetNameGPGS(), hp, mp, attack, defence ,level ,gold ,item , selectCharacter, MainInvenUIManager.GetInstance.m_inventory);
+            SaveData saveData = new SaveData(GetNameGPGS(), hp, mp, attack, defence ,gold ,item , selectCharacter, MainInvenUIManager.GetInstance.m_inventory);
            
 
             //{
@@ -292,29 +283,7 @@ public class GPGSMgr : Singleton<GPGSMgr> {
                             //m_playerhealth = saveData.Playerhealth;
 
                             LoadData loadData = new LoadData();
-                            GetLoadData(saveData.PlayerName, saveData.PlayerHp, saveData.PlayerMp, saveData.PlayerAttack, saveData.PlayerDefence, saveData.PlayerLevel, saveData.PlayerGold, saveData.Item, saveData.SelectCharacter);
-
-                            hp = saveData.PlayerHp;
-                            mp = saveData.PlayerMp;
-                            attack = saveData.PlayerAttack;
-                            defence = saveData.PlayerDefence;
-                            level = saveData.PlayerLevel;
-                            gold = saveData.PlayerGold;
-                            item = 0;
-                            for(int i = 0; i< saveData.m_saveInventory.Count; i++)
-                            {
-                                if(MainInvenUIManager.GetInstance.m_inventory.Contains(saveData.m_saveInventory[i]))
-                                {
-                                    return;
-                                }
-                                else
-                                {
-                                    MainInvenUIManager.GetInstance.m_inventory.Add(saveData.m_saveInventory[i]);
-                                }                                
-                            }                           
-
-                            //loadData.LoadInventory(saveData.m_saveInventory);
-                            //LoadData LoadData = new LoadData(saveData.PlayerName, saveData.Playerhealth, saveData.PlayerScore);
+                            
 
                         }
                         catch (Exception e)
@@ -338,12 +307,7 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         }
     }
  
-    void GetLoadData(string _playername , int _hp , int _mp, int _attack, int _defence , int _level, int _gold, int _item, string _selectcharacter)
-    {
-        LoadData.GetInstance.GetUserData(_playername,_level , _hp,  _mp,  _attack,  _defence, _gold,  _item, _selectcharacter );      
-        
-    }
-
+ 
     void OnApplicationPause(bool pauseStatus)
     {
         if (pauseStatus)

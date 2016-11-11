@@ -30,6 +30,7 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
     public int m_recoveryMp;
     public float m_normalAttackTime;
     public float m_skillTime;
+    public int m_outDamage;
 
     private bool m_skillbtnCheck = true;
     private bool m_normalAttackCheck = true;
@@ -52,7 +53,7 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         InitializeUI();
         StartCoroutine(Init());
 
-        //PlayerPrefs.SetString("SelectCharacter", "Yuko");
+        PlayerPrefs.SetString("SelectCharacter", "Yuko");
         print(PlayerPrefs.GetString("SelectCharacter"));
 	}
 	
@@ -85,11 +86,11 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
             m_recoveryMp = 10;
             m_normalAttackTime = 0.4f;
             m_skillTime = 0.8f;
-            m_totalHp = UserInfomation.GetInstance.m_hp + LoadCharacterData.GetInstance.m_charList[0].Hp;
-            m_totalMp = UserInfomation.GetInstance.m_mp + LoadCharacterData.GetInstance.m_charList[0].Mp;
-            m_normalDamage = LoadCharacterData.GetInstance.m_charList[0].Attack;
-            m_skillDamage = LoadCharacterData.GetInstance.m_charList[0].SkillDamage;
-            m_qDamage = LoadCharacterData.GetInstance.m_charList[0].QDamage;
+            m_totalHp = LoadData.GetInstance.m_hp + LoadCharacterData.GetInstance.m_charList[0].Hp;
+            m_totalMp = LoadData.GetInstance.m_mp + LoadCharacterData.GetInstance.m_charList[0].Mp;
+            m_normalDamage = LoadCharacterData.GetInstance.m_charList[0].Attack + LoadData.GetInstance.m_attack;
+            m_skillDamage = LoadCharacterData.GetInstance.m_charList[0].SkillDamage * m_normalDamage / 4;
+            m_qDamage = LoadCharacterData.GetInstance.m_charList[0].QDamage * m_normalDamage / 5;
             m_curStatusText[0].text = string.Format("{0} / {1}", m_totalHp, m_totalHp);
             m_curStatusText[1].text = string.Format("{0} / {1}", m_totalMp, m_totalMp);
             m_curStatusText[2].text = string.Format("{0} / {1}", LoadCharacterData.GetInstance.m_charList[0].Sp , LoadCharacterData.GetInstance.m_charList[0].Sp);
@@ -112,11 +113,11 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
             m_recoveryMp = 11;
             m_normalAttackTime = 0.5f;
             m_skillTime = 0.3f;
-            m_totalHp = UserInfomation.GetInstance.m_hp + LoadCharacterData.GetInstance.m_charList[1].Hp;
-            m_totalMp = UserInfomation.GetInstance.m_mp + LoadCharacterData.GetInstance.m_charList[1].Mp;
-            m_normalDamage = LoadCharacterData.GetInstance.m_charList[1].Attack;
-            m_skillDamage = LoadCharacterData.GetInstance.m_charList[1].SkillDamage;
-            m_qDamage = LoadCharacterData.GetInstance.m_charList[0].QDamage;
+            m_totalHp = LoadData.GetInstance.m_hp + LoadCharacterData.GetInstance.m_charList[1].Hp;
+            m_totalMp = LoadData.GetInstance.m_mp + LoadCharacterData.GetInstance.m_charList[1].Mp;
+            m_normalDamage = LoadCharacterData.GetInstance.m_charList[1].Attack + LoadData.GetInstance.m_attack;
+            m_skillDamage = LoadCharacterData.GetInstance.m_charList[1].SkillDamage * m_normalDamage / 4;
+            m_qDamage = LoadCharacterData.GetInstance.m_charList[1].QDamage * m_normalDamage / 5;
             m_curStatusText[0].text = string.Format("{0} / {1}", m_totalHp, m_totalHp);
             m_curStatusText[1].text = string.Format("{0} / {1}", m_totalMp, m_totalMp);
             m_curStatusText[2].text = string.Format("{0} / {1}", LoadCharacterData.GetInstance.m_charList[1].Sp, LoadCharacterData.GetInstance.m_charList[1].Sp);
@@ -206,7 +207,8 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         BattleSpriteAction.GetInstance.NormalAttack();
 
         m_skillUI.transform.FindChild("Normal_Attack_Image_BG").GetComponent<Button>().interactable = false;
-        
+
+        m_outDamage = m_normalDamage;
         StartCoroutine(NormalAttackTimer());
         
     }
@@ -217,7 +219,8 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
 
         m_curMp = m_curMp - LoadCharacterData.GetInstance.m_charList[m_charIndex].SkillMp;
         m_skillUI.transform.FindChild("Skill_Attack_Image_BG").GetComponent<Button>().interactable = false;
-       
+
+        m_outDamage = m_skillDamage;
         StartCoroutine(SkillButtonTimer());
         
     }
@@ -229,7 +232,8 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
 
         m_curSp = m_curSp - LoadCharacterData.GetInstance.m_charList[m_charIndex].QSp;
         m_skillUI.transform.FindChild("Q_Attack_Image_BG").GetComponent<Button>().interactable = false;
-       
+
+        m_outDamage = m_qDamage;
         StartCoroutine(QTimer());
     }
 

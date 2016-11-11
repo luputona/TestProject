@@ -10,37 +10,61 @@ public class LoadData : Singleton<LoadData>
 
     public string m_playername;// { get; set; }
 
-    public int m_hp; //{ get; set; }
-    public int m_mp; //{ get; set; }
-    public int m_attack; //{ get; set; }
-    public int m_defence; //{ get; set; }
-    public int m_level; //{ get; set; }
-    public int m_gold; //{ get; set; }
-    public int m_item; //{ get; set; }
+    public int m_hp;
+    public int m_mp;
+    public int m_attack;
+    public int m_defence;
+    public int m_gold;
+    public int m_item;    
 
     public string m_selectCharacter;
     public string m_selectVehicle;
 
-
+    public int m_inithp; //{ get; set; }
+    public int m_initmp; //{ get; set; }
+    public int m_initattack; //{ get; set; }
+    public int m_initdefence; //{ get; set; }
+    public int m_initgold; //{ get; set; }
+    public int m_inititem; //{ get; set; }
+    void Awake()
+    {
+        if (m_instance != null)
+        {
+            GameObject.Destroy(gameObject);
+        }
+        else
+        {
+            GameObject.DontDestroyOnLoad(gameObject);
+            m_instance = this;
+        }
+    }
 
     public LoadData()
     {
-       
     }
-    public void GetUserData(string _userName, int _level, int _hp, int _mp, int _attack, int _defence, int _gold, int _item, string _selectcharacter)
+    
+    void Start()
     {
-        m_playername = _userName;
-        m_hp = _hp;
-        m_mp = _mp;
-        m_attack = _attack;
-        m_defence = _defence;
-        m_level = _level;
-        m_gold = _gold;
-        m_item = _item;
-        m_selectCharacter = _selectcharacter;
+        m_inithp = 100; 
+        m_initmp = 100; 
+        m_initattack = 5;
+        m_initdefence = 5;
 
-        UserInfomation.GetInstance.GetUserData(_userName,_level ,_hp, _mp, _attack, _defence, _gold, _item, _selectcharacter);
+        m_initgold = 10000; 
+        m_inititem = 1;
+        m_playername = GPGSMgr.GetInstance.GetNameGPGS();
+
+        m_hp = m_inithp;
+        m_mp = m_initmp;
+        m_attack = m_initattack;
+        m_defence = m_initdefence;
+        m_item = m_inititem;
+        m_gold = m_initgold;
+
+
+        PlayerPrefs.GetString("SelectCharacter");
     }
+
 
     public void LoadInventory(List<CharacterData> _loadinven)
     {
@@ -49,6 +73,8 @@ public class LoadData : Singleton<LoadData>
         {
             MainInvenUIManager.GetInstance.m_inventory.Add(_loadinven[i]);
         }
-        
     }
+
+
+
 }

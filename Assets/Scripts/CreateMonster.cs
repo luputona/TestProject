@@ -5,7 +5,8 @@ using System.Collections.Generic;
 
 
 [System.Serializable]
-public class CreateMonster : MonoBehaviour {
+public class CreateMonster : Singleton<CreateMonster>
+{
 
     [System.Serializable]
     public class Monster
@@ -19,46 +20,41 @@ public class CreateMonster : MonoBehaviour {
 
     public MemoryPool[] pool;
     public int m_maxMonsterNumber = 2;
+    public bool m_monsterHpCheck = false;
     //respawn time
     private float m_respawnRate = 4.0f;
     private float m_startTime;
     private float m_respawnTimeLeft;
 
-    private float m_respawnRate2 = 4.0f;
-    private float m_startTime2;
-    private float m_respawnTimeLeft2;
+    public float m_respawnRate2 = 4.0f;
+    public float m_startTime2;
+    public float m_respawnTimeLeft2;
 
+    public float m_startTime3;
+    public float m_endTime;
 
 
     // Use this for initialization
     void Start ()
     {
-        pool = new MemoryPool[4];
-        pool[0] = new MemoryPool();
-        pool[1] = new MemoryPool();
-        pool[2] = new MemoryPool();
+        //m_startTime = Time.time;
 
-        pool[0].Create(m_monsterPrefabs[0], 2);
-        pool[1].Create(m_monsterPrefabs[1], 2);
-        pool[2].Create(m_monsterPrefabs[2], 2);
+        //for (int i = 0; i < m_monsters.Length; i++)
+        //{
+        //    m_monsters[i] = new Monster();
+        //    m_monsters[i].m_monster2 = new GameObject[2];
+        //    for (int j = 0; j < m_monsters[i].m_monster2.Length; j++)
+        //    {
 
-        m_startTime = Time.time;
-
-        for (int i = 0; i < m_monsters.Length; i++)
-        {
-            m_monsters[i] = new Monster();
-            m_monsters[i].m_monster2 = new GameObject[2];
-            for (int j = 0; j < m_monsters[i].m_monster2.Length; j++)
-            {
-
-                if (m_monsters[i].m_monster2[j] == null)
-                {
-                    m_monsters[i].m_monster2[j] = pool[i].NewItem();
-                    m_monsters[i].m_monster2[j].transform.position = this.transform.position;
-                    //break;
-                }
-            }
-        }
+        //        if (m_monsters[i].m_monster2[j] == null)
+        //        {
+        //            m_monsters[i].m_monster2[j] = pool[i].NewItem();
+        //            m_monsters[i].m_monster2[j].transform.position = this.transform.position;
+        //            //break;
+        //        }
+        //    }
+        //}
+        StartCoroutine(DelayInit());
 
     }
 	
@@ -70,73 +66,112 @@ public class CreateMonster : MonoBehaviour {
         //몬스터가 캐릭터 충돌 판정 체크는 몬스터에 붙인 스크립트에 bool 로 체크, 
         //충돌이면 true로 반환한걸 받아옴, 
 
-        m_respawnTimeLeft = Time.time - m_startTime;
-        m_respawnRate = Random.Range(1.0f, 80.0f);
-        
-        if (m_respawnTimeLeft > m_respawnRate)
-        {
-            //Debug.Log("random : " + m_respawnRate);
-            //for (int i = 0; i < m_monsters.Length; i++)
-            //{
-            //    for(int j = 0; j< 2; j++)
-            //    {
-                    
-            //        if (m_monsters[i].m_monster2[j] == null)
-            //        {
-            //            m_monsters[i].m_monster2[j] = pool[i].NewItem();
-            //            m_monsters[i].m_monster2[j].transform.position = this.transform.position;
-            //            break;
-            //        }                  
-                    
-            //    }
-            //}
+        //m_respawnTimeLeft = Time.time - m_startTime;
+        //m_respawnRate = Random.Range(110.0f, 300.0f);
 
-            m_startTime = Time.time;
-            m_respawnTimeLeft = 0.0f;
-        }
+        //if (m_respawnTimeLeft > m_respawnRate)
+        //{
+        //    //Debug.Log("random : " + m_respawnRate);
+        //    for (int i = 0; i < m_monsters.Length; i++)
+        //    {
+        //        for (int j = 0; j < 2; j++)
+        //        {
+        //            if (m_monsters[i].m_monster2[j] == null)
+        //            {
+        //                m_monsters[i].m_monster2[j] = pool[i].NewItem();
+        //                m_monsters[i].m_monster2[j].transform.position = this.transform.position;
+        //                m_monsters[i].m_monster2[j].transform.name = LoadMonsterData.GetInstance.m_monsterList[i].Name;
+        //                break;
+        //            }
+        //        }
+        //    }
+        //    m_startTime = Time.time;
+        //    m_respawnTimeLeft = 0.0f;
+        //}
 
 
         m_respawnTimeLeft2 = Time.time - m_startTime2;
-        m_respawnRate2 = Random.Range(1.0f,90.0f);
+        m_respawnRate2 = Random.Range(2.0f,10.0f);
        
         if (m_respawnTimeLeft2 > m_respawnRate2)
         {
             //Debug.Log("random2 : " + m_respawnRate2);
-            //for (int i = 0; i < m_monsters.Length; i++)
-            //{
-            //    for(int j = 0; j< 2; j++)
-            //    {
+            int random = Random.Range(0, m_monsters.Length);
+            for (int i = 0; i < m_monsters.Length; i++)
+            {
+                //for (int j = 0; j < m_monsters[i].m_monster2.Length; j++)
+                //{
+                    if (m_monsters[random].m_monster2[0] == null)
+                    {
+                        m_monsters[random].m_monster2[0] = pool[random].NewItem();
+                        m_monsters[random].m_monster2[0].transform.position = this.transform.position;
+                        m_monsters[random].m_monster2[0].transform.name = LoadMonsterData.GetInstance.m_monsterList[random].Name;                        
+                        break;
+                    }
+                    if (m_monsters[random].m_monster2[1] == null)
+                    {
+                        m_monsters[random].m_monster2[1] = pool[random].NewItem();
+                        m_monsters[random].m_monster2[1].transform.position = this.transform.position;
+                        m_monsters[random].m_monster2[1].transform.name = LoadMonsterData.GetInstance.m_monsterList[random].Name;
+                        break;
+                    }
 
-            //        if (m_monsters[i].m_monster2[j] == null)
-            //        {
-            //            m_monsters[i].m_monster2[j] = pool[i].NewItem();
-            //            m_monsters[i].m_monster2[j].transform.position = this.transform.position;
-            //            break;
-            //        }                  
 
-            //    }
-            //}
+                    //if (m_monsters[i].m_monster2[j] != null)
+                    //{
+                    //    m_monsters[i].m_monster2[j].SetActive(true);
+                    //    //break;
+                    //}
+                    //if (LoadMonsterData.GetInstance.m_monsterList[0].Name == m_monsters[i].m_monster2[j].name)
+                    //{
+                    //    //print(m_monsters[i].m_monster2[j].name);
+                    //}
+                    //if (LoadMonsterData.GetInstance.m_monsterList[1].Name == m_monsters[i].m_monster2[j].name)
+                    //{
+
+                    //}
+                    //if (LoadMonsterData.GetInstance.m_monsterList[2].Name == m_monsters[i].m_monster2[j].name)
+                    //{
+
+                    //}
+               // }
+            }
 
             m_startTime2 = Time.time;
             m_respawnTimeLeft2 = 0.0f;
         }
 
 
-        //for(int i = 0; i< m_monsters.Length; i++)
-        //{
-        //    for(int j = 0; j < m_monsters[i].m_monster2.Length; j++)
-        //    {
-        //        if(m_monsters[i].m_monster2[j])
-        //        {
-        //            // 조건문부분에 몬스터 충돌로 받아오는 bool을 체크
-        //            if(true)
-        //            {
-        //                pool[i].RemoveItem(m_monsters[i].m_monster2[j]);
-        //                m_monsters[i].m_monster2[j] = null;
-        //            }
-        //        }
-        //    }
-        //}
+        for (int i = 0; i < m_monsters.Length; i++)
+        {
+            for (int j = 0; j < m_monsters[i].m_monster2.Length; j++)
+            {
+                if (m_monsters[i].m_monster2[j])
+                {
+                    // 조건문부분에 몬스터 충돌로 받아오는 bool을 체크
+                    if (m_monsterHpCheck  && m_monsters[i].m_monster2[j].GetComponent<MonsterController>().m_hpCheck)
+                    {
+                        m_startTime3 = Time.time;
+                        if(m_startTime3 > 2.0f)
+                        {
+                            pool[i].RemoveItem(m_monsters[i].m_monster2[j]);
+                            m_monsters[i].m_monster2[j] = null;
+
+                            print("null check");
+                        }
+                        m_monsterHpCheck = false;
+                        m_startTime3 = 0;                                   
+                    }
+                    
+                }
+            }
+        }
+    }
+
+    IEnumerator DelayInit()
+    {
+        yield return Yielders.Get(0.5f);
+        InitializeMonster();
     }
 
     //메모리 풀클래스를 할당
@@ -144,9 +179,6 @@ public class CreateMonster : MonoBehaviour {
     //내부 할당은 for문으로 일괄 할당,
     void InitializeMonster()
     {
-        //pool[0].Create(m_monsterPrefabs[0], m_maxMonsterNumber);
-        //pool[1].Create(m_monsterPrefabs[1], m_maxMonsterNumber);
-        //pool[2].Create(m_monsterPrefabs[2], m_maxMonsterNumber);
         int count = LoadMonsterData.GetInstance.m_monsterList.Count;
 
         pool = new MemoryPool[count];
@@ -154,22 +186,55 @@ public class CreateMonster : MonoBehaviour {
         {
             pool[i] = new MemoryPool();
         }
-        //pool[0] = new MemoryPool();
-        //pool[1] = new MemoryPool();
-        //pool[2] = new MemoryPool();
-
-
+        //에셋번들에서 로드
+        //for(int i = 0; i < AssetLoader.GetInstance.monster_list.Count; i++)
+        //{
+        //    m_monsterPrefabs[i] = AssetLoader.GetInstance.monster_list[i];
+        //}
         m_monsterPrefabs = Resources.LoadAll<GameObject>("Prefabs/Monsters/");
 
         for (int i = 0; i < count; i++ )
         {
-            pool[i].Create(m_monsterPrefabs[LoadMonsterData.GetInstance.m_monsterList[i].Id], m_maxMonsterNumber);
+            pool[i].Create(m_monsterPrefabs[LoadMonsterData.GetInstance.m_monsterList[i].Id - 1], m_maxMonsterNumber);
         }
 
-        if(LoadMonsterData.GetInstance.m_monsterList[0].Id == 1)
+        for (int i = 0; i < m_monsters.Length; i++)
         {
+            m_monsters[i] = new Monster();
+            m_monsters[i].m_monster2 = new GameObject[2];
+            //for (int j = 0; j < m_monsters[i].m_monster2.Length; j++)
+            //{
+            //    m_monsters[i].m_monster2[j] = null;
+            //    if (m_monsters[i].m_monster2[j] == null)
+            //    {
+            //        m_monsters[i].m_monster2[j] = pool[i].NewItem();
+            //        m_monsters[i].m_monster2[j].transform.position = this.transform.position;
+            //        m_monsters[i].m_monster2[j].transform.name = LoadMonsterData.GetInstance.m_monsterList[i].Name;
+                    
+            //        //break;
+            //    }
+            //    if (m_monsters[i].m_monster2[j] != null)
+            //    {
+            //        m_monsters[i].m_monster2[j].SetActive(false);
+            //    }
+            //        //몬스터 스펙 셋팅
+            //    if (LoadMonsterData.GetInstance.m_monsterList[0].Name == m_monsters[i].m_monster2[j].name)
+            //    {
+            //        //print(m_monsters[i].m_monster2[j].name);
+            //    }
+            //    if (LoadMonsterData.GetInstance.m_monsterList[1].Name == m_monsters[i].m_monster2[j].name)
+            //    {
 
+            //    }
+            //    if (LoadMonsterData.GetInstance.m_monsterList[2].Name == m_monsters[i].m_monster2[j].name)
+            //    {
+
+            //    }
+            //}
         }
+
+        //추후 m_monsterList[].name하고 에셋번들 이름하고 비교로 변경
         
+
     }
 }

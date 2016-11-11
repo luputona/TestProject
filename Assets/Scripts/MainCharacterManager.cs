@@ -21,8 +21,8 @@ public class MainCharacterManager : MonoBehaviour
 
     void Update()
     {
-        m_mainFundsGold_Text.text = string.Format("{0}", LoadData.GetInstance.m_gold);
-        m_mainFundsItem_Text.text = string.Format("{0}", LoadData.GetInstance.m_item);
+        m_mainFundsGold_Text.text = string.Format("{0}", LoadData.GetInstance.m_initgold);
+        m_mainFundsItem_Text.text = string.Format("{0}", LoadData.GetInstance.m_inititem);
     }
     void ChangeMainCharacter()
     {

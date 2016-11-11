@@ -11,7 +11,7 @@ GameObject:
   - 61: {fileID: 6174128}
   m_Layer: 8
   m_Name: Normal_CollCheck
-  m_TagString: Untagged
+  m_TagString: NormalAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27,7 +27,7 @@ GameObject:
   - 61: {fileID: 6122714}
   m_Layer: 8
   m_Name: Skill_CollCheck
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -107,7 +107,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 4
+  m_Constraints: 5
 --- !u!58 &5812632
 CircleCollider2D:
   m_ObjectHideFlags: 1
@@ -193,17 +193,17 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   characterHeightOffset: 5
-  groundMask:
-    serializedVersion: 2
-    m_Bits: 1
   animator: {fileID: 0}
   spriteRenderer: {fileID: 0}
   rig2d: {fileID: 0}
-  hp: 4
   m_normalAttack_collCheck: {fileID: 0}
   m_skill_collCheck: {fileID: 0}
+  m_bulletPrefabs: []
+  m_bullet: []
   m_emotion: 0
   m_distance: 1
+  m_collCheck: 0
+  m_bulletCount: 0
 --- !u!212 &21267904
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -14,7 +14,7 @@ GameObject:
   - 114: {fileID: 11417642}
   m_Layer: 8
   m_Name: Skill_CollCheck 1
-  m_TagString: Untagged
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -75,6 +75,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_monsterCollCheck: 0
   m_bulletSpeed: 2
+  m_damage: 0
 --- !u!212 &21288362
 SpriteRenderer:
   m_ObjectHideFlags: 1

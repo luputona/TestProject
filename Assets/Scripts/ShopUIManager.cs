@@ -38,8 +38,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
     }
 	void Update()
     {
-        m_userGoldText.text = string.Format("{0}", UserInfomation.GetInstance.m_gold);
-        m_userItemText.text = string.Format("{0}", UserInfomation.GetInstance.m_item);
+        m_userGoldText.text = string.Format("{0}", LoadData.GetInstance.m_initgold);
+        m_userItemText.text = string.Format("{0}", LoadData.GetInstance.m_inititem);
     }
 
 	IEnumerator ShopUpdate()
