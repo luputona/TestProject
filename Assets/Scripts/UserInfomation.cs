@@ -17,13 +17,14 @@ public class UserInfomation : Singleton<UserInfomation>
     public Image m_charInfoImage;
 
     //public string m_name;
-    //public int m_hp;
-    //public int m_mp;
-    //public int m_attack;
-    //public int m_defence; 
+    public int m_hp;
+    public int m_mp;
+    public int m_attack;
+    public int m_defence; 
 
-    //public int m_gold; 
-    //public int m_item;
+    public int m_gold; 
+    public int m_item;
+
     public string m_selectCharacter;
     public string m_statusPopup_info;
 
@@ -163,12 +164,17 @@ public class UserInfomation : Singleton<UserInfomation>
     }
     public void ShowUserTotalStatus()
     {
-        if(m_userTotalStatus != null)
+        m_hp = PlayerPrefs.GetInt("hp") + LoadData.GetInstance.m_hp;
+        m_mp = PlayerPrefs.GetInt("mp") + LoadData.GetInstance.m_mp;
+        m_attack = PlayerPrefs.GetInt("attack") + LoadData.GetInstance.m_attack;
+        m_defence = PlayerPrefs.GetInt("defence") + LoadData.GetInstance.m_defence;
+
+        if (m_userTotalStatus != null)
         {
-            m_totalSpecText["Cur_Total_Hp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("hp") + LoadData.GetInstance.m_hp);
-            m_totalSpecText["Cur_Total_Mp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("mp") + LoadData.GetInstance.m_mp);
-            m_totalSpecText["Cur_Total_Attack_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("attack") + LoadData.GetInstance.m_attack);
-            m_totalSpecText["Cur_Total_Defence_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("defence") + LoadData.GetInstance.m_defence);
+            m_totalSpecText["Cur_Total_Hp_Text"].text = string.Format("{0}", m_hp);
+            m_totalSpecText["Cur_Total_Mp_Text"].text = string.Format("{0}", m_mp);
+            m_totalSpecText["Cur_Total_Attack_Text"].text = string.Format("{0}", m_attack);
+            m_totalSpecText["Cur_Total_Defence_Text"].text = string.Format("{0}", m_defence);
         }
     }
 

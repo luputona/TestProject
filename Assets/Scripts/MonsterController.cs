@@ -11,11 +11,12 @@ public class MonsterController : MonoBehaviour
     public int Attack;// { get; set; }
     public int RecoverSP; //{ get; set; }
     public int Score; //{ get; set; }
+    public int Gold;
 
     public float m_moveSpeed;
     public bool m_hpCheck = false;
     public bool m_moveCheck = true;
-    public float m_boundVector;
+    public float m_bounceVector;
 
     public float m_random;
     public float m_startTime;
@@ -25,8 +26,8 @@ public class MonsterController : MonoBehaviour
     void Start ()
     {
         StartCoroutine(InitTimer());
-        m_boundVector = -1.0f;
-        m_vetor3 = new Vector3(m_boundVector, 0, 0f);
+        m_bounceVector = -1.0f;
+        m_vetor3 = new Vector3(m_bounceVector, 0, 0f);
 
         m_random = Random.Range(1.0f, 10.0f);
     }
@@ -44,7 +45,7 @@ public class MonsterController : MonoBehaviour
             }
             else
             {
-                StartCoroutine(Bound());
+                StartCoroutine(Bounce());
             }
             m_startTime = 0;
 
@@ -95,6 +96,8 @@ public class MonsterController : MonoBehaviour
         else if(coll.collider.CompareTag("Player"))
         {
             m_moveCheck = false;
+
+            CharacterControllManager.GetInstance.m_curHp = CharacterControllManager.GetInstance.m_curHp - (Attack - CharacterControllManager.GetInstance.m_defence);
         }
     }
     void OnCollisionStay2D(Collision2D coll)
@@ -123,6 +126,7 @@ public class MonsterController : MonoBehaviour
             Attack = LoadMonsterData.GetInstance.m_monsterList[0].Attack;
             RecoverSP = LoadMonsterData.GetInstance.m_monsterList[0].RecoverSP;
             Score = LoadMonsterData.GetInstance.m_monsterList[0].Score;
+            Gold = LoadMonsterData.GetInstance.m_monsterList[0].Gold;
             m_moveSpeed = 1.0f;
         }
         if (this.transform.name == LoadMonsterData.GetInstance.m_monsterList[1].Name)
@@ -132,6 +136,7 @@ public class MonsterController : MonoBehaviour
             Attack = LoadMonsterData.GetInstance.m_monsterList[1].Attack;
             RecoverSP = LoadMonsterData.GetInstance.m_monsterList[1].RecoverSP;
             Score = LoadMonsterData.GetInstance.m_monsterList[1].Score;
+            Gold = LoadMonsterData.GetInstance.m_monsterList[1].Gold;
             m_moveSpeed = 1.1f;
         }
         if (this.transform.name == LoadMonsterData.GetInstance.m_monsterList[2].Name)
@@ -141,6 +146,7 @@ public class MonsterController : MonoBehaviour
             Attack = LoadMonsterData.GetInstance.m_monsterList[2].Attack;
             RecoverSP = LoadMonsterData.GetInstance.m_monsterList[2].RecoverSP;
             Score = LoadMonsterData.GetInstance.m_monsterList[2].Score;
+            Gold = LoadMonsterData.GetInstance.m_monsterList[2].Gold;
             m_moveSpeed = 1.2f;
         }
         
@@ -149,16 +155,16 @@ public class MonsterController : MonoBehaviour
 
 
 
-    IEnumerator Bound()
+    IEnumerator Bounce()
     {
-        m_boundVector = 1.0f;
-        m_vetor3 = new Vector3(m_boundVector, 0, 0f);
+        m_bounceVector = 1.0f;
+        m_vetor3 = new Vector3(m_bounceVector, 0, 0f);
         
         Move();
-        yield return Yielders.Get(0.45f);
-        m_boundVector = -1.0f;
+        yield return Yielders.Get(0.25f);
+        m_bounceVector = -1.0f;
         
-        m_vetor3 = new Vector3(m_boundVector, 0, 0f);
+        m_vetor3 = new Vector3(m_bounceVector, 0, 0f);
         m_moveCheck = true;
     }
     IEnumerator CollTimeCheck()

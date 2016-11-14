@@ -3,31 +3,34 @@
         "ID": 1,
         "Category": "Normal",
         "Name": "Bottle",
-        "HP": 13,
+        "HP": 20,
         "Defence": 3,
-        "Attack": 12,
+        "Attack": 18,
         "RecoverSP": 5,
-        "GetScore": 10
+        "GetScore": 10,
+		"GetGold": 2
     },
     {
         "ID": 2,
         "Category": "Normal",
         "Name": "Can",
-        "HP": 15,
+        "HP": 25,
         "Defence": 3,
-        "Attack": 14,
+        "Attack": 20,
         "RecoverSP": 6,
-        "GetScore": 11
+        "GetScore": 11,
+		"GetGold": 2
     },
     {
         "ID": 3,
         "Category": "Normal",
         "Name": "Paper",
-        "HP": 11,
+        "HP": 23,
         "Defence": 1,
-        "Attack": 10,
+        "Attack": 15,
         "RecoverSP": 4,
-        "GetScore": 9
+        "GetScore": 9,
+		"GetGold": 2
     }
 
 ]

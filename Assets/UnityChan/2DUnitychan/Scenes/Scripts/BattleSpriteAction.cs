@@ -41,6 +41,7 @@ public class BattleSpriteAction : Singleton<BattleSpriteAction>
     public GameObject[] m_bulletPrefabs;
     public GameObject[] m_bullet;
     
+    
     public MOTIONCHECK m_emotion;
     public DISTANCE m_distance;
     public bool m_collCheck;
@@ -266,5 +267,6 @@ public class BattleSpriteAction : Singleton<BattleSpriteAction>
         m_emotion = MOTIONCHECK.E_Q;        
     }
 
+    
 
 }

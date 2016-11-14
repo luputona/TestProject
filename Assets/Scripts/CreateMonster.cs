@@ -59,7 +59,7 @@ public class CreateMonster : Singleton<CreateMonster>
     }
 	
 	// Update is called once per frame
-	void Update ()
+	public void UpdateCreatMonster ()
     {
         //몬스터가 null 이면 할당해주고  null이 아니면 앞으로 이동시킴,
         //몬스터가 캐릭터와 충돌 후 사망시 , null로 처리해주고 다시 할당해줌
@@ -151,16 +151,33 @@ public class CreateMonster : Singleton<CreateMonster>
                     // 조건문부분에 몬스터 충돌로 받아오는 bool을 체크
                     if (m_monsterHpCheck  && m_monsters[i].m_monster2[j].GetComponent<MonsterController>().m_hpCheck)
                     {
-                        m_startTime3 = Time.time;
-                        if(m_startTime3 > 2.0f)
+                        for (int k = 0; k < LoadMonsterData.GetInstance.m_monsterList.Count; k++)
                         {
-                            pool[i].RemoveItem(m_monsters[i].m_monster2[j]);
-                            m_monsters[i].m_monster2[j] = null;
+                            if (m_monsters[i].m_monster2[j].name == LoadMonsterData.GetInstance.m_monsterList[k].Name)
+                            {
+                                CharacterControllManager.GetInstance.m_score += LoadMonsterData.GetInstance.m_monsterList[k].Score;
+                                CharacterControllManager.GetInstance.m_getGold += LoadMonsterData.GetInstance.m_monsterList[k].Gold;
+                                PlayerPrefs.GetInt("GetGold", CharacterControllManager.GetInstance.m_getGold);
+                                PlayerPrefs.GetInt("GetScore", CharacterControllManager.GetInstance.m_score);
 
-                            print("null check");
+                                if(CharacterControllManager.GetInstance.m_curSp < CharacterControllManager.GetInstance.m_maxSp)
+                                {
+                                    CharacterControllManager.GetInstance.m_curSp += LoadMonsterData.GetInstance.m_monsterList[k].RecoverSP;
+                                    int tempSp = CharacterControllManager.GetInstance.m_maxSp - CharacterControllManager.GetInstance.m_curSp;
+                                    if (tempSp < LoadMonsterData.GetInstance.m_monsterList[k].RecoverSP )
+                                    {
+                                        CharacterControllManager.GetInstance.m_curSp += tempSp;
+                                    }
+                                }
+                                
+                            }
                         }
+                        pool[i].RemoveItem(m_monsters[i].m_monster2[j]);
+                        m_monsters[i].m_monster2[j] = null;
+
                         m_monsterHpCheck = false;
-                        m_startTime3 = 0;                                   
+
+                        
                     }
                     
                 }
@@ -173,6 +190,8 @@ public class CreateMonster : Singleton<CreateMonster>
         yield return Yielders.Get(0.5f);
         InitializeMonster();
     }
+
+    
 
     //메모리 풀클래스를 할당
     //DB에있는 몬스터의 ID를 조건문으로 걸러낸 후  m_monsterPrefabs에 담고 create하는 초기화 함수 

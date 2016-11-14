@@ -10,6 +10,10 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
     public GameObject m_skillUI;
     public GameObject m_respawnPosition;
     public GameObject m_characterObj;
+    public GameObject m_gameOverPanel;
+    public GameObject m_gameOver_BackGroundPanel;
+    public GameObject m_settingBtn;
+    public GameObject m_settingPanel;
     public Slider m_hpBar;
     public Slider m_mpBar;
     public Slider m_spBar;
@@ -17,12 +21,16 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
     public int m_curHp;
     public float m_curMp;
     public int m_curSp;
-
+    public int m_score;
+    public int m_getGold;
     public int m_totalHp;
     public int m_totalMp;
+    public int m_maxSp;
 
-    public Text[] m_curStatusText = new Text[3];
+    public Text[] m_curStatusText = new Text[5];
+    
 
+    public int m_defence;
     public int m_inDamage;
     public int m_normalDamage;
     public int m_skillDamage;
@@ -37,6 +45,7 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
     private bool m_qCheck = true;
     private bool m_hppotionCheck = true;
     private bool m_mppotionCheck = true;
+    private bool m_gameoverCheck = false;
 
     private int m_charIndex;
 
@@ -53,17 +62,23 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         InitializeUI();
         StartCoroutine(Init());
 
-        PlayerPrefs.SetString("SelectCharacter", "Yuko");
+        PlayerPrefs.SetString("SelectCharacter", "UnityChan");
         print(PlayerPrefs.GetString("SelectCharacter"));
 	}
 	
 	// Update is called once per frame
 	void Update ()
     {
+        CreateMonster.GetInstance.UpdateCreatMonster();
         UpdateStatus();
     }
     IEnumerator Init()
     {
+        m_gameOverPanel.SetActive(m_gameoverCheck);
+        m_gameOver_BackGroundPanel.SetActive(false);
+        m_settingPanel.SetActive(false);
+
+
         yield return Yielders.Get(0.5f);
         InitializeCharacter();
     }
@@ -72,6 +87,7 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
     {        
         m_skillUI = GameObject.FindGameObjectWithTag("SkillPanel");
         m_potionPanel = GameObject.FindGameObjectWithTag("PotionPanel");
+        
         
     }
 
@@ -83,26 +99,27 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
             m_characterObj = Resources.Load("Prefabs/Character/Unitychan_Battle(Sword)") as GameObject;
             GameObject obj = Instantiate(m_characterObj, m_respawnPosition.transform.position, Quaternion.identity) as GameObject;
             m_charIndex = 0;
-            m_recoveryMp = 10;
+            m_recoveryMp = 4;
             m_normalAttackTime = 0.4f;
-            m_skillTime = 0.8f;
+            m_skillTime = 0.5f;
             m_totalHp = LoadData.GetInstance.m_hp + LoadCharacterData.GetInstance.m_charList[0].Hp;
             m_totalMp = LoadData.GetInstance.m_mp + LoadCharacterData.GetInstance.m_charList[0].Mp;
             m_normalDamage = LoadCharacterData.GetInstance.m_charList[0].Attack + LoadData.GetInstance.m_attack;
             m_skillDamage = LoadCharacterData.GetInstance.m_charList[0].SkillDamage * m_normalDamage / 4;
             m_qDamage = LoadCharacterData.GetInstance.m_charList[0].QDamage * m_normalDamage / 5;
+            m_defence = LoadCharacterData.GetInstance.m_charList[0].Defence + PlayerPrefs.GetInt("defence");
             m_curStatusText[0].text = string.Format("{0} / {1}", m_totalHp, m_totalHp);
             m_curStatusText[1].text = string.Format("{0} / {1}", m_totalMp, m_totalMp);
             m_curStatusText[2].text = string.Format("{0} / {1}", LoadCharacterData.GetInstance.m_charList[0].Sp , LoadCharacterData.GetInstance.m_charList[0].Sp);
             m_curHp = m_totalHp;
             m_curMp = m_totalMp;
-            m_curSp = LoadCharacterData.GetInstance.m_charList[0].Sp;
+            m_maxSp = LoadCharacterData.GetInstance.m_charList[0].Sp;
             m_hpBar.maxValue = m_totalHp;
             m_mpBar.maxValue = m_totalMp;
             m_spBar.maxValue = LoadCharacterData.GetInstance.m_charList[0].Sp;
             m_hpBar.value = m_totalHp;
             m_mpBar.value = m_totalMp;
-            m_spBar.value = LoadCharacterData.GetInstance.m_charList[0].Sp;
+            m_spBar.value = 0; //LoadCharacterData.GetInstance.m_charList[0].Sp;
             
         }
         else if(PlayerPrefs.GetString("SelectCharacter") == "Yuko")
@@ -110,7 +127,7 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
             m_characterObj = Resources.Load("Prefabs/Character/Yuko") as GameObject;
             GameObject obj = Instantiate(m_characterObj, m_respawnPosition.transform.position, Quaternion.identity) as GameObject;
             m_charIndex = 1;
-            m_recoveryMp = 11;
+            m_recoveryMp = 5;
             m_normalAttackTime = 0.5f;
             m_skillTime = 0.3f;
             m_totalHp = LoadData.GetInstance.m_hp + LoadCharacterData.GetInstance.m_charList[1].Hp;
@@ -118,18 +135,19 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
             m_normalDamage = LoadCharacterData.GetInstance.m_charList[1].Attack + LoadData.GetInstance.m_attack;
             m_skillDamage = LoadCharacterData.GetInstance.m_charList[1].SkillDamage * m_normalDamage / 4;
             m_qDamage = LoadCharacterData.GetInstance.m_charList[1].QDamage * m_normalDamage / 5;
+            m_defence = LoadCharacterData.GetInstance.m_charList[1].Defence + PlayerPrefs.GetInt("defence");
             m_curStatusText[0].text = string.Format("{0} / {1}", m_totalHp, m_totalHp);
             m_curStatusText[1].text = string.Format("{0} / {1}", m_totalMp, m_totalMp);
             m_curStatusText[2].text = string.Format("{0} / {1}", LoadCharacterData.GetInstance.m_charList[1].Sp, LoadCharacterData.GetInstance.m_charList[1].Sp);
             m_curHp = m_totalHp;
             m_curMp = m_totalMp;
-            m_curSp = LoadCharacterData.GetInstance.m_charList[1].Sp;
+            m_maxSp = LoadCharacterData.GetInstance.m_charList[1].Sp;
             m_hpBar.maxValue = m_totalHp;
             m_mpBar.maxValue = m_totalMp;
             m_spBar.maxValue = LoadCharacterData.GetInstance.m_charList[1].Sp;
             m_hpBar.value = m_totalHp;
             m_mpBar.value = m_totalMp;
-            m_spBar.value = LoadCharacterData.GetInstance.m_charList[1].Sp;
+            m_spBar.value = 0;// LoadCharacterData.GetInstance.m_charList[1].Sp;
         }
     }
 
@@ -148,6 +166,8 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         }
         m_curStatusText[1].text = string.Format("{0} / {1}", m_curMp.ToString("N0"), m_totalMp);
         m_curStatusText[2].text = string.Format("{0} / {1}", m_curSp, LoadCharacterData.GetInstance.m_charList[m_charIndex].Sp);
+        m_curStatusText[3].text = string.Format("{0}", m_getGold);
+        m_curStatusText[4].text = string.Format("{0}",m_score);
         m_hpBar.value = m_curHp;
         m_mpBar.value = m_curMp;
         m_spBar.value = m_curSp;
@@ -155,7 +175,27 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
 
         UITimer();
 
+        if(m_curHp < 0)
+        {
+            m_gameoverCheck = true;
+            
+            Result();
+            m_curHp = 0;
+        }
     }
+
+    void Result()
+    {
+        if(m_gameoverCheck)
+        {
+            m_gameOverPanel.SetActive(m_gameoverCheck);
+            m_gameOver_BackGroundPanel.SetActive(true);
+            m_gameOverPanel.transform.FindChild("Gold_Text").GetComponent<Text>().text = string.Format("{0}", m_getGold);
+            m_gameOverPanel.transform.FindChild("Score_Text").GetComponent<Text>().text = string.Format("{0}", m_score);
+        }
+    }
+
+    
 
     void UITimer()
     {
@@ -188,8 +228,6 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         }
        
 
-
-
         if (m_mppotionCheck)
         {
             m_potionPanel.transform.FindChild("MP_Potion_Image").GetComponent<Button>().interactable = true;
@@ -199,6 +237,21 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
             m_potionPanel.transform.FindChild("HP_Potion_Image").GetComponent<Button>().interactable = true;
         }
 
+    }
+    public void SettingOn()
+    {
+        m_settingPanel.SetActive(true);
+        m_gameOver_BackGroundPanel.SetActive(true);
+
+        Time.timeScale = 0;
+    }
+    
+    public void SettingOff()
+    {
+        m_settingPanel.SetActive(false);
+        m_gameOver_BackGroundPanel.SetActive(false);
+
+        Time.timeScale = 1;
     }
 
     public void NormalAttack()

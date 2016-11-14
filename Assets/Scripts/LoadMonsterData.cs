@@ -59,7 +59,8 @@ public class LoadMonsterData : Singleton<LoadMonsterData>
                 (int)m_monsterData[i]["Defence"],
                 (int)m_monsterData[i]["Attack"], 
                 (int)m_monsterData[i]["RecoverSP"],
-                (int)m_monsterData[i]["GetScore"]));
+                (int)m_monsterData[i]["GetScore"],
+                (int)m_monsterData[i]["GetGold"]));
         }
     }
 }
@@ -74,8 +75,9 @@ public class MonsterInfo
     public int Attack;// { get; set; }
     public int RecoverSP; //{ get; set; }
     public int Score; //{ get; set; }
+    public int Gold;
 
-    public MonsterInfo(int id, string category, string name, int hp, int defence, int attack, int recoversp, int score)
+    public MonsterInfo(int id, string category, string name, int hp, int defence, int attack, int recoversp, int score, int gold)
     {
         this.Id = id;
         this.Category = category;
@@ -85,6 +87,7 @@ public class MonsterInfo
         this.Attack = attack;
         this.RecoverSP = recoversp;
         this.Score = score;
+        this.Gold = gold;
 
     }
 
