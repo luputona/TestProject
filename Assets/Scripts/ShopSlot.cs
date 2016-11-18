@@ -27,6 +27,7 @@ public class ShopSlot : MonoBehaviour
         m_btn = m_slotChild[4].GetComponent<Button>();
         m_btn.name = m_slotBG.name;
         m_slotChild[0].transform.name = m_slotBG.name;
+
         m_charNameText.text = string.Format("{0}", this.gameObject.name);
 
         for(int i = 0; i< LoadCharacterData.GetInstance.m_charList.Count; i++)

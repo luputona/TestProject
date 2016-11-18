@@ -57,23 +57,24 @@ public class MainUIManager : MonoBehaviour
 
     public void SelectMap(string _areaname)
     {
-        m_selectMap_Difficulty_Panel.SetActive(true);
+        //m_selectMap_Difficulty_Panel.SetActive(true);
         
         m_mapArea = _areaname;
 
-        if (_areaname == "Korea")
+        if (_areaname == "Infinity")
         {
-            m_difficulty_panel_child["MapName_Text"].GetComponent<Text>().text = string.Format("{0}", LoadMapData.GetInstance.m_mapInfoList[0].MapName);
-            m_difficulty_panel_child["Area01_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[0][0]);
-            m_difficulty_panel_child["Area02_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[0][1]);
-            m_difficulty_panel_child["Area03_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[0][2]);         
+            SceneMgr.SelectField(5);
+            //m_difficulty_panel_child["MapName_Text"].GetComponent<Text>().text = string.Format("{0}", LoadMapData.GetInstance.m_mapInfoList[0].MapName);
+            //m_difficulty_panel_child["Area01_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[0][0]);
+            //m_difficulty_panel_child["Area02_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[0][1]);
+            //m_difficulty_panel_child["Area03_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[0][2]);         
         }
-        if(_areaname == "Japan")
+        if(_areaname == "Boss")
         {
-            m_difficulty_panel_child["MapName_Text"].GetComponent<Text>().text = string.Format("{0}", LoadMapData.GetInstance.m_mapInfoList[1].MapName);
-            m_difficulty_panel_child["Area01_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[1][0]);
-            m_difficulty_panel_child["Area02_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[1][1]);
-            m_difficulty_panel_child["Area03_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[1][2]);
+            //m_difficulty_panel_child["MapName_Text"].GetComponent<Text>().text = string.Format("{0}", LoadMapData.GetInstance.m_mapInfoList[1].MapName);
+            //m_difficulty_panel_child["Area01_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[1][0]);
+            //m_difficulty_panel_child["Area02_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[1][1]);
+            //m_difficulty_panel_child["Area03_Text"].GetComponent<Text>().text = string.Format("{0}", m_loadmapNameList[1][2]);
         }
     }
 
@@ -82,6 +83,7 @@ public class MainUIManager : MonoBehaviour
         m_selectMap_Difficulty_Panel.SetActive(false);
     }
 
+    //사용안함
     public void SelectDifficulty(string _difficultyName)
     {  
         if(_difficultyName == m_loadmapNameList[0][0])

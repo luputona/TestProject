@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class GPGSBtn : MonoBehaviour {
 
     public Text m_loginText;
-    public RawImage m_userImage = null;
+    //public RawImage m_userImage = null;
     public Text m_userName;
     public Text m_userMail;
     public Text m_userID;
@@ -32,7 +32,7 @@ public class GPGSBtn : MonoBehaviour {
             m_loginText.text = string.Format("{0}", logout);
            
         }
-        Achievement();
+        //Achievement();
 	}
 
     public void ClickEvent()
@@ -49,14 +49,14 @@ public class GPGSBtn : MonoBehaviour {
 
     void SettingUser()
     {
-        if(m_userImage.mainTexture == null)
-        {
-            return;
-        }
-        m_userImage.texture = GPGSMgr.GetInstance.GetImageGPGS();
+        //if (m_userImage.mainTexture == null)
+        //{
+        //    return;
+        //}
+        //m_userImage.texture = GPGSMgr.GetInstance.GetImageGPGS();
         m_userMail.text = string.Format("Mail : {0}", GPGSMgr.GetInstance.GetMailGPGS());
-        m_userName.text = string.Format("Name: {0}", GPGSMgr.GetInstance.GetNameGPGS());       
-        m_userID.text = string.Format("ID: {0}" , GPGSMgr.GetInstance.GetIDGPGS());
+        m_userName.text = string.Format("Name: {0}", GPGSMgr.GetInstance.GetNameGPGS());
+        m_userID.text = string.Format("ID: {0}", GPGSMgr.GetInstance.GetIDGPGS());
     }
 
     void Achievement()

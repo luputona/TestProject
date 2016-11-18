@@ -15,6 +15,24 @@ public class SceneMgr : MonoBehaviour
         m_sceneCheck = _sceneNumber;
     }
 
+    public void GoToScene()
+    {
+        // AssetLoader.GetInstance.m_sceneChek = _sceneNumber;
+        SceneManager.LoadScene(m_sceneCheck);        
+    }
 
+    public static void SelectField(int _fieldnumber)
+    {
+        m_sceneCheck = _fieldnumber;
+    }
+
+    public void CompleteDownload(int _sceneNumber)
+    {
+        if(AssetLoader.GetInstance.m_downCheck)
+        {
+            SceneManager.LoadScene(_sceneNumber);
+        }
+        
+    }
 	
 }

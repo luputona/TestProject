@@ -2,12 +2,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using LitJson;
 
 //GPGS 매니져에있는 SaveData에 있는 데이타들을 받아서 외부에서 엑세스 가능하게 한다
 
 public class LoadData : Singleton<LoadData>
 {
-
+    public List<CharacterData> m_localcharList = new List<CharacterData>();
     public string m_playername;// { get; set; }
 
     public int m_hp;
@@ -26,6 +27,10 @@ public class LoadData : Singleton<LoadData>
     public int m_initdefence; //{ get; set; }
     public int m_initgold; //{ get; set; }
     public int m_inititem; //{ get; set; }
+
+    
+    private JsonData m_charJsonData;
+    string jsonstring;
     void Awake()
     {
         if (m_instance != null)
@@ -37,6 +42,16 @@ public class LoadData : Singleton<LoadData>
             GameObject.DontDestroyOnLoad(gameObject);
             m_instance = this;
         }
+
+        //StartCoroutine(GetCharacterData());
+
+
+        TextAsset text = Resources.Load<TextAsset>("StreamingAssets/PlayerChar");
+        jsonstring = text.ToString();
+        m_charJsonData = JsonMapper.ToObject(jsonstring);
+        print(text.ToString());
+
+        
     }
 
     public LoadData()
@@ -52,7 +67,15 @@ public class LoadData : Singleton<LoadData>
 
         m_initgold = 10000; 
         m_inititem = 1;
-        m_playername = GPGSMgr.GetInstance.GetNameGPGS();
+        //if (PlayerPrefs.GetString("UserName") == "" || PlayerPrefs.GetString("UserName") == GPGSMgr.GetInstance.GetNameGPGS())
+        //{
+        //    m_playername = GPGSMgr.GetInstance.GetNameGPGS();
+        //}
+        //else
+        //{
+        //    m_playername = PlayerPrefs.GetString("UserName");
+        //}
+            
 
         m_hp = m_inithp;
         m_mp = m_initmp;
@@ -61,10 +84,50 @@ public class LoadData : Singleton<LoadData>
         m_item = m_inititem;
         m_gold = m_initgold;
 
-
-        PlayerPrefs.GetString("SelectCharacter");
+        ConstructLocalCharDatabase();
+    }
+    void ConstructLocalCharDatabase()
+    {
+        
+        for (int i = 0; i < m_charJsonData.Count; i++)
+        {
+            m_localcharList.Add(new CharacterData(
+                m_charJsonData[i]["Name"].ToString(),
+                (int)m_charJsonData[i]["Id"],
+                (int)m_charJsonData[i]["Cost"],
+                (int)m_charJsonData[i]["Hp"],
+                (int)m_charJsonData[i]["Mp"],
+                (int)m_charJsonData[i]["Sp"],
+                m_charJsonData[i]["SkillName"].ToString(),
+                (int)m_charJsonData[i]["SkillMp"],
+                (int)m_charJsonData[i]["SkillDamage"],
+                (int)m_charJsonData[i]["Attack"],
+                m_charJsonData[i]["AttackName"].ToString(),
+                (int)m_charJsonData[i]["Defence"],
+                m_charJsonData[i]["QName"].ToString(),
+                (int)m_charJsonData[i]["QSp"],
+                (int)m_charJsonData[i]["QDamage"],
+                m_charJsonData[i]["Profile"].ToString()));
+        }
+       
+        
     }
 
+    IEnumerator GetCharacterData()
+    {
+        WWW www = new WWW(Application.dataPath + "/Resources/StreamingAssets/PlayerChar.txt");
+        yield return www;
+
+        string m_charstring = www.text;
+
+        m_charJsonData = JsonMapper.ToObject(m_charstring);
+
+        if (www.isDone)
+        {
+
+            Debug.Log("CharDB isDone :\n " + m_charstring.ToString());
+        }
+    }
 
     public void LoadInventory(List<CharacterData> _loadinven)
     {

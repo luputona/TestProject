@@ -15,6 +15,7 @@ public class AssetLoader : Singleton<AssetLoader>
     public string[] m_monstersnames;
 
     public int m_sceneChek;
+    public bool m_downCheck =false;
 
    // public AssetBundle bundleManifest;
 
@@ -51,6 +52,7 @@ public class AssetLoader : Singleton<AssetLoader>
             Debug.Log("www error :" + www.error);
             yield break;
         }
+        
 
         // 메니페스트 얻기
         AssetBundle bundleManifest = www.assetBundle;
@@ -69,7 +71,7 @@ public class AssetLoader : Singleton<AssetLoader>
             // 로그 찍어본다.
             //Debug.Log(assetBundleName + " Cash : " + bCaching.ToString());
 
-            m_caching.text = string.Format("{0} :Cach : {1}", assetBundleName , bCaching.ToString());
+            
             // 어셋번들을 다운로드 합니다.
             // 저는 URL과 해쉬값으로 로드하겠습니다.(해쉬값은 메니페스트에 있습니다.)
             using ( www = WWW.LoadFromCacheOrDownload(url + assetBundleName, assetBundleManifest.GetAssetBundleHash(assetBundleName)))
@@ -112,10 +114,22 @@ public class AssetLoader : Singleton<AssetLoader>
                     //    Debug.Log("List name : " + monster_list[a].name );                        
                     //}
                 }
+                m_caching.text = string.Format("{0} :Cach : {1}", assetBundleName, bCaching.ToString());
                 // 번들을 언로드해줍니다.
                 bundle.Unload(false);
                 www.Dispose();
+                if(m_names.Length == 0)
+                {
+                    m_downCheck = true;
+                }
+                else
+                {
+                    m_downCheck = false;
+                }
             }
-        }	    
-	}     
+           
+        }
+        
+
+    }     
 }

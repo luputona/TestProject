@@ -54,10 +54,28 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         m_mainChar = GameObject.FindGameObjectWithTag("MainCharacter");
         m_maincharacterImage = m_mainChar.GetComponent<SpriteRenderer>();
         CreateCharList();
-        UserInfomation.GetInstance.InitailizeCharacterInfo();        
-        
+        UserInfomation.GetInstance.InitailizeCharacterInfo();
 
-        StartCoroutine(MainUpdate());
+        for (int i = 0; i < m_inventory.Count; i++)
+        {
+            GameObject charslot = Instantiate(m_charslot) as GameObject;
+            charslot.transform.parent = m_charContent.transform;
+            charslot.transform.localPosition = Vector2.zero;
+            charslot.transform.localScale = Vector3.one;
+            charslot.transform.name = m_inventory[i].Name;
+            for(int j = 0; j < charslot.transform.childCount; j++)
+            {
+                charslot.transform.GetChild(j).transform.name = m_inventory[i].Name;
+            }
+            m_slotList.Add(charslot);
+            m_slotDic.Add(charslot.transform.name, charslot.transform.GetChild(0).GetComponent<Image>());
+
+            UpdateThumbnail();
+            
+        }
+
+        
+        //StartCoroutine(MainUpdate());
     }
 
     IEnumerator MainUpdate()
@@ -68,6 +86,11 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
             yield return null;
         }
         
+    }
+
+    void Update()
+    {
+
     }
 
     //인벤토리에 구매한 캐릭터의 슬롯을 추가
@@ -100,23 +123,23 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         //서버에 json 형태로 저장한걸 불러와서 파싱한후 
         //인벤토리add에 m_charData.m_charList[0] 대신 파싱한 리스트를 넣는다.
         //기본으로 가지고있는 캐릭터를 하나 추가
-        m_inventory.Add(m_charData.m_charList[0]);
-
+        if(LoadData.GetInstance.m_localcharList.Count == 0)
+        {
+            m_inventory.Add(LoadCharacterData.GetInstance.m_charList[0]);
+        }
+        else
+        {
+            for (int i = 0; i < LoadData.GetInstance.m_localcharList.Count; i++)
+            {
+                m_inventory.Add(LoadData.GetInstance.m_localcharList[i]);
+            }
+            //ShopUIManager.GetInstance.m_character[0] = new CharacterData(MainInvenUIManager.GetInstance.m_inventory[0].Name, MainInvenUIManager.GetInstance.m_inventory[0].Id, MainInvenUIManager.GetInstance.m_inventory[0].Cost, MainInvenUIManager.GetInstance.m_inventory[0].Hp, MainInvenUIManager.GetInstance.m_inventory[0].Mp, MainInvenUIManager.GetInstance.m_inventory[0].Sp, MainInvenUIManager.GetInstance.m_inventory[0].SkillName, MainInvenUIManager.GetInstance.m_inventory[0].SkillMp, MainInvenUIManager.GetInstance.m_inventory[0].SkillDamage, MainInvenUIManager.GetInstance.m_inventory[0].Attack, MainInvenUIManager.GetInstance.m_inventory[0].AttackName, MainInvenUIManager.GetInstance.m_inventory[0].Defence, MainInvenUIManager.GetInstance.m_inventory[0].QName, MainInvenUIManager.GetInstance.m_inventory[0].QSp, MainInvenUIManager.GetInstance.m_inventory[0].QDamage, MainInvenUIManager.GetInstance.m_inventory[0].Profile);
+        }
+                        
         InitThumbnailSprite();
         //인벤토리 UI리스트 클론 생성, 인벤토리 리스트에 담긴 수 만큼 생성
-        for (int i = 0; i < m_inventory.Count; i++)
-        {
-            GameObject charslot = Instantiate(m_charslot) as GameObject;
-            charslot.transform.parent = m_charContent.transform;
-            charslot.transform.localPosition = Vector2.zero;
-            charslot.transform.localScale = Vector3.one;
-            charslot.transform.name = m_inventory[i].Name;
-            charslot.transform.GetChild(i).transform.name = m_inventory[i].Name;
-            m_slotList.Add(charslot);
-            m_slotDic.Add(charslot.transform.name, charslot.transform.GetChild(0).GetComponent<Image>());
-            
-            UpdateThumbnail();
-        }
+        
+
         
     }
     public void InitInvenPanel()
@@ -136,6 +159,9 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         {
             m_invenStatusImage.Add(m_InvenStatusImageArray[i].name, m_InvenStatusImageArray[i].GetComponent<Image>());
         }
+
+
+
     }
 
     public void UpdateThumbnail()

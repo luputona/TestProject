@@ -53,9 +53,9 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
     {
         for(int i = 0; i< m_charData.Count; i++)
         {
-            m_charList.Add(new CharacterData(
-                (int)m_charData[i]["ID"], 
-                m_charData[i]["Name"].ToString(), 
+            m_charList.Add(new CharacterData(                
+                m_charData[i]["Name"].ToString(),
+                (int)m_charData[i]["ID"],
                 (int)m_charData[i]["Cost"], 
                 (int)m_charData[i]["HP"],
                 (int)m_charData[i]["MP"], 
@@ -104,7 +104,7 @@ public class CharacterData
     public string Profile;
    
 
-    public CharacterData(int id, string name, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack,string attackname , int defence, string qname, int qsp, int qDamage, string _profile )
+    public CharacterData(string name, int id, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack,string attackname , int defence, string qname, int qsp, int qDamage, string _profile )
     {
         this.Id = id;
         this.Name = name;

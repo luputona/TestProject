@@ -101,7 +101,7 @@ public class GPGSMgr : Singleton<GPGSMgr> {
     public int gold;
     public int item; 
     public string  selectCharacter;
-
+    public bool m_pause;
     
     private ISavedGameMetadata m_currentGame = null;
 
@@ -115,20 +115,12 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         {
             GameObject.DontDestroyOnLoad(gameObject);
             m_instance = this;
-        }        
-    }
-
-    void Start()
-    {
+        }
         InitializeGPGS();
-        InitializeUserStatus();
-
-    }
-
-    void InitializeUserStatus()
-    {
         
+
     }
+    
 
     public void InitializeGPGS()
     {
@@ -154,10 +146,9 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         {
             Social.localUser.Authenticate(LoginCallBackGPGS);
             
-            SaveGame();
-            LoadGame();
+            //SaveGame();
+            //LoadGame();
         }
-        
     }
 
     public void LoginGPGS()
@@ -176,8 +167,8 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         if (!Social.localUser.authenticated)
         {
             Social.localUser.Authenticate(LoginCallBackGPGS);
-            SaveGame();
-            LoadGame();
+            //SaveGame();
+            //LoadGame();
         }
             
     }
@@ -308,22 +299,28 @@ public class GPGSMgr : Singleton<GPGSMgr> {
     }
  
  
-    void OnApplicationPause(bool pauseStatus)
-    {
-        if (pauseStatus)
-        {
-            SaveGame();
-        }
-        else
-        {
-            LoadGame();
-        }
-    }
-
-    //void OnApplicationQuit()
+    //void OnApplicationPause(bool pauseStatus)
     //{
-    //    SaveGame();
+    //    if (pauseStatus)
+    //    {
+    //        m_pause = true;
+    //        //LogoutGPGS();
+    //    }
+    //    else
+    //    {
+    //        if(m_pause)
+    //        {
+    //            m_pause = false;
+                
+    //        }
+            
+    //    }
     //}
+
+    void OnApplicationQuit()
+    {
+        LogoutGPGS();
+    }
 
 
     /// <summary>

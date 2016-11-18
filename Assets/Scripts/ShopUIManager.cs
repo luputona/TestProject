@@ -2,7 +2,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
-
+using LitJson;
+using System.IO;
 
 public class ShopUIManager : Singleton<ShopUIManager>
 {
@@ -10,14 +11,18 @@ public class ShopUIManager : Singleton<ShopUIManager>
     public GameObject m_shopSlot;
     public GameObject m_shop_Status_text;
     public GameObject m_shop_Status_image;
+    public CharacterData[] m_character = new CharacterData[1];
     public Text m_userGoldText;
     public Text m_userItemText;
     public int m_charID;
+    public JsonData charjson;
 
     public Button m_buyBtn;
     public List<GameObject> m_shopSlotList = new List<GameObject>();
     public Dictionary<string, Text> m_shop_ShowStatus_text = new Dictionary<string, Text>();
     public Dictionary<string, Image> m_shop_ShowStatus_Image = new Dictionary<string, Image>();
+
+    private string m_name;
 
     void Awake()
     {
@@ -34,10 +39,13 @@ public class ShopUIManager : Singleton<ShopUIManager>
 
         CreateCharacterList();
         InitCharacterInfoUI();
+        StartCoroutine(ShopUpdate());
         
     }
 	void Update()
     {
+        
+        
         m_userGoldText.text = string.Format("{0}", LoadData.GetInstance.m_initgold);
         m_userItemText.text = string.Format("{0}", LoadData.GetInstance.m_inititem);
     }
@@ -70,6 +78,9 @@ public class ShopUIManager : Singleton<ShopUIManager>
             shoplistslot.transform.name = LoadCharacterData.GetInstance.m_charList[i].Name;
             m_shopSlotList.Add(shoplistslot);
         }
+
+        
+
     }
     void InitCharacterInfoUI()
     {
@@ -105,26 +116,32 @@ public class ShopUIManager : Singleton<ShopUIManager>
         if(_name == "UnityChan")
         {
             SetUIText(0);
+            m_name = _name;
         }
         else if (_name == "Yuko")
         {
             SetUIText(1);
+            m_name = _name;
         }
         else if (_name == "Toko")
         {
             SetUIText(2);
+            m_name = _name;
         }
         else if(_name == "Cindy")
         {
             SetUIText(3);
+            m_name = _name;
         }
         else if(_name == "Mariabell")
         {
             SetUIText(4);
+            m_name = _name;
         }
         else if (_name == "Misaki")
         {
             SetUIText(5);
+            m_name = _name;
         }
     }
     void SetUIText(int _id)
@@ -155,8 +172,20 @@ public class ShopUIManager : Singleton<ShopUIManager>
             }
             else
             {
-                m_buyBtn.interactable = true;                
+                m_buyBtn.interactable = true;
             }
+        }
+
+        for(int i = 0; i < MainInvenUIManager.GetInstance.m_inventory.Count; i++)
+        {
+            if(MainInvenUIManager.GetInstance.m_inventory[i].Name == m_name )
+            {
+                m_buyBtn.interactable = false;
+            }
+            //else
+            //{
+            //    m_buyBtn.interactable = true;
+            //}
         }
     }
 
@@ -173,11 +202,31 @@ public class ShopUIManager : Singleton<ShopUIManager>
             {
                 m_buyBtn.interactable = true;
                 MainInvenUIManager.GetInstance.m_inventory.Add(LoadCharacterData.GetInstance.m_charList[m_charID]);
+                
                 MainInvenUIManager.GetInstance.AddInventoryCharacter(m_charID); //인벤에 추가된 수만큼 인벤슬롯 갱신.
                 MainInvenUIManager.GetInstance.UpdateThumbnail();
+
+
+                for (int j = 0; j < MainInvenUIManager.GetInstance.m_inventory.Count; j++)
+                {
+                    m_character = new CharacterData[j+1];
+
+                }
+                for (int j = 0; j < MainInvenUIManager.GetInstance.m_inventory.Count; j++)
+                {
+
+                    m_character[j] = new CharacterData( MainInvenUIManager.GetInstance.m_inventory[j].Name, MainInvenUIManager.GetInstance.m_inventory[j].Id, MainInvenUIManager.GetInstance.m_inventory[j].Cost, MainInvenUIManager.GetInstance.m_inventory[j].Hp, MainInvenUIManager.GetInstance.m_inventory[j].Mp, MainInvenUIManager.GetInstance.m_inventory[j].Sp, MainInvenUIManager.GetInstance.m_inventory[j].SkillName, MainInvenUIManager.GetInstance.m_inventory[j].SkillMp, MainInvenUIManager.GetInstance.m_inventory[j].SkillDamage, MainInvenUIManager.GetInstance.m_inventory[j].Attack, MainInvenUIManager.GetInstance.m_inventory[j].AttackName, MainInvenUIManager.GetInstance.m_inventory[j].Defence, MainInvenUIManager.GetInstance.m_inventory[j].QName, MainInvenUIManager.GetInstance.m_inventory[j].QSp, MainInvenUIManager.GetInstance.m_inventory[j].QDamage, MainInvenUIManager.GetInstance.m_inventory[j].Profile);
+                }
+
+
+                charjson = JsonMapper.ToJson(m_character);
+                File.WriteAllText(Application.dataPath + "/Resources/StreamingAssets/PlayerChar.txt", charjson.ToString());
+                
                
             }
         }
         
+
+
     }
 }

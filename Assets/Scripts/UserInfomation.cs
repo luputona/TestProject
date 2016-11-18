@@ -11,6 +11,7 @@ public class UserInfomation : Singleton<UserInfomation>
     public GameObject[] m_currentUserInfo;
     public GameObject[] m_userTotalStatus;
     public GameObject m_statusPopUp_Obj;
+    public GameObject m_nicknamePopUp_Obj;
     public Dictionary<string, Text> m_currentUserInfoText = new Dictionary<string, Text>();
     public Dictionary<string, Text> m_currentCharSpecText = new Dictionary<string, Text>();
     public Dictionary<string, Text> m_totalSpecText = new Dictionary<string, Text>();
@@ -27,7 +28,7 @@ public class UserInfomation : Singleton<UserInfomation>
 
     public string m_selectCharacter;
     public string m_statusPopup_info;
-
+    public string m_nickname;
     public int m_upgradeCost = 0;
     
 
@@ -180,7 +181,7 @@ public class UserInfomation : Singleton<UserInfomation>
 
     public void HpUpButton(string _statusinfo)
     {
-        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_hp, LoadData.GetInstance.m_hp , 1);
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_hp, LoadData.GetInstance.m_inithp , 1);
     }
     public void MpUpButton(string _statusinfo)
     {
@@ -244,9 +245,7 @@ public class UserInfomation : Singleton<UserInfomation>
     {
         m_statusPopUp_Obj.SetActive(false);
     }
-
-
-
+    
     public void SaveBtn()
     {
         GPGSMgr.GetInstance.SaveGame();
@@ -255,10 +254,41 @@ public class UserInfomation : Singleton<UserInfomation>
     {
         GPGSMgr.GetInstance.LoadGame();
     }
+
+    public void UserNicknameChanged(string _name)
+    {
+       
+        if(_name == "")
+        {
+            m_nickname = GPGSMgr.GetInstance.GetNameGPGS();
+            //PlayerPrefs.SetString("UserName", GPGSMgr.GetInstance.GetNameGPGS());
+            
+        }
+        else
+        {
+            m_nickname = _name;
+            //PlayerPrefs.SetString("UserName", _name);
+        }
+        
+    }
+    public void UserNicknameChangedPopUpButton()
+    {
+        m_nicknamePopUp_Obj.SetActive(true);
+    }
+
+    public void UserNicknameChangedButton()
+    {
+        LoadData.GetInstance.m_playername = m_nickname;
+        m_nicknamePopUp_Obj.SetActive(false);
+    }
+    public void UserNicknameChangedCancelButton()
+    {
+        m_nicknamePopUp_Obj.SetActive(false);
+    }
     //public void ShowUserInfomation(string _userName, int _level, int _hp, int _mp, int _attack, int _defence, int _gold, int _item)
     //{
     //    //m_currentUserInfoText[].text = string.Format
 
     //}
-    
+
 }
