@@ -10,23 +10,28 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
     private static LoadCharacterData Instance;
 
     private JsonData m_charData;
-
+    public bool m_downcomplete = false;
     public List<CharacterData> m_charList = new List<CharacterData>();
 
     void Awake()
     {
-        //if(Instance != null)
-        //{
-        //    GameObject.Destroy(this);
-        //}
-        //else
-        //{
-        //    GameObject.DontDestroyOnLoad(gameObject);
-        //    Instance = this;
-        //}
+        if (Instance != null)
+        {
+            GameObject.Destroy(this);
+        }
+        else
+        {
+            GameObject.DontDestroyOnLoad(gameObject);
+            Instance = this;
+        }
 
         StartCoroutine(GetCharacterData());
         
+    }
+    void Start()
+    {
+        //DataInsert.GetInstance.m_initCharData = new CharacterData(LoadCharacterData.GetInstance.m_charList[0].Name, LoadCharacterData.GetInstance.m_charList[0].Id, LoadCharacterData.GetInstance.m_charList[0].Cost, LoadCharacterData.GetInstance.m_charList[0].Hp, LoadCharacterData.GetInstance.m_charList[0].Mp, LoadCharacterData.GetInstance.m_charList[0].Sp, LoadCharacterData.GetInstance.m_charList[0].SkillName, LoadCharacterData.GetInstance.m_charList[0].SkillMp, LoadCharacterData.GetInstance.m_charList[0].SkillDamage, LoadCharacterData.GetInstance.m_charList[0].Attack, LoadCharacterData.GetInstance.m_charList[0].AttackName, LoadCharacterData.GetInstance.m_charList[0].Defence, LoadCharacterData.GetInstance.m_charList[0].QName, LoadCharacterData.GetInstance.m_charList[0].QSp, LoadCharacterData.GetInstance.m_charList[0].QDamage, LoadCharacterData.GetInstance.m_charList[0].Profile);
+        //DataInsert.GetInstance.m_initCharJosn = JsonMapper.ToJson(DataInsert.GetInstance.m_initCharData);
     }
 
     IEnumerator GetCharacterData()
@@ -39,13 +44,16 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
         m_charData = JsonMapper.ToObject(serverDB);
         
         if (www.isDone)
-        {            
-            
+        {
+            m_downcomplete = true;
             //Debug.Log("CharDB isDone");
         }
         ConstructCharacterData();
-        //Debug.Log("Character DB: " + m_charList[1].Name);
+        Debug.Log("Character DB: " + m_charList[1].Name);
+        
         //CharacterControllManager.GetInstance.InitializeCharacter();
+
+        
     }
 
 
@@ -54,29 +62,25 @@ public class LoadCharacterData : Singleton<LoadCharacterData>
         for(int i = 0; i< m_charData.Count; i++)
         {
             m_charList.Add(new CharacterData(                
+                (int)m_charData[i]["Id"],
                 m_charData[i]["Name"].ToString(),
-                (int)m_charData[i]["ID"],
                 (int)m_charData[i]["Cost"], 
-                (int)m_charData[i]["HP"],
-                (int)m_charData[i]["MP"], 
-                (int)m_charData[i]["SP"],
+                (int)m_charData[i]["Hp"],
+                (int)m_charData[i]["Mp"], 
+                (int)m_charData[i]["Sp"],
                 m_charData[i]["SkillName"].ToString(),
-                (int)m_charData[i]["SkillMP"],
+                (int)m_charData[i]["SkillMp"],
                 (int)m_charData[i]["SkillDamage"], 
                 (int)m_charData[i]["Attack"], 
                 m_charData[i]["AttackName"].ToString(),
                 (int)m_charData[i]["Defence"], 
                 m_charData[i]["QName"].ToString(), 
-                (int)m_charData[i]["QSP"], 
+                (int)m_charData[i]["QSp"], 
                 (int)m_charData[i]["QDamage"],
                 m_charData[i]["Profile"].ToString()));
         }
 
     }
-	// Use this for initialization
-	void Start () {
-	
-	}
 
 }
 [System.Serializable]
@@ -104,7 +108,7 @@ public class CharacterData
     public string Profile;
    
 
-    public CharacterData(string name, int id, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack,string attackname , int defence, string qname, int qsp, int qDamage, string _profile )
+    public CharacterData(int id, string name, int cost, int hp, int mp, int sp, string skillname, int skillMp, int skillDamage, int attack,string attackname , int defence, string qname, int qsp, int qDamage, string _profile )
     {
         this.Id = id;
         this.Name = name;

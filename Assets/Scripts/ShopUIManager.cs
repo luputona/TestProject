@@ -46,8 +46,8 @@ public class ShopUIManager : Singleton<ShopUIManager>
     {
         
         
-        m_userGoldText.text = string.Format("{0}", LoadData.GetInstance.m_initgold);
-        m_userItemText.text = string.Format("{0}", LoadData.GetInstance.m_inititem);
+        m_userGoldText.text = string.Format("{0}", LoadData.GetInstance.m_gold);
+        m_userItemText.text = string.Format("{0}", LoadData.GetInstance.m_item);
     }
 
 	IEnumerator ShopUpdate()
@@ -215,7 +215,7 @@ public class ShopUIManager : Singleton<ShopUIManager>
                 for (int j = 0; j < MainInvenUIManager.GetInstance.m_inventory.Count; j++)
                 {
 
-                    m_character[j] = new CharacterData( MainInvenUIManager.GetInstance.m_inventory[j].Name, MainInvenUIManager.GetInstance.m_inventory[j].Id, MainInvenUIManager.GetInstance.m_inventory[j].Cost, MainInvenUIManager.GetInstance.m_inventory[j].Hp, MainInvenUIManager.GetInstance.m_inventory[j].Mp, MainInvenUIManager.GetInstance.m_inventory[j].Sp, MainInvenUIManager.GetInstance.m_inventory[j].SkillName, MainInvenUIManager.GetInstance.m_inventory[j].SkillMp, MainInvenUIManager.GetInstance.m_inventory[j].SkillDamage, MainInvenUIManager.GetInstance.m_inventory[j].Attack, MainInvenUIManager.GetInstance.m_inventory[j].AttackName, MainInvenUIManager.GetInstance.m_inventory[j].Defence, MainInvenUIManager.GetInstance.m_inventory[j].QName, MainInvenUIManager.GetInstance.m_inventory[j].QSp, MainInvenUIManager.GetInstance.m_inventory[j].QDamage, MainInvenUIManager.GetInstance.m_inventory[j].Profile);
+                    m_character[j] = new CharacterData(  MainInvenUIManager.GetInstance.m_inventory[j].Id, MainInvenUIManager.GetInstance.m_inventory[j].Name, MainInvenUIManager.GetInstance.m_inventory[j].Cost, MainInvenUIManager.GetInstance.m_inventory[j].Hp, MainInvenUIManager.GetInstance.m_inventory[j].Mp, MainInvenUIManager.GetInstance.m_inventory[j].Sp, MainInvenUIManager.GetInstance.m_inventory[j].SkillName, MainInvenUIManager.GetInstance.m_inventory[j].SkillMp, MainInvenUIManager.GetInstance.m_inventory[j].SkillDamage, MainInvenUIManager.GetInstance.m_inventory[j].Attack, MainInvenUIManager.GetInstance.m_inventory[j].AttackName, MainInvenUIManager.GetInstance.m_inventory[j].Defence, MainInvenUIManager.GetInstance.m_inventory[j].QName, MainInvenUIManager.GetInstance.m_inventory[j].QSp, MainInvenUIManager.GetInstance.m_inventory[j].QDamage, MainInvenUIManager.GetInstance.m_inventory[j].Profile);
                 }
 
 

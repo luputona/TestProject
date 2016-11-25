@@ -142,13 +142,13 @@ public class GPGSMgr : Singleton<GPGSMgr> {
         //    });
         //}
 
-        if (!Social.localUser.authenticated)
-        {
-            Social.localUser.Authenticate(LoginCallBackGPGS);
+        //if (!Social.localUser.authenticated)
+        //{
+        //    Social.localUser.Authenticate(LoginCallBackGPGS);
             
-            //SaveGame();
-            //LoadGame();
-        }
+        //    //SaveGame();
+        //    //LoadGame();
+        //}
     }
 
     public void LoginGPGS()
