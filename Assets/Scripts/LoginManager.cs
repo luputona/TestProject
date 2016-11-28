@@ -105,7 +105,7 @@ public class LoginManager : MonoBehaviour {
         form.AddField("etcinvenPost", _etcinven);
         form.AddField("itemPost", _item);
         form.AddField("goldPost", _gold);
-        LoadData.GetInstance.m_playername = _username;
+        LoadData.GetInstance.m_username = _username;
         LoadData.GetInstance.m_googleId = _goolgleId;
         WWW www = new WWW(m_addUserUrl, form);
     }

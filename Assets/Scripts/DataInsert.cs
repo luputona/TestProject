@@ -175,7 +175,7 @@ public class DataInsert : Singleton<DataInsert>
                 m_isdone.text = string.Format("{0}", m_getid);
                 //m_alreadyCheck = false;
 
-                LoadData.GetInstance.m_playername = inputName;
+                LoadData.GetInstance.m_username = inputName;
                 
                 //m_accountOkCheck = false;
             }
@@ -219,7 +219,7 @@ public class DataInsert : Singleton<DataInsert>
             m_alreadyCheck = false;
             m_alreadyaccountPopup.SetActive(false);
             m_createAccountPopup.SetActive(false);
-            LoadData.GetInstance.m_playername = inputName;
+            LoadData.GetInstance.m_username = inputName;
         }
         
     }

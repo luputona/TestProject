@@ -153,7 +153,7 @@ public class UserInfomation : Singleton<UserInfomation>
     {
         if(m_currentUserInfo != null)
         {
-            m_currentUserInfoText["User_Current_Name_Text"].text = string.Format("{0}", LoadData.GetInstance.m_playername);
+            m_currentUserInfoText["User_Current_Name_Text"].text = string.Format("{0}", LoadData.GetInstance.m_username);
             m_currentUserInfoText["Cur_Default_Hp_Text"].text = string.Format("{0}", LoadData.GetInstance.m_hp);
             m_currentUserInfoText["Cur_Default_Mp_Text"].text = string.Format("{0}", LoadData.GetInstance.m_mp);
             m_currentUserInfoText["Cur_Default_Attack_Text"].text = string.Format("{0}", LoadData.GetInstance.m_attack);
@@ -278,7 +278,7 @@ public class UserInfomation : Singleton<UserInfomation>
 
     public void UserNicknameChangedButton()
     {
-        LoadData.GetInstance.m_playername = m_nickname;
+        LoadData.GetInstance.m_username = m_nickname;
         m_nicknamePopUp_Obj.SetActive(false);
     }
     public void UserNicknameChangedCancelButton()

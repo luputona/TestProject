@@ -15,15 +15,20 @@ public class LoadData : Singleton<LoadData>
     public string m_googleId;
     public string m_userId;
     public string m_username;
-    public string m_playername;// { get; set; }
    
     public string[] m_dbText;
+    public int m_gold;
+    public int m_item;
     public int m_hp;
     public int m_mp;
     public int m_attack;
     public int m_defence;
-    public int m_gold;
-    public int m_item;    
+    public int m_score;
+    public int m_statpoint;
+    public string m_maincharacter;
+    public string m_charinven;
+    public string m_etcinven;
+       
 
     public string m_selectCharacter;
     public string m_selectVehicle;
@@ -38,10 +43,12 @@ public class LoadData : Singleton<LoadData>
     public Text m_text;
     private JsonData m_charJsonData;
     private string jsonstring;
+
     [SerializeField]
     private string m_userdataUrl = "http://54.238.128.34/userdb.php";
     [SerializeField]
     private string m_uploadUrl = "http://54.238.128.34/Updateuserdata.php";
+
     void Awake()
     {
         if (m_instance != null)
@@ -127,6 +134,8 @@ public class LoadData : Singleton<LoadData>
         }
     }
    
+
+    //---------------DB에서 일괄 다운로드 -------------------
     IEnumerator DownloadUserData()
     {
         WWWForm form = new WWWForm();
@@ -144,12 +153,22 @@ public class LoadData : Singleton<LoadData>
         {            
             m_userId = SplitData(m_dbText[0],"userid:");
             m_username = SplitData(m_dbText[0], "username:");
-            jsonstring = SplitData(m_dbText[0], "characterinventory:");
+            m_charinven = SplitData(m_dbText[0], "characterinventory:");
+            m_etcinven = SplitData(m_dbText[0], "etcinventory:");
             m_item =  int.Parse(SplitData(m_dbText[0], "item:"));
             m_gold = int.Parse(SplitData(m_dbText[0], "gold:"));
-            m_charJsonData = JsonMapper.ToObject(jsonstring.ToString());
+            m_hp = int.Parse(SplitData(m_dbText[0], "hp:"));
+            m_mp = int.Parse(SplitData(m_dbText[0], "mp:"));
+            m_attack = int.Parse(SplitData(m_dbText[0], "attack:"));
+            m_defence = int.Parse(SplitData(m_dbText[0], "defence:"));
+            m_score = int.Parse(SplitData(m_dbText[0], "score:"));
+            m_statpoint = int.Parse(SplitData(m_dbText[0], "statpoint:"));
+            m_maincharacter = SplitData(m_dbText[0], "maincharacter");
 
-            print("jsonstring :" + jsonstring.ToString());
+
+            m_charJsonData = JsonMapper.ToObject(m_charinven.ToString());
+
+            print("jsonstring :" + m_charinven.ToString());
             ConstructLocalCharDatabase();
             print("list : "+m_localcharList[0].Name);
             print("jsondata : " + m_charJsonData.ToString());
@@ -167,74 +186,125 @@ public class LoadData : Singleton<LoadData>
         return value;
     }
 
-    public void UpdateName(string _name)
+
+    //-------------------- DB로 업로드 ----------------------------
+    public void UploadName(string _name)
     {
+        m_username = _name;
         WWWForm form = new WWWForm();
         form.AddField("usernamePost", _name);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void UpdateCharacterInventory(string _charinven)
+    public void UploadCharacterInventory(string _charinven)
     {
+        m_charinven = _charinven;
         WWWForm form = new WWWForm();
         form.AddField("characterinvenPost", _charinven);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void UpdateEtcInventory(string _etcinven)
+    public void UploadEtcInventory(string _etcinven)
     {
+        m_etcinven = _etcinven;
         WWWForm form = new WWWForm();
         form.AddField("ectinvenPost", _etcinven);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void UpdateItem(int _item)
+    public void UploadItem(int _item)
     {
+        m_item = _item;
         WWWForm form = new WWWForm();
         form.AddField("itemPost", _item);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void UpdateGold(int _gold)
+    public void UploadGold(int _gold)
     {
+        m_gold = _gold;
         WWWForm form = new WWWForm();
         form.AddField("goldPost", _gold);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void UpdateHp(int _hp)
+    public void UploadHp(int _hp)
     {
+        m_hp = _hp;
         WWWForm form = new WWWForm();
         form.AddField("hpPost", _hp);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void Update(int _mp)
+    public void UploadMp(int _mp)
     {
+        m_mp = _mp;
         WWWForm form = new WWWForm();
         form.AddField("mpPost", _mp);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void UpdateAttack(int _attack)
+    public void UploadAttack(int _attack)
     {
+        m_attack = _attack;
         WWWForm form = new WWWForm();
         form.AddField("attackPost", _attack);
         WWW www = new WWW(m_uploadUrl, form);
     }
-    public void UpdateDefence(int _defence)
+    public void UploadDefence(int _defence)
     {
+        m_defence = _defence;
         WWWForm form = new WWWForm();
         form.AddField("defencePost", _defence);
         WWW www = new WWW(m_uploadUrl, form);
     }
 
-    public void UpdateScore(int _score)
+    public void UploadScore(int _score)
     {
+        m_score = _score;
         WWWForm form = new WWWForm();
         form.AddField("scorePost", _score);
         WWW www = new WWW(m_uploadUrl, form);
     }
     
-    public void UpdateStatPoint(int _statpoint)
+    public void UploadStatPoint(int _statpoint)
     {
+        m_statpoint = _statpoint;
         WWWForm form = new WWWForm();
         form.AddField("statpointPost", _statpoint);
         WWW www = new WWW(m_uploadUrl, form);
     }
+    public void UploadMainCharacter(string _mainchar)
+    {
+        m_maincharacter = _mainchar;
+        WWWForm form = new WWWForm();
+        form.AddField("maincharacterPost", _mainchar);
+        WWW www = new WWW(m_uploadUrl, form);
+    }
+
+    public void UploadAllData()
+    {
+        UploadName(m_username);
+        UploadCharacterInventory(m_charinven);
+        UploadEtcInventory(m_etcinven);
+        UploadItem(m_item);
+        UploadGold(m_gold);
+        UploadHp(m_hp);
+        UploadMp(m_mp);
+        UploadAttack(m_attack);
+        UploadDefence(m_defence);
+        UploadScore(m_score);
+        UploadStatPoint(m_statpoint);
+        UploadMainCharacter(m_maincharacter);
+    }
+
+
+    void OnApplicationPause(bool status)
+    {
+        if(status)
+        {
+            //나갔을경우 , 어플정지
+            UploadAllData();
+        }
+        else
+        {
+            //어플 재개
+        }
+    }
+
 
     public void LoadInventory(List<CharacterData> _loadinven)
     {

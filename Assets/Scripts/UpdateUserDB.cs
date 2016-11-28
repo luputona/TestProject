@@ -25,9 +25,4 @@ public class UpdateUserDB : Singleton<UpdateUserDB> {
 
     }
 
-
-    IEnumerator Upload()
-    {
-
-    }
 }

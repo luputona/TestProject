@@ -49,7 +49,7 @@ public class Test : MonoBehaviour {
 	void Update () 
     {
         StartCoroutine(GetTime());
-        m_statText[0].text = string.Format("Name : {0}", LoadData.GetInstance.m_playername);
+        m_statText[0].text = string.Format("Name : {0}", LoadData.GetInstance.m_username);
         //m_statText[1].text = string.Format("Health : {0}", LoadData.GetInstance.m_playerhealth);
         //m_statText[2].text = string.Format("count : {0}", LoadData.GetInstance.m_playerscore);
 
