@@ -16,7 +16,7 @@ public class LoadData : Singleton<LoadData>
     public string m_userId;
     public string m_username;
     public string m_playername;// { get; set; }
-    public string m_userdataUrl = "http://54.238.128.34/userdb.php";
+   
     public string[] m_dbText;
     public int m_hp;
     public int m_mp;
@@ -37,7 +37,11 @@ public class LoadData : Singleton<LoadData>
 
     public Text m_text;
     private JsonData m_charJsonData;
-    string jsonstring;
+    private string jsonstring;
+    [SerializeField]
+    private string m_userdataUrl = "http://54.238.128.34/userdb.php";
+    [SerializeField]
+    private string m_uploadUrl = "http://54.238.128.34/Updateuserdata.php";
     void Awake()
     {
         if (m_instance != null)
@@ -144,6 +148,7 @@ public class LoadData : Singleton<LoadData>
             m_item =  int.Parse(SplitData(m_dbText[0], "item:"));
             m_gold = int.Parse(SplitData(m_dbText[0], "gold:"));
             m_charJsonData = JsonMapper.ToObject(jsonstring.ToString());
+
             print("jsonstring :" + jsonstring.ToString());
             ConstructLocalCharDatabase();
             print("list : "+m_localcharList[0].Name);
@@ -161,41 +166,74 @@ public class LoadData : Singleton<LoadData>
         }
         return value;
     }
+
     public void UpdateName(string _name)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("usernamePost", _name);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void UpdateCharacterInventory(string _charinven)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("characterinvenPost", _charinven);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void UpdateEtcInventory(string _etcinven)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("ectinvenPost", _etcinven);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void UpdateItem(int _item)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("itemPost", _item);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void UpdateGold(int _gold)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("goldPost", _gold);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void UpdateHp(int _hp)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("hpPost", _hp);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void Update(int _mp)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("mpPost", _mp);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void UpdateAttack(int _attack)
     {
-
+        WWWForm form = new WWWForm();
+        form.AddField("attackPost", _attack);
+        WWW www = new WWW(m_uploadUrl, form);
     }
     public void UpdateDefence(int _defence)
     {
+        WWWForm form = new WWWForm();
+        form.AddField("defencePost", _defence);
+        WWW www = new WWW(m_uploadUrl, form);
+    }
 
+    public void UpdateScore(int _score)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("scorePost", _score);
+        WWW www = new WWW(m_uploadUrl, form);
+    }
+    
+    public void UpdateStatPoint(int _statpoint)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("statpointPost", _statpoint);
+        WWW www = new WWW(m_uploadUrl, form);
     }
 
     public void LoadInventory(List<CharacterData> _loadinven)

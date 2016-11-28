@@ -15,8 +15,10 @@ public class LoginManager : MonoBehaviour {
     public JsonData m_charinvenJsonData;
     public CharacterData[] m_charData;
 
-    public string m_checkIdUrl = "http://54.238.128.34/useridcheck.php";
-    public string m_addUserUrl = "http://54.238.128.34/useridcheck.php";
+    [SerializeField]
+    private string m_checkIdUrl = "http://54.238.128.34/useridcheck.php";
+    [SerializeField]
+    private string m_addUserUrl = "http://54.238.128.34/useridcheck.php";
     
     public string m_getid = "";
     public string m_userid;
