@@ -34,11 +34,10 @@ public class MainUIAnimController : MonoBehaviour
     public Button[] m_mainUIBtn;
     public GameObject[] m_mainUIBtnobj;
 
+
     void Awake()
     {
-        
-        InitializeUI();
-        
+        InitializeUI();        
     }
 
 	// Use this for initialization
@@ -56,6 +55,14 @@ public class MainUIAnimController : MonoBehaviour
 	void Update ()
     {
         InteractableCheck();
+
+        var enumerator = m_dicUiAnim.GetEnumerator();
+        while (enumerator.MoveNext())
+        {
+            //Debug.Log("name" + enumerator.Current.Value.name);
+            Debug.Log("value" + enumerator.Current.Value);
+
+        }
     }
     
 

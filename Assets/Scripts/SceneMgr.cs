@@ -10,7 +10,11 @@ public class SceneMgr : MonoBehaviour
 
     public void GoToScene(int _sceneNumber)
     {
-       // AssetLoader.GetInstance.m_sceneChek = _sceneNumber;
+        // AssetLoader.GetInstance.m_sceneChek = _sceneNumber;
+        if (Time.timeScale == 0)
+        {
+            Time.timeScale = 1;
+        }
         SceneManager.LoadScene(_sceneNumber);
         m_sceneCheck = _sceneNumber;
     }
@@ -18,7 +22,8 @@ public class SceneMgr : MonoBehaviour
     public void GoToScene()
     {
         // AssetLoader.GetInstance.m_sceneChek = _sceneNumber;
-        SceneManager.LoadScene(m_sceneCheck);        
+        SceneManager.LoadScene(m_sceneCheck);     
+         
     }
 
     public static void SelectField(int _fieldnumber)

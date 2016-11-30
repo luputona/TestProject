@@ -88,11 +88,7 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         
     }
 
-    void Update()
-    {
-
-    }
-
+  
     //인벤토리에 구매한 캐릭터의 슬롯을 추가
     //해야 할것 : 인벤토리.add 된 목록을 서버로 전송 - 
     public void AddInventoryCharacter(int _id)
@@ -112,7 +108,7 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         
     }
     
-    void CreateCharList()
+    public void CreateCharList()
     {
         //for (int i = 0; i < m_charData.m_charList.Count; i++)
         //{
@@ -125,7 +121,7 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         //기본으로 가지고있는 캐릭터를 하나 추가
         if(LoadData.GetInstance.m_localcharList.Count == 0)
         {
-            m_inventory.Add(LoadCharacterData.GetInstance.m_charList[0]);
+            //m_inventory.Add(LoadCharacterData.GetInstance.m_charList[0]);
         }
         else
         {
@@ -138,8 +134,6 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
                         
         InitThumbnailSprite();
         //인벤토리 UI리스트 클론 생성, 인벤토리 리스트에 담긴 수 만큼 생성
-        
-
         
     }
     public void InitInvenPanel()
@@ -159,9 +153,6 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
         {
             m_invenStatusImage.Add(m_InvenStatusImageArray[i].name, m_InvenStatusImageArray[i].GetComponent<Image>());
         }
-
-
-
     }
 
     public void UpdateThumbnail()
@@ -197,6 +188,7 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
 
     public void InitThumbnailSprite()
     {
+        //추후 에셋번들로 교체
         m_spriteobj = Resources.LoadAll<Sprite>("image/illust/");
 
        
@@ -290,6 +282,7 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
     public void SelectCharacterButton(string _charname)
     {
         _charname = m_childBtnName;
+        LoadData.GetInstance.m_maincharacter = _charname;
         PlayerPrefs.SetString("SelectCharacter", _charname); //선택한 캐릭명, 추후 구글 서버쪽으로 저장되게 변경
         
         if (m_childBtnName == "UnityChan")
@@ -317,7 +310,7 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
             m_maincharacterImage.sprite = m_slotDic[m_childBtnName].sprite;
         }
 
-        
+        LoadData.GetInstance.UploadAllData();
     }
     
 

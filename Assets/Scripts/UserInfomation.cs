@@ -79,20 +79,32 @@ public class UserInfomation : Singleton<UserInfomation>
     public void InitailizeCharacterInfo()
     {
         //PlayerPrefs 나중에 서버연동으로 변경 
-        m_currentCharSpecText["Cur_Char_Hp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("hp") );
+        m_currentCharSpecText["Cur_Char_Hp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("hp"));
         m_currentCharSpecText["Cur_Char_Mp_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("mp"));
         m_currentCharSpecText["Cur_Char_Attack_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("attack"));
         m_currentCharSpecText["Cur_Char_Defence_Text"].text = string.Format("{0}", PlayerPrefs.GetInt("defence"));
-        m_currentCharSpecText["Char_Specs_Title_Text"].text = string.Format("{0}", PlayerPrefs.GetString("SelectCharacter"));
+        m_currentCharSpecText["Char_Specs_Title_Text"].text = string.Format("{0}", LoadData.GetInstance.m_maincharacter);
 
 
-        if (PlayerPrefs.GetString("SelectCharacter") == "UnityChan")
+        if (LoadData.GetInstance.m_maincharacter == "UnityChan")
         {
             m_charInfoImage.sprite = MainInvenUIManager.GetInstance.m_image["01_portrait_kohaku_01"];
         }
-        else if (PlayerPrefs.GetString("SelectCharacter") == "Yuko")
+        else if (LoadData.GetInstance.m_maincharacter == "Toko")
         {
-            m_charInfoImage.sprite = MainInvenUIManager.GetInstance.m_image["02_portrait_yuko_01"];
+            m_charInfoImage.sprite = MainInvenUIManager.GetInstance.m_image["03_portrait_toko_01"];
+        }
+        else if (LoadData.GetInstance.m_maincharacter == "Cindy")
+        {
+            m_charInfoImage.sprite = MainInvenUIManager.GetInstance.m_image["05_성지영"];
+        }
+        else if (LoadData.GetInstance.m_maincharacter == "Mariabell")
+        {
+            m_charInfoImage.sprite = MainInvenUIManager.GetInstance.m_image["04_portrait_marie_01"];
+        }
+        else if (LoadData.GetInstance.m_maincharacter == "Misaki")
+        {
+            m_charInfoImage.sprite = MainInvenUIManager.GetInstance.m_image["06_portrait_misaki_01"];
         }
     }
 
@@ -145,6 +157,7 @@ public class UserInfomation : Singleton<UserInfomation>
         m_currentCharSpecText["Cur_Char_Attack_Text"].text = string.Format("{0}", _attack);
         m_currentCharSpecText["Cur_Char_Defence_Text"].text = string.Format("{0}", _defence);
         m_currentCharSpecText["Char_Specs_Title_Text"].text = string.Format("{0}", _name);
+        LoadData.GetInstance.m_maincharacter = _name;
         m_charInfoImage.sprite = _sprite;
     }
    
@@ -181,19 +194,19 @@ public class UserInfomation : Singleton<UserInfomation>
 
     public void HpUpButton(string _statusinfo)
     {
-        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_hp, LoadData.GetInstance.m_inithp , 1);
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_hp, InitializeUserStatus.GetInstance.m_inithp , 1);
     }
     public void MpUpButton(string _statusinfo)
     {
-        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_mp, LoadData.GetInstance.m_initmp , 1);    
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_mp, InitializeUserStatus.GetInstance.m_initmp , 1);    
     }
     public void AttackUpButton(string _statusinfo)
     {
-        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_attack, LoadData.GetInstance.m_initattack , 5);
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_attack, InitializeUserStatus.GetInstance.m_initattack , 1);
     }
     public void DefenceUpButton(string _statusinfo)
     {
-        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_defence, LoadData.GetInstance.m_initdefence , 5);
+        UpdgradeCheck(_statusinfo, LoadData.GetInstance.m_defence, InitializeUserStatus.GetInstance.m_initdefence , 1);
     }
 
     public void StatusUpPopupOkButton()
@@ -226,7 +239,7 @@ public class UserInfomation : Singleton<UserInfomation>
         {
             m_statusPopUp_Obj.transform.FindChild("Ok_Button").GetComponent<Button>().interactable = true;
         }
-        
+        LoadData.GetInstance.UploadAllData();
         m_statusPopUp_Obj.SetActive(false);
     }
 
@@ -257,19 +270,19 @@ public class UserInfomation : Singleton<UserInfomation>
 
     public void UserNicknameChanged(string _name)
     {
-       
-        if(_name == "")
-        {
-            m_nickname = GPGSMgr.GetInstance.GetNameGPGS();
-            //PlayerPrefs.SetString("UserName", GPGSMgr.GetInstance.GetNameGPGS());
-            
-        }
-        else
-        {
-            m_nickname = _name;
-            //PlayerPrefs.SetString("UserName", _name);
-        }
-        
+        m_nickname = _name;
+        //if(_name == "")
+        //{
+        //    m_nickname = GPGSMgr.GetInstance.GetNameGPGS();
+        //    //PlayerPrefs.SetString("UserName", GPGSMgr.GetInstance.GetNameGPGS());
+
+        //}
+        //else
+        //{
+        //    m_nickname = _name;
+        //    //PlayerPrefs.SetString("UserName", _name);
+        //}
+
     }
     public void UserNicknameChangedPopUpButton()
     {
@@ -279,6 +292,8 @@ public class UserInfomation : Singleton<UserInfomation>
     public void UserNicknameChangedButton()
     {
         LoadData.GetInstance.m_username = m_nickname;
+       // LoadData.GetInstance.UploadName(m_nickname);
+        LoadData.GetInstance.UploadAllData();
         m_nicknamePopUp_Obj.SetActive(false);
     }
     public void UserNicknameChangedCancelButton()

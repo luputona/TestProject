@@ -20,7 +20,7 @@ public class AssetLoader : Singleton<AssetLoader>
    // public AssetBundle bundleManifest;
 
     public Text m_caching;
-    public Text m_monsterCaching;
+    
 
     void Awake()
     {
@@ -121,10 +121,12 @@ public class AssetLoader : Singleton<AssetLoader>
                 if(m_names.Length == 0)
                 {
                     m_downCheck = true;
+                   
                 }
                 else
                 {
                     m_downCheck = false;
+
                 }
             }
            

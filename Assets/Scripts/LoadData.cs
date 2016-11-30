@@ -33,14 +33,20 @@ public class LoadData : Singleton<LoadData>
     public string m_selectCharacter;
     public string m_selectVehicle;
 
-    public int m_inithp; //{ get; set; }
-    public int m_initmp; //{ get; set; }
-    public int m_initattack; //{ get; set; }
-    public int m_initdefence; //{ get; set; }
-    public int m_initgold; //{ get; set; }
-    public int m_inititem; //{ get; set; }
+    //public int m_inithp; //{ get; set; }
+    //public int m_initmp; //{ get; set; }
+    //public int m_initattack; //{ get; set; }
+    //public int m_initdefence; //{ get; set; }
+    //public int m_initgold; //{ get; set; }
+    //public int m_inititem; //{ get; set; }
+    //public int m_initscore;
+    //public int m_initstatpoint;
+    //public string m_initmaincharacter;
 
+
+    public Button m_panelButton;
     public Text m_text;
+    public bool m_downcheck = false;
     private JsonData m_charJsonData;
     private string jsonstring;
 
@@ -69,20 +75,29 @@ public class LoadData : Singleton<LoadData>
         //m_charJsonData = JsonMapper.ToObject(jsonstring);
         //print(text.ToString());
 
-        m_inithp = 100;
-        m_initmp = 100;
-        m_initattack = 5;
-        m_initdefence = 5;
 
-        m_initgold = 10000;
-        m_inititem = 1;
+        //m_inithp = 100;
+        //m_initmp = 100;
+        //m_initattack = 5;
+        //m_initdefence = 5;
 
-        m_hp = m_inithp;
-        m_mp = m_initmp;
-        m_attack = m_initattack;
-        m_defence = m_initdefence;
-        m_item = m_inititem;
-        m_gold = m_initgold;
+        //m_initgold = 10000;
+        //m_inititem = 1;
+        //m_initmaincharacter = "UnityChan";
+
+        m_googleId = InitializeUserStatus.GetInstance.m_goolgleid;
+        m_hp = InitializeUserStatus.GetInstance.m_inithp;
+        m_mp = InitializeUserStatus.GetInstance.m_initmp;
+        m_attack = InitializeUserStatus.GetInstance.m_initattack;
+        m_defence = InitializeUserStatus.GetInstance.m_initdefence;
+        m_item = InitializeUserStatus.GetInstance.m_inititem;
+        m_gold = InitializeUserStatus.GetInstance.m_initgold;
+
+
+        if (m_panelButton == null)
+        {
+            m_panelButton = GameObject.Find("PanelButton").GetComponent<Button>();
+        }
     }
 
     public LoadData()
@@ -100,45 +115,56 @@ public class LoadData : Singleton<LoadData>
         //{
         //    m_playername = PlayerPrefs.GetString("UserName");
         //}
-
         StartCoroutine(DownloadUserData());
-        
+        UploadAllData();
+
     }
 
     void Update()
     {
         
-        m_text.text = string.Format("{0} /// {1}", m_userId, m_username);
+        
+
+        if(m_downcheck)
+        {
+            m_panelButton.interactable = true;
+        }
+      
+        
+        //m_text.text = string.Format("{0} /// {1}", m_localcharList[2].Name , m_localcharList.Count);
     }
     void ConstructLocalCharDatabase()
     {
         for (int i = 0; i < m_charJsonData.Count; i++)
         {
             m_localcharList.Add(new CharacterData(
-                (int)m_charJsonData[i]["Id"],
-                m_charJsonData[i]["Name"].ToString(),
-                (int)m_charJsonData[i]["Cost"],
-                (int)m_charJsonData[i]["Hp"],
-                (int)m_charJsonData[i]["Mp"],
-                (int)m_charJsonData[i]["Sp"],
-                m_charJsonData[i]["SkillName"].ToString(),
-                (int)m_charJsonData[i]["SkillMp"],
-                (int)m_charJsonData[i]["SkillDamage"],
-                (int)m_charJsonData[i]["Attack"],
-                m_charJsonData[i]["AttackName"].ToString(),
-                (int)m_charJsonData[i]["Defence"],
-                m_charJsonData[i]["QName"].ToString(),
-                (int)m_charJsonData[i]["QSp"],
-                (int)m_charJsonData[i]["QDamage"],
-                m_charJsonData[i]["Profile"].ToString()));
+              (int)m_charJsonData[i]["Id"],
+              m_charJsonData[i]["Name"].ToString(),
+              (int)m_charJsonData[i]["Cost"],
+              (int)m_charJsonData[i]["Hp"],
+              (int)m_charJsonData[i]["Mp"],
+              (int)m_charJsonData[i]["Sp"],
+              m_charJsonData[i]["SkillName"].ToString(),
+              (int)m_charJsonData[i]["SkillMp"],
+              (int)m_charJsonData[i]["SkillDamage"],
+              (int)m_charJsonData[i]["Attack"],
+              m_charJsonData[i]["AttackName"].ToString(),
+              (int)m_charJsonData[i]["Defence"],
+              m_charJsonData[i]["QName"].ToString(),
+              (int)m_charJsonData[i]["QSp"],
+              (int)m_charJsonData[i]["QDamage"],
+              m_charJsonData[i]["Profile"].ToString()));
+           
+           
         }
     }
    
 
     //---------------DB에서 일괄 다운로드 -------------------
-    IEnumerator DownloadUserData()
+    public IEnumerator DownloadUserData()
     {
         WWWForm form = new WWWForm();
+        //form.AddField("googleidPost", "g04455256582715371750");
         form.AddField("googleidPost", m_googleId);
         WWW www = new WWW(m_userdataUrl, form);
 
@@ -163,17 +189,18 @@ public class LoadData : Singleton<LoadData>
             m_defence = int.Parse(SplitData(m_dbText[0], "defence:"));
             m_score = int.Parse(SplitData(m_dbText[0], "score:"));
             m_statpoint = int.Parse(SplitData(m_dbText[0], "statpoint:"));
-            m_maincharacter = SplitData(m_dbText[0], "maincharacter");
+            m_maincharacter = SplitData(m_dbText[0], "maincharacter:");
 
 
-            m_charJsonData = JsonMapper.ToObject(m_charinven.ToString());
-
-            print("jsonstring :" + m_charinven.ToString());
+            m_charJsonData = JsonMapper.ToObject(m_charinven);
             ConstructLocalCharDatabase();
-            print("list : "+m_localcharList[0].Name);
-            print("jsondata : " + m_charJsonData.ToString());
-        }
+            m_downcheck = true;
+            //print("jsonstring :" + m_charinven.ToString());
+
+            //print("list : "+m_localcharList[0].Name);
+        }        
     }
+
 
     string SplitData(string data, string index)
     {
@@ -192,63 +219,72 @@ public class LoadData : Singleton<LoadData>
     {
         m_username = _name;
         WWWForm form = new WWWForm();
-        form.AddField("usernamePost", _name);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("usernamePost", m_username);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadCharacterInventory(string _charinven)
     {
         m_charinven = _charinven;
         WWWForm form = new WWWForm();
-        form.AddField("characterinvenPost", _charinven);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("characterinvenPost", m_charinven);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadEtcInventory(string _etcinven)
     {
         m_etcinven = _etcinven;
         WWWForm form = new WWWForm();
-        form.AddField("ectinvenPost", _etcinven);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("ectinvenPost", m_etcinven);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadItem(int _item)
     {
         m_item = _item;
         WWWForm form = new WWWForm();
-        form.AddField("itemPost", _item);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("itemPost", m_item);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadGold(int _gold)
     {
         m_gold = _gold;
         WWWForm form = new WWWForm();
-        form.AddField("goldPost", _gold);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("goldPost", m_gold);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadHp(int _hp)
     {
         m_hp = _hp;
         WWWForm form = new WWWForm();
-        form.AddField("hpPost", _hp);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("hpPost", m_hp);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadMp(int _mp)
     {
         m_mp = _mp;
         WWWForm form = new WWWForm();
-        form.AddField("mpPost", _mp);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("mpPost", m_mp);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadAttack(int _attack)
     {
         m_attack = _attack;
         WWWForm form = new WWWForm();
-        form.AddField("attackPost", _attack);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("attackPost", m_attack);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadDefence(int _defence)
     {
         m_defence = _defence;
         WWWForm form = new WWWForm();
-        form.AddField("defencePost", _defence);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("defencePost", m_defence);
         WWW www = new WWW(m_uploadUrl, form);
     }
 
@@ -256,7 +292,8 @@ public class LoadData : Singleton<LoadData>
     {
         m_score = _score;
         WWWForm form = new WWWForm();
-        form.AddField("scorePost", _score);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("scorePost", m_score);
         WWW www = new WWW(m_uploadUrl, form);
     }
     
@@ -264,31 +301,48 @@ public class LoadData : Singleton<LoadData>
     {
         m_statpoint = _statpoint;
         WWWForm form = new WWWForm();
-        form.AddField("statpointPost", _statpoint);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("statpointPost", m_statpoint);
         WWW www = new WWW(m_uploadUrl, form);
     }
     public void UploadMainCharacter(string _mainchar)
     {
         m_maincharacter = _mainchar;
         WWWForm form = new WWWForm();
-        form.AddField("maincharacterPost", _mainchar);
+        form.AddField("googleidPost", m_userId);
+        form.AddField("maincharacterPost", m_maincharacter);
         WWW www = new WWW(m_uploadUrl, form);
     }
 
     public void UploadAllData()
     {
-        UploadName(m_username);
-        UploadCharacterInventory(m_charinven);
-        UploadEtcInventory(m_etcinven);
-        UploadItem(m_item);
-        UploadGold(m_gold);
-        UploadHp(m_hp);
-        UploadMp(m_mp);
-        UploadAttack(m_attack);
-        UploadDefence(m_defence);
-        UploadScore(m_score);
-        UploadStatPoint(m_statpoint);
-        UploadMainCharacter(m_maincharacter);
+        WWWForm form = new WWWForm();
+        form.AddField("googleidPost", m_userId);
+        form.AddField("usernamePost", m_username);
+        form.AddField("characterinvenPost", m_charinven);
+        form.AddField("ectinvenPost", m_etcinven);
+        form.AddField("itemPost", m_item);
+        form.AddField("goldPost", m_gold);
+        form.AddField("hpPost", m_hp);
+        form.AddField("mpPost", m_mp);
+        form.AddField("attackPost", m_attack);
+        form.AddField("defencePost", m_defence);
+        form.AddField("scorePost", m_score);
+        form.AddField("statpointPost", m_statpoint);
+        form.AddField("maincharacterPost", m_maincharacter);
+        WWW www = new WWW(m_uploadUrl, form);
+        //UploadName(m_username);
+        //UploadCharacterInventory(m_charinven);
+        //UploadEtcInventory(m_etcinven);
+        //UploadItem(m_item);
+        //UploadGold(m_gold);
+        //UploadHp(m_hp);
+        //UploadMp(m_mp);
+        //UploadAttack(m_attack);
+        //UploadDefence(m_defence);
+        //UploadScore(m_score);
+        //UploadStatPoint(m_statpoint);
+        //UploadMainCharacter(m_maincharacter);
     }
 
 
@@ -302,18 +356,19 @@ public class LoadData : Singleton<LoadData>
         else
         {
             //어플 재개
+         
         }
     }
 
 
-    public void LoadInventory(List<CharacterData> _loadinven)
-    {
-        _loadinven = new List<CharacterData>();
-        for(int i = 0; i < _loadinven.Count; i++ )
-        {
-            MainInvenUIManager.GetInstance.m_inventory.Add(_loadinven[i]);
-        }
-    }
+    //public void LoadInventory(List<CharacterData> _loadinven)
+    //{
+    //    _loadinven = new List<CharacterData>();
+    //    for(int i = 0; i < _loadinven.Count; i++ )
+    //    {
+    //        MainInvenUIManager.GetInstance.m_inventory.Add(_loadinven[i]);
+    //    }
+    //}
 
 
 

@@ -41,7 +41,7 @@ RenderSettings:
 LightmapSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 6
-  m_GIWorkflowMode: 1
+  m_GIWorkflowMode: 0
   m_LightmapsMode: 1
   m_GISettings:
     serializedVersion: 2
@@ -592,10 +592,15 @@ Prefab:
       objectReference: {fileID: 533377664}
     - target: {fileID: 11468074, guid: 93118fe78b1865d42b76f408d9077de9, type: 2}
       propertyPath: m_googleId
-      value: g09033669007273611046
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11468074, guid: 93118fe78b1865d42b76f408d9077de9, type: 2}
+      propertyPath: m_userId
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 11464214, guid: 93118fe78b1865d42b76f408d9077de9, type: 2}
+    - {fileID: 11468074, guid: 93118fe78b1865d42b76f408d9077de9, type: 2}
   m_ParentPrefab: {fileID: 100100000, guid: 93118fe78b1865d42b76f408d9077de9, type: 2}
   m_IsPrefabParent: 0
 --- !u!1 &331965933 stripped
@@ -952,8 +957,8 @@ RectTransform:
   m_RootOrder: 1
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -248, y: 426}
-  m_SizeDelta: {x: 1331, y: 192}
+  m_AnchoredPosition: {x: -248, y: 271}
+  m_SizeDelta: {x: 1331, y: 502}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &559881989
 GameObject:
@@ -991,7 +996,9 @@ RectTransform:
   - {fileID: 604848839}
   - {fileID: 1705335358}
   - {fileID: 844825773}
+  - {fileID: 1847404017}
   - {fileID: 908491330}
+  - {fileID: 1062541517}
   m_Father: {fileID: 1154266267}
   m_RootOrder: 0
   m_AnchorMin: {x: 0, y: 0}
@@ -2017,7 +2024,7 @@ GameObject:
   - 114: {fileID: 844825775}
   - 114: {fileID: 844825774}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Guest_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2300,13 +2307,12 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1160273784}
-  - {fileID: 1847404017}
   m_Father: {fileID: 559881990}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 10, y: 10}
+  m_AnchoredPosition: {x: 0, y: 70.25}
+  m_SizeDelta: {x: 10, y: -130.5}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &908491331
 MonoBehaviour:
@@ -2341,6 +2347,79 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 908491329}
+--- !u!1 &1062541516
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 224: {fileID: 1062541517}
+  - 222: {fileID: 1062541519}
+  - 114: {fileID: 1062541518}
+  m_Layer: 5
+  m_Name: CheckingData_Text
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1062541517
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1062541516}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 559881990}
+  m_RootOrder: 10
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 2.5, y: -456.93}
+  m_SizeDelta: {x: 905, y: 97}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1062541518
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1062541516}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 708705254, guid: f5f67c52d1564df4a8936ccd202a3bd8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+    m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
+      Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 3
+    m_MaxSize: 50
+    m_Alignment: 4
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1062541519
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1062541516}
 --- !u!1 &1115682641
 GameObject:
   m_ObjectHideFlags: 0
@@ -3412,6 +3491,10 @@ Prefab:
       propertyPath: monsterurl
       value: https://s3-ap-northeast-1.amazonaws.com/luputona/AssetBundles/Android/
       objectReference: {fileID: 0}
+    - target: {fileID: 11434232, guid: a0463354bdb21c3419d701ae98144287, type: 2}
+      propertyPath: m_chekingData_text
+      value: 
+      objectReference: {fileID: 1062541518}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: a0463354bdb21c3419d701ae98144287, type: 2}
   m_IsPrefabParent: 0
@@ -3488,6 +3571,54 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1665477118}
+--- !u!1 &1696783387
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1696783388}
+  - 114: {fileID: 1696783389}
+  m_Layer: 0
+  m_Name: InitializeUserStatus
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1696783388
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696783387}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+--- !u!114 &1696783389
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696783387}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: edd455f2796b29240867dcbdcb399758, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_inithp: 0
+  m_initmp: 0
+  m_initattack: 0
+  m_initdefence: 0
+  m_initgold: 0
+  m_inititem: 0
+  m_initscore: 0
+  m_initstatpoint: 0
+  m_initmaincharacter: 
 --- !u!1 &1705335357
 GameObject:
   m_ObjectHideFlags: 0
@@ -3878,7 +4009,7 @@ GameObject:
   - 114: {fileID: 1847404019}
   - 114: {fileID: 1847404018}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Login_Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3895,11 +4026,11 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1418013474}
-  m_Father: {fileID: 908491330}
-  m_RootOrder: 1
+  m_Father: {fileID: 559881990}
+  m_RootOrder: 8
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -815, y: -477}
+  m_AnchoredPosition: {x: -815, y: -456.93}
   m_SizeDelta: {x: 240, y: 97}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1847404018
@@ -4538,8 +4669,153 @@ MonoBehaviour:
   m_mainPanelButton: {fileID: 559881993}
   m_already_SignCheck_Text: {fileID: 604848837}
   m_signText: {fileID: 1418013475}
+  m_chekingData_text: {fileID: 1062541518}
   m_charData:
-    Name: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
+    Id: 0
+    Cost: 0
+    Hp: 0
+    Mp: 0
+    Sp: 0
+    SkillName: 
+    SkillMp: 0
+    SkillDamage: 0
+    Attack: 0
+    AttackName: 
+    Defence: 0
+    QName: 
+    QSp: 0
+    QDamage: 0
+    Profile: 
+  - Name: 
     Id: 0
     Cost: 0
     Hp: 0
@@ -4800,7 +5076,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: Button
+  m_Text: Guest
 --- !u!222 &2094218513
 CanvasRenderer:
   m_ObjectHideFlags: 0
