@@ -44,8 +44,4 @@ public class InitializeUserStatus : Singleton<InitializeUserStatus>
 	
 	}
 	
-	// Update is called once per frame
-	void Update () {
-	
-	}
 }

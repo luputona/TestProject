@@ -3619,6 +3619,7 @@ MonoBehaviour:
   m_initscore: 0
   m_initstatpoint: 0
   m_initmaincharacter: 
+  m_goolgleid: 
 --- !u!1 &1705335357
 GameObject:
   m_ObjectHideFlags: 0

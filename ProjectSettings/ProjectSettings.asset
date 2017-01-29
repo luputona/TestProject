@@ -158,7 +158,7 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: F:/GitHub/GoogleConnectTest/user.keystore
+  AndroidKeystoreName: C:/Users/luputona/Desktop/GoogleConnectTest/user.keystore
   AndroidKeyaliasName: testconnect
   AndroidTVCompatibility: 0
   AndroidIsGame: 0

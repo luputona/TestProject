@@ -60,7 +60,7 @@ public class MainUIAnimController : MonoBehaviour
         while (enumerator.MoveNext())
         {
             //Debug.Log("name" + enumerator.Current.Value.name);
-            Debug.Log("value" + enumerator.Current.Value);
+            //Debug.Log("value" + enumerator.Current.Value);
 
         }
     }

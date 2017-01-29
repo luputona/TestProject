@@ -147,7 +147,9 @@ public class LoginManager : MonoBehaviour {
     {
         WWWForm form = new WWWForm();
         form.AddField("googleidPost", m_userid);
+
         //form.AddField("googleidPost", "g04455256582715371750");
+        //m_userid = "g04455256582715371750";
         WWW www = new WWW(m_checkIdUrl, form);
 
         yield return www;
@@ -159,7 +161,7 @@ public class LoginManager : MonoBehaviour {
         }
         if (www.isDone)
         {
-
+            InitializeUserStatus.GetInstance.m_goolgleid = m_userid;
             m_getid = www.text;
 
             if (m_getid == "false")
