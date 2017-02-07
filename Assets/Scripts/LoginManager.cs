@@ -41,22 +41,22 @@ public class LoginManager : MonoBehaviour {
         m_createName = m_createNamePanel.transform.FindChild("CreateName_BG").gameObject;
         m_mainPanelButton = m_mainPanel.GetComponent<Button>();
         m_mainPanelButton.interactable = false;
+        
     }
     // Use this for initialization
     void Start ()
     {
         m_createName.SetActive(false);
 
-        GPGSMgr.GetInstance.LoginGPGS();
-       
-      
+        
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-
-        if(!GPGSMgr.GetInstance.m_bLogin)
+        //Debug.Log("m_getid : " + m_getid);
+        //StartCoroutine(Checksignin());
+        if (!GPGSMgr.GetInstance.m_bLogin)
         {
             m_signText.text = string.Format("{0}", login);            
         }
@@ -148,8 +148,8 @@ public class LoginManager : MonoBehaviour {
         WWWForm form = new WWWForm();
         form.AddField("googleidPost", m_userid);
 
-        //form.AddField("googleidPost", "g04455256582715371750");
-        //m_userid = "g04455256582715371750";
+        //form.AddField("googleidPost", "g09033669007273611046");
+        //m_userid = "g09033669007273611046";
         WWW www = new WWW(m_checkIdUrl, form);
 
         yield return www;
@@ -198,7 +198,7 @@ public class LoginManager : MonoBehaviour {
             
         }
     }
-
+    //ui에 연결
     public void SigninAlreadyOkButton()
     {
         if(m_balready_SignCheck)

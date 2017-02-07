@@ -126,8 +126,8 @@ public class GPGSMgr : Singleton<GPGSMgr> {
     {
         m_bLogin = false;
         
-        PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
-        PlayGamesPlatform.InitializeInstance(config);
+        //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
+        //PlayGamesPlatform.InitializeInstance(config);
         PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
 
@@ -317,10 +317,10 @@ public class GPGSMgr : Singleton<GPGSMgr> {
     //    }
     //}
 
-    void OnApplicationQuit()
-    {
-        LogoutGPGS();
-    }
+    //void OnApplicationQuit()
+    //{
+    //    LogoutGPGS();
+    //}
 
 
     /// <summary>

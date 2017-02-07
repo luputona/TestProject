@@ -39,9 +39,5 @@ public class InitializeUserStatus : Singleton<InitializeUserStatus>
 
     }
     // Use this for initialization
-    void Start ()
-    {
-	
-	}
-	
+   
 }
