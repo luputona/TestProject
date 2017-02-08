@@ -12,6 +12,7 @@ public class UserInfomation : Singleton<UserInfomation>
     public GameObject[] m_userTotalStatus;
     public GameObject m_statusPopUp_Obj;
     public GameObject m_nicknamePopUp_Obj;
+    public Text m_userCodeText;
     public Dictionary<string, Text> m_currentUserInfoText = new Dictionary<string, Text>();
     public Dictionary<string, Text> m_currentCharSpecText = new Dictionary<string, Text>();
     public Dictionary<string, Text> m_totalSpecText = new Dictionary<string, Text>();
@@ -40,9 +41,7 @@ public class UserInfomation : Singleton<UserInfomation>
     void Start ()
     {
         //InitailizeCharacterInfo();
-        
-        GPGSMgr.GetInstance.SaveGame();
-        GPGSMgr.GetInstance.LoadGame();
+       
 
         StartCoroutine(UserInfoUpdate());
         m_statusPopUp_Obj.SetActive(false);
@@ -174,6 +173,7 @@ public class UserInfomation : Singleton<UserInfomation>
             //m_currentUserInfoText["Cur_User_Level_Text"].text = string.Format("{0}", m_level);
             m_currentUserInfoText["Cur_User_Gold_Text"].text = string.Format("{0}", LoadData.GetInstance.m_gold);
             m_currentUserInfoText["Cur_User_item_Text"].text = string.Format("{0}", LoadData.GetInstance.m_item);
+            m_currentUserInfoText["UserCode_Text"].text = string.Format("{0}", PlayerPrefs.GetString("UserIdCode"));
         }
     }
     public void ShowUserTotalStatus()

@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3311172799
+CRC: 1920278860
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 8a1010cc3dfa722d0b93dc49adaf5479
+    Hash: f09407787d285ceec18780c7d1f9e6bd
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 07535014fbb3be70736ef7da48d54b4e
+    Hash: 331725cf555cbef2975b93fd471568fd
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -28,6 +28,8 @@ ClassTypes:
 - Class: 48
   Script: {instanceID: 0}
 - Class: 49
+  Script: {instanceID: 0}
+- Class: 62
   Script: {instanceID: 0}
 - Class: 64
   Script: {instanceID: 0}
@@ -103,6 +105,7 @@ Assets:
 - Assets/Resources/live2d/shizuku/shizuku.1024/texture_05.png
 - Assets/Resources/live2d/haru/motions/tapBody_03.mtn.bytes
 - Assets/Resources/live2d/shizuku/motions/idle_01.mtn.bytes
+- Assets/Resources/image/Materials/Monster Physics2D Material.physicsMaterial2D
 - Assets/Resources/live2d/haru/sounds/tapBody_01.mp3
 - Assets/Resources/live2d/shizuku/motions/flickHead_01.mtn.bytes
 - Assets/Resources/live2d/shizuku/sounds/pinchOut_02.mp3

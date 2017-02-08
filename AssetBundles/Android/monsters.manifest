@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3848085617
+CRC: 237059818
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: 6f974bcd6ac1bfd77f13bc1e986008f1
+    Hash: 3d7bad7714ec592fda2f75a012d8d1bc
   TypeTreeHash:
     serializedVersion: 2
-    Hash: f718ca7542309e546cd5427a2be62f76
+    Hash: e0d0279c518130142cddc7e33848e5d5
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -23,6 +23,12 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 61
   Script: {instanceID: 0}
+- Class: 62
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1f79a34eb017e7041a6df0eb17c797e1, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
 - Class: 212
   Script: {instanceID: 0}
 - Class: 213
@@ -31,4 +37,5 @@ Assets:
 - Assets/Resources/Prefabs/Monsters/Can.prefab
 - Assets/Resources/Prefabs/Monsters/Paper.prefab
 - Assets/Resources/Prefabs/Monsters/Bottle.prefab
-Dependencies: []
+Dependencies:
+- AssetBundles/Android/live2dtest

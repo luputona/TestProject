@@ -12,7 +12,7 @@ using LitJson;
 public class LoadData : Singleton<LoadData>
 {
     public List<CharacterData> m_localcharList = new List<CharacterData>();
-    public string m_googleId;
+    public string m_userIdCode;
     public string m_userId;
     public string m_username;
    
@@ -45,10 +45,12 @@ public class LoadData : Singleton<LoadData>
 
 
     public Button m_panelButton;
-    public Text m_text;
+    public Text m_progressText;
     public bool m_downcheck = false;
+    public float m_currentValue = 0;
     private JsonData m_charJsonData;
     private string jsonstring;
+    
 
     [SerializeField]
     private string m_userdataUrl = "http://54.238.128.34/userdb.php";
@@ -84,8 +86,18 @@ public class LoadData : Singleton<LoadData>
         //m_initgold = 10000;
         //m_inititem = 1;
         //m_initmaincharacter = "UnityChan";
-
-        m_googleId = InitializeUserStatus.GetInstance.m_goolgleid;
+        
+        //if (m_panelButton == null)
+        //{
+        //    m_panelButton = GameObject.Find("PanelButton").GetComponent<Button>();
+        //}
+        
+    }
+        
+    void Start()
+    {
+        //m_panelButton.interactable = false;
+        m_userIdCode = PlayerPrefs.GetString("UserIdCode");
         m_hp = InitializeUserStatus.GetInstance.m_inithp;
         m_mp = InitializeUserStatus.GetInstance.m_initmp;
         m_attack = InitializeUserStatus.GetInstance.m_initattack;
@@ -94,42 +106,42 @@ public class LoadData : Singleton<LoadData>
         m_gold = InitializeUserStatus.GetInstance.m_initgold;
 
 
-        if (m_panelButton == null)
-        {
-            m_panelButton = GameObject.Find("PanelButton").GetComponent<Button>();
-        }
-    }
-
-    public LoadData()
-    {
-    }
-    
-    void Start()
-    {
-
-        //if (PlayerPrefs.GetString("UserName") == "" || PlayerPrefs.GetString("UserName") == GPGSMgr.GetInstance.GetNameGPGS())
-        //{
-        //    m_playername = GPGSMgr.GetInstance.GetNameGPGS();
-        //}
-        //else
-        //{
-        //    m_playername = PlayerPrefs.GetString("UserName");
-        //}
         StartCoroutine(DownloadUserData());
-        UploadAllData();
+        
 
     }
 
     void Update()
     {
-        
+        //if(m_panelButton == null)
+        //{
+        //    m_panelButton = null;
+        //    //m_panelButton = GameObject.FindGameObjectWithTag("DataLoadScene_Loading_BG").gameObject.GetComponent<Button>();            
+        //}
+        //else
+        //{
+        //    if (m_currentValue >= 100)
+        //    {
+        //        m_panelButton.interactable = true;
+        //    }
+        //}
+
+        //if (m_progressText == null)
+        //{
+        //    m_progressText = null;
+        //    //m_progressText = GameObject.FindGameObjectWithTag("DataLoadScene_progress_Text").gameObject.GetComponent<Text>();
+        //}
+        //else
+        //{
+        //    m_progressText.text = string.Format("{0:0}%", m_currentValue);
+        //}
+       
+        if(PlayerPrefs.HasKey("UserIdCode"))
+        {
+            m_userIdCode = PlayerPrefs.GetString("UserIdCode");
+        }
         
 
-        if(m_downcheck)
-        {
-            m_panelButton.interactable = true;
-        }
-      
         
         //m_text.text = string.Format("{0} /// {1}", m_localcharList[2].Name , m_localcharList.Count);
     }
@@ -164,8 +176,8 @@ public class LoadData : Singleton<LoadData>
     public IEnumerator DownloadUserData()
     {
         WWWForm form = new WWWForm();
-        //form.AddField("googleidPost", "g04455256582715371750");
-        form.AddField("googleidPost", m_googleId);
+        //form.AddField("googleidPost", "g09033669007273611046");
+        form.AddField("googleidPost", m_userIdCode);
         WWW www = new WWW(m_userdataUrl, form);
 
         yield return www;
@@ -175,6 +187,12 @@ public class LoadData : Singleton<LoadData>
         {
             Debug.Log("user Data Dowload Error");
         }
+        while(!www.isDone)
+        {
+            m_currentValue = www.progress * 100f;
+            yield return null;
+        }
+        m_currentValue = 100f;
         if(www.isDone)
         {            
             m_userId = SplitData(m_dbText[0],"userid:");
@@ -191,6 +209,7 @@ public class LoadData : Singleton<LoadData>
             m_statpoint = int.Parse(SplitData(m_dbText[0], "statpoint:"));
             m_maincharacter = SplitData(m_dbText[0], "maincharacter:");
 
+            PlayerPrefs.SetString("SelectCharacter", m_maincharacter);
 
             m_charJsonData = JsonMapper.ToObject(m_charinven);
             ConstructLocalCharDatabase();
@@ -198,7 +217,10 @@ public class LoadData : Singleton<LoadData>
             //print("jsonstring :" + m_charinven.ToString());
 
             //print("list : "+m_localcharList[0].Name);
+            UploadAllData();
         }        
+        
+
     }
 
 

@@ -107,28 +107,24 @@ public class GPGSMgr : Singleton<GPGSMgr> {
 
     void Awake()
     {
-        if (m_instance != null)
-        {
-            GameObject.Destroy(gameObject);
-        }
-        else
-        {
+        //if (m_instance != null)
+        //{
+        //    GameObject.Destroy(gameObject);
+        //}
+        //else
+        //{
             GameObject.DontDestroyOnLoad(gameObject);
             m_instance = this;
-        }
-        InitializeGPGS();
-        
-
+        //}
     }
     
-
     public void InitializeGPGS()
     {
         m_bLogin = false;
         
         //PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder().EnableSavedGames().Build();
         //PlayGamesPlatform.InitializeInstance(config);
-        PlayGamesPlatform.DebugLogEnabled = true;
+        //PlayGamesPlatform.DebugLogEnabled = true;
         PlayGamesPlatform.Activate();
 
         //if(!Social.localUser.authenticated)
@@ -153,24 +149,24 @@ public class GPGSMgr : Singleton<GPGSMgr> {
 
     public void LoginGPGS()
     {
-        //Social.localUser.Authenticate((bool success) =>
-        //{
-        //    if (success)
-        //    {
-        //        m_bLogin = true;
-        //    }
-        //    else
-        //    {
-        //        m_bLogin = false;
-        //    }
-        //});
-        if (!Social.localUser.authenticated)
+        Social.localUser.Authenticate((bool success) =>
         {
-            Social.localUser.Authenticate(LoginCallBackGPGS);
-            //SaveGame();
-            //LoadGame();
-        }
-            
+            if (success)
+            {
+                m_bLogin = true;
+            }
+            else
+            {
+                m_bLogin = false;
+            }
+        });
+        //if (!Social.localUser.authenticated)
+        //{
+        //    Social.localUser.Authenticate(LoginCallBackGPGS);
+        //    //SaveGame();
+        //    //LoadGame();
+        //}
+
     }
 
     public void LoginCallBackGPGS(bool result)

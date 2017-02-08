@@ -45,8 +45,9 @@ AssetBundleManifest:
       Name: banner
       Dependencies: {}
     Info_13:
-      Name: monsterdata
-      Dependencies: {}
-    Info_14:
       Name: monsters
+      Dependencies:
+        Dependency_0: live2dtest
+    Info_14:
+      Name: monsterdata
       Dependencies: {}

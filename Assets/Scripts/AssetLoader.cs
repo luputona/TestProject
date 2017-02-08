@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
+using System.Text;
 
 
 public class AssetLoader : Singleton<AssetLoader> 
@@ -29,7 +30,7 @@ public class AssetLoader : Singleton<AssetLoader>
     private float totalPercentage;
 
     Hash128 hash;
-
+    Random ran = new Random();
     void Awake()
     {
         if (m_instance != null)
@@ -41,11 +42,16 @@ public class AssetLoader : Singleton<AssetLoader>
             GameObject.DontDestroyOnLoad(gameObject);
             m_instance = this;
         }
+        GPGSMgr.GetInstance.InitializeGPGS();
     }
 
     void Start()
     {        
+        
         StartCoroutine(InitAssetBundle());
+        
+
+        
     }
     void Update()
     {
@@ -118,7 +124,7 @@ public class AssetLoader : Singleton<AssetLoader>
                     ++m_assetCount;
                 }
                 tempPercentage = (float)m_assetCount / (float)m_assetLength;
-                Debug.Log("m_assetCount : "+ m_assetCount);
+                //Debug.Log("m_assetCount : "+ m_assetCount);
                 totalPercentage = tempPercentage * 100;
 
                 m_currentValue = 100f;
@@ -166,7 +172,7 @@ public class AssetLoader : Singleton<AssetLoader>
                 if (m_assetLength == m_assetCount)
                 {
                     m_downCheck = true;
-                    GPGSMgr.GetInstance.LoginGPGS();
+                    //GPGSMgr.GetInstance.LoginGPGS();
                 }
                 else
                 {

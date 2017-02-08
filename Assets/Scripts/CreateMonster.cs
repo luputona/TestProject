@@ -159,8 +159,9 @@ public class CreateMonster : Singleton<CreateMonster>
                                 CharacterControllManager.GetInstance.m_getGold += LoadMonsterData.GetInstance.m_monsterList[k].Gold;
                                 PlayerPrefs.GetInt("GetGold", CharacterControllManager.GetInstance.m_getGold);
                                 PlayerPrefs.GetInt("GetScore", CharacterControllManager.GetInstance.m_score);
+                                LoadData.GetInstance.m_gold += LoadMonsterData.GetInstance.m_monsterList[k].Gold;
 
-                                if(CharacterControllManager.GetInstance.m_curSp < CharacterControllManager.GetInstance.m_maxSp)
+                                if (CharacterControllManager.GetInstance.m_curSp < CharacterControllManager.GetInstance.m_maxSp)
                                 {
                                     CharacterControllManager.GetInstance.m_curSp += LoadMonsterData.GetInstance.m_monsterList[k].RecoverSP;
                                     int tempSp = CharacterControllManager.GetInstance.m_maxSp - CharacterControllManager.GetInstance.m_curSp;
@@ -206,11 +207,12 @@ public class CreateMonster : Singleton<CreateMonster>
             pool[i] = new MemoryPool();
         }
         //에셋번들에서 로드
-        //for(int i = 0; i < AssetLoader.GetInstance.monster_list.Count; i++)
-        //{
-        //    m_monsterPrefabs[i] = AssetLoader.GetInstance.monster_list[i];
-        //}
-        m_monsterPrefabs = Resources.LoadAll<GameObject>("Prefabs/Monsters/");
+        for (int i = 0; i < AssetLoader.GetInstance.monster_list.Count; i++)
+        {
+            m_monsterPrefabs[i] = AssetLoader.GetInstance.monster_list[i];
+        }
+        //로컬에서 로드
+        //m_monsterPrefabs = Resources.LoadAll<GameObject>("Prefabs/Monsters/");
 
         for (int i = 0; i < count; i++ )
         {

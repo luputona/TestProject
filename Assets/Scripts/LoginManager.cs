@@ -2,6 +2,7 @@
 using System.Collections;
 using UnityEngine.UI;
 using LitJson;
+using System.Text;
 
 public class LoginManager : MonoBehaviour {
 
@@ -9,6 +10,9 @@ public class LoginManager : MonoBehaviour {
     public GameObject m_createName;
     public GameObject m_createNamePanel;
     public GameObject m_mainPanel;
+    public GameObject m_inputUserCode;
+    public GameObject m_accountMsg;
+    public InputField m_inpufield;
     public Button m_mainPanelButton;
     public Text m_already_SignCheck_Text;    
     public Text m_signText;
@@ -31,6 +35,7 @@ public class LoginManager : MonoBehaviour {
     public int m_item;
     public int m_gold;
     public int m_idcheck;
+    public int m_accountCheck;
     public bool m_signinCheck = false;
     public bool m_balready_SignCheck = false;
 
@@ -38,111 +43,123 @@ public class LoginManager : MonoBehaviour {
     
     void Awake()
     {
+        m_accountCheck = 4;
         m_createName = m_createNamePanel.transform.FindChild("CreateName_BG").gameObject;
+        m_inputUserCode = m_createNamePanel.transform.FindChild("InputCode_BG").gameObject;
+        m_accountMsg = m_createNamePanel.transform.FindChild("AccountMsg_BG").gameObject;
+        
         m_mainPanelButton = m_mainPanel.GetComponent<Button>();
         m_mainPanelButton.interactable = false;
+        CreateUserIdCode();
         
     }
     // Use this for initialization
     void Start ()
     {
         m_createName.SetActive(false);
-
-        
+        m_inputUserCode.SetActive(false);
+        m_accountMsg.SetActive(false);
+        StartCoroutine(Checksignin());
     }
 	
 	// Update is called once per frame
 	void Update ()
     {
-        //Debug.Log("m_getid : " + m_getid);
-        //StartCoroutine(Checksignin());
-        if (!GPGSMgr.GetInstance.m_bLogin)
+        Debug.Log("m_getid : " + PlayerPrefs.GetString("UserIdCode"));
+      
+        //if (!GPGSMgr.GetInstance.m_bLogin)
+        //{
+        //    m_signText.text = string.Format("{0}", login);            
+        //}
+        //else
+        //{
+        //    m_userid = GPGSMgr.GetInstance.GetIDGPGS();
+        //    m_signText.text = string.Format("{0}", logout);            
+        //    StartCoroutine(Checksignin());
+        //}
+
+        if (PlayerPrefs.HasKey("UserIdCode"))
         {
-            m_signText.text = string.Format("{0}", login);            
+            m_signText.text = string.Format("{0}", logout);            
         }
         else
         {
-            m_userid = GPGSMgr.GetInstance.GetIDGPGS();
-            m_signText.text = string.Format("{0}", logout);
+            m_signText.text = string.Format("{0}", login);
             
-            StartCoroutine(Checksignin());
         }
 
-        
+
         if (m_balready_SignCheck)
         {
-            m_createName.SetActive(true);            
+            m_accountMsg.SetActive(true);
+        }
+        else if(!m_balready_SignCheck)
+        {
+            m_accountMsg.SetActive(false);
+        }
+
+        if (m_accountCheck.Equals(1))
+        {
+            m_createName.SetActive(true);
         }
         else
         {
             m_createName.SetActive(false);
         }
 
+        if(m_accountCheck.Equals(0))
+        {
+            m_inputUserCode.SetActive(true);
+        }
+        else
+        {
+            m_inputUserCode.SetActive(false);
+        }
+
+        if(AssetLoader.GetInstance.m_downCheck)
+        {
+            StartCoroutine(Checksignin());
+            Debug.Log(m_signinCheck);
+            Debug.Log("m_getid : "+ m_getid);
+            Debug.Log("m_userid : " + m_userid);
+        }
         if(m_signinCheck && AssetLoader.GetInstance.m_downCheck)
         {
             m_chekingData_text.text = string.Format("Complete Checking Data");
+            
+            
             m_createNamePanel.SetActive(false);
             m_mainPanelButton.interactable = true;
         }
         else
         {
             m_chekingData_text.text = string.Format("Checking Data");
+            m_mainPanelButton.interactable = false;
         }
     }
 
     public void SignEvent()
     {
-        if (!GPGSMgr.GetInstance.m_bLogin)
-        {
-            GPGSMgr.GetInstance.LoginGPGS();            
+        //if (!GPGSMgr.GetInstance.m_bLogin)
+        //{
+        //    GPGSMgr.GetInstance.LoginGPGS();            
+        //}
+        //else
+        //{
+        //    GPGSMgr.GetInstance.LogoutGPGS();
+        //}
+        if(PlayerPrefs.HasKey("UserIdCode"))
+        {            
+            PlayerPrefs.DeleteKey("UserIdCode");
+            m_userid = PlayerPrefs.GetString("UserIdCode");
+            m_signinCheck = false;
         }
-        else
+        else if(PlayerPrefs.GetString("UserIdCode") == null)
         {
-            GPGSMgr.GetInstance.LogoutGPGS();
+            m_accountMsg.SetActive(true);
         }
     }
-
-    public void AddUser(string _goolgleId, string _username, string _charinven, string _etcinven, int _item, int _gold, int _hp, int _mp, int _attack, int _defence, int _score, int _statpoint, string _maincharacter)
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("googleidPost", _goolgleId);
-        form.AddField("usernamePost", _username);
-        form.AddField("charinvenPost", _charinven);
-        form.AddField("etcinvenPost", _etcinven);
-        form.AddField("itemPost", _item);
-        form.AddField("goldPost", _gold);
-        form.AddField("hpPost", _hp);
-        form.AddField("mpPost", _mp);
-        form.AddField("attackPost", _attack);
-        form.AddField("defencePost", _defence);
-        form.AddField("scorePost", _score);
-        form.AddField("statpointPost", _statpoint);
-        form.AddField("maincharacterPost", _maincharacter);
-        LoadData.GetInstance.m_username = _username;
-        LoadData.GetInstance.m_googleId = _goolgleId;
-        WWW www = new WWW(m_addUserUrl, form);
-    }
-    //public void AddUser()
-    //{
-    //    WWWForm form = new WWWForm();
-    //    form.AddField("googleidPost", m_userid);
-    //    form.AddField("usernamePost", m_username);
-    //    form.AddField("charinvenPost", m_charinven);
-    //    form.AddField("etcinvenPost", m_etcineven);
-    //    form.AddField("itemPost", 0);
-    //    form.AddField("goldPost", 0);
-    //    form.AddField("hpPost", 0);
-    //    form.AddField("mpPost", 0);
-    //    form.AddField("attackPost", 0);
-    //    form.AddField("defencePost", 0);
-    //    form.AddField("scorePost", 0);
-    //    form.AddField("statpointPost", 0);
-    //    form.AddField("maincharacterPost", "");
-    //    LoadData.GetInstance.m_username = _username;
-    //    LoadData.GetInstance.m_googleId = _goolgleId;
-    //    WWW www = new WWW(m_addUserUrl, form);
-    //}
-
+    
     IEnumerator Checksignin()
     {
         WWWForm form = new WWWForm();
@@ -207,11 +224,79 @@ public class LoginManager : MonoBehaviour {
             InitializeUserStatus.GetInstance.m_goolgleid = m_userid;
         }        
         m_balready_SignCheck = false;
+        m_accountCheck = 3;
         m_createName.SetActive(false);
     }
+
+    public void SetInputUserCode()
+    {
+        string temp = m_inpufield.text;
+        PlayerPrefs.SetString("UserIdCode", temp);
+        m_userid = PlayerPrefs.GetString("UserIdCode");
+       
+    }
+
+    public void InputUserCodeOKButton()
+    {
+        m_inputUserCode.SetActive(false);
+        m_accountCheck = 4;
+    }
+
     public void SetName(string _name)
     {
         m_username = _name; 
+    }
+
+    public void NewAccountButton()
+    {
+        PlayerPrefs.SetString("UserIdCode", m_userid);
+        m_accountCheck = 1;
+        m_balready_SignCheck = false;
+    }
+    public void ContinueButton()
+    {
+        m_accountCheck = 0;
+        m_balready_SignCheck = false;
+    }
+
+    public void InputUserCodeCancelButton()
+    {
+        m_accountCheck = 4;
+    }
+
+    public void NewAccountCancelButton()
+    {
+        m_accountCheck = 4;
+    }
+
+    void CreateUserIdCode()
+    {
+        string[] str = new string[10];
+        StringBuilder sb = new StringBuilder();
+
+        for (int i = 0; i < 10; i++)
+        {
+            int ran = Random.Range(100, 999);
+            str[i] = ran.ToString();
+            //Debug.Log("str : " + i + " : " + str[i]);
+        }
+        for (int i = 0; i < 4; i++)
+        {
+            int ran2 = Random.Range(0, 10);
+            string str2 = str[ran2];
+            sb.Append(str2);
+        }
+        if (PlayerPrefs.HasKey("UserIdCode"))
+        {
+            m_userid = PlayerPrefs.GetString("UserIdCode");
+        }
+        else
+        {
+            m_userid = sb.ToString();
+            
+        }
+
+        Debug.Log("ID : " + sb.ToString());
     }
 
     void InitializeNewUser()
@@ -222,6 +307,45 @@ public class LoginManager : MonoBehaviour {
         m_charinven = m_charinvenJsonData.ToString();
         m_etcineven = "";
     }
+    public void AddUser(string _userIdCode, string _username, string _charinven, string _etcinven, int _item, int _gold, int _hp, int _mp, int _attack, int _defence, int _score, int _statpoint, string _maincharacter)
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("googleidPost", _userIdCode);
+        form.AddField("usernamePost", _username);
+        form.AddField("charinvenPost", _charinven);
+        form.AddField("etcinvenPost", _etcinven);
+        form.AddField("itemPost", _item);
+        form.AddField("goldPost", _gold);
+        form.AddField("hpPost", _hp);
+        form.AddField("mpPost", _mp);
+        form.AddField("attackPost", _attack);
+        form.AddField("defencePost", _defence);
+        form.AddField("scorePost", _score);
+        form.AddField("statpointPost", _statpoint);
+        form.AddField("maincharacterPost", _maincharacter);
+        LoadData.GetInstance.m_username = _username;
+        LoadData.GetInstance.m_userIdCode = _userIdCode;
+        WWW www = new WWW(m_addUserUrl, form);
+    }
+    //public void AddUser()
+    //{
+    //    WWWForm form = new WWWForm();
+    //    form.AddField("googleidPost", m_userid);
+    //    form.AddField("usernamePost", m_username);
+    //    form.AddField("charinvenPost", m_charinven);
+    //    form.AddField("etcinvenPost", m_etcineven);
+    //    form.AddField("itemPost", 0);
+    //    form.AddField("goldPost", 0);
+    //    form.AddField("hpPost", 0);
+    //    form.AddField("mpPost", 0);
+    //    form.AddField("attackPost", 0);
+    //    form.AddField("defencePost", 0);
+    //    form.AddField("scorePost", 0);
+    //    form.AddField("statpointPost", 0);
+    //    form.AddField("maincharacterPost", "");
+    //    LoadData.GetInstance.m_username = _username;
+    //    LoadData.GetInstance.m_userIdCode = _goolgleId;
+    //    WWW www = new WWW(m_addUserUrl, form);
+    //}
 
-   
 }

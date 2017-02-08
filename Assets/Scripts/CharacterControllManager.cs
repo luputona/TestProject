@@ -62,7 +62,8 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         InitializeUI();
         StartCoroutine(Init());
 
-        PlayerPrefs.SetString("SelectCharacter", "UnityChan");
+        //PlayerPrefs.SetString("SelectCharacter", "UnityChan");
+        
         print(PlayerPrefs.GetString("SelectCharacter"));
 	}
 	
@@ -171,8 +172,8 @@ public class CharacterControllManager : Singleton<CharacterControllManager>
         m_hpBar.value = m_curHp;
         m_mpBar.value = m_curMp;
         m_spBar.value = m_curSp;
-        
 
+      
         UITimer();
 
         if(m_curHp < 0)

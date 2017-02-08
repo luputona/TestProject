@@ -17,16 +17,15 @@ public class InitializeUserStatus : Singleton<InitializeUserStatus>
 
     void Awake()
     {
-
-        if (m_instance != null)
-        {
-            GameObject.Destroy(gameObject);
-        }
-        else
-        {
+        //if (m_instance != null)
+        //{
+        //    //GameObject.Destroy(gameObject);
+        //}
+        //else
+        //{
             GameObject.DontDestroyOnLoad(gameObject);
             m_instance = this;
-        }
+        //}
 
         m_inithp = 100;
         m_initmp = 100;
@@ -39,5 +38,5 @@ public class InitializeUserStatus : Singleton<InitializeUserStatus>
 
     }
     // Use this for initialization
-   
+    
 }

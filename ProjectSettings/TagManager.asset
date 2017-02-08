@@ -27,6 +27,9 @@ TagManager:
   - Bullet
   - NormalAttack
   - Q
+  - SettingPanel
+  - DataLoadScene_Loading_BG
+  - DataLoadScene_progress_Text
   layers:
   - Default
   - TransparentFX
