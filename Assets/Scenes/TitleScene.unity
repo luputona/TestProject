@@ -6466,11 +6466,13 @@ MonoBehaviour:
     Profile: 
   m_checkIdUrl: http://54.238.128.34/useridcheck.php
   m_addUserUrl: http://54.238.128.34/useridcheck.php
+  m_useridCheckUrl: http://54.238.128.34/UserIdCodeCheck.php
   m_getid: 
   m_userid: 
   m_username: 
   m_charinven: 
   m_etcineven: 
+  m_createNewId: 
   login: Login
   logout: Logout
   m_item: 0
@@ -6479,6 +6481,7 @@ MonoBehaviour:
   m_accountCheck: 0
   m_signinCheck: 0
   m_balready_SignCheck: 0
+  m_createcodeCheck: 1
 --- !u!4 &2027209079
 Transform:
   m_ObjectHideFlags: 0

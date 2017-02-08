@@ -50,7 +50,7 @@ public class LoadData : Singleton<LoadData>
     public float m_currentValue = 0;
     private JsonData m_charJsonData;
     private string jsonstring;
-    
+        
 
     [SerializeField]
     private string m_userdataUrl = "http://54.238.128.34/userdb.php";
@@ -97,7 +97,9 @@ public class LoadData : Singleton<LoadData>
     void Start()
     {
         //m_panelButton.interactable = false;
+    
         m_userIdCode = PlayerPrefs.GetString("UserIdCode");
+        m_username = PlayerPrefs.GetString("UserName");
         m_hp = InitializeUserStatus.GetInstance.m_inithp;
         m_mp = InitializeUserStatus.GetInstance.m_initmp;
         m_attack = InitializeUserStatus.GetInstance.m_initattack;

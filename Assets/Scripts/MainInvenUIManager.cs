@@ -283,7 +283,7 @@ public class MainInvenUIManager : Singleton<MainInvenUIManager>
     {
         _charname = m_childBtnName;
         LoadData.GetInstance.m_maincharacter = _charname;
-        PlayerPrefs.SetString("SelectCharacter", _charname); //선택한 캐릭명, 추후 구글 서버쪽으로 저장되게 변경
+        PlayerPrefs.SetString("SelectCharacter", _charname); //선택한 캐릭명, 추후  서버쪽으로 저장되게 변경
         
         if (m_childBtnName == "UnityChan")
         {
