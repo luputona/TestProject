@@ -63,9 +63,10 @@ public class LoginManager : MonoBehaviour {
     // Use this for initialization
     void Start ()
     {
+        m_accountMsg.SetActive(false);
         m_createName.SetActive(false);
         m_inputUserCode.SetActive(false);
-        m_accountMsg.SetActive(false);
+        
         //StartCoroutine(UserIdCodeCheck());
     }
 	
@@ -75,28 +76,29 @@ public class LoginManager : MonoBehaviour {
     {
         Debug.Log("PlayerPrefs.GetString UserIdCode : " + PlayerPrefs.GetString("UserIdCode"));
         Debug.Log("PlayerPrefs.HasKey UserIdCode : " + PlayerPrefs.HasKey("UserIdCode"));
+        Debug.Log("update m_createcodeCheck : " + m_createcodeCheck);
+        Debug.Log("m_userid : " + m_userid);
 
-
-        if (AssetLoader.GetInstance.m_downCheck && PlayerPrefs.HasKey("UserIdCode") == true && m_createcodeCheck == false)
+        if (AssetLoader.GetInstance.m_downCheck )//&& PlayerPrefs.HasKey("UserIdCode") == true)
         {
             Debug.Log("ddddddddddddddd");
             StartCoroutine(Checksignin());
             //Debug.Log("m_signinCheck : "+ m_signinCheck);
             //Debug.Log("m_getid : "+ m_getid);
-            //Debug.Log("m_userid : " + m_userid);
+           
             //Debug.Log("checkid : " + checkid);
         }
         else if (AssetLoader.GetInstance.m_downCheck && PlayerPrefs.HasKey("UserIdCode") == false && m_createcodeCheck)
         {
             Debug.Log("eeeeeeeeeeeeee");
-            StartCoroutine(UserIdCodeCheck());
+            //StartCoroutine(UserIdCodeCheck());
         }
 
-        if (m_balready_SignCheck)
+        if (m_balready_SignCheck == true)
         {
             m_accountMsg.SetActive(true);
         }
-        else if (!m_balready_SignCheck)
+        else 
         {
             m_accountMsg.SetActive(false);
         }
@@ -131,13 +133,11 @@ public class LoginManager : MonoBehaviour {
             m_chekingData_text.text = string.Format("Checking Data");
             m_mainPanelButton.interactable = false;
         }
-
-        
     }
-
 
     IEnumerator Checksignin()
     {
+        
         WWWForm form = new WWWForm();
         form.AddField("googleidPost", m_userid);
 
@@ -162,7 +162,7 @@ public class LoginManager : MonoBehaviour {
                 m_signinCheck = false;
                 m_balready_SignCheck = true;
 
-                m_already_SignCheck_Text.text = string.Format("{0}", m_getid);
+                m_already_SignCheck_Text.text = string.Format("m_getid : {0}", m_getid);
                 if (LoadCharacterData.GetInstance.m_downcomplete)
                 {
                     InitializeNewUser();
@@ -222,15 +222,18 @@ public class LoginManager : MonoBehaviour {
     //ui에 연결
     public void SigninAlreadyOkButton()
     {
-        if(m_balready_SignCheck)
+        
+        if (m_balready_SignCheck)
         {
+            
             AddUser(m_userid, m_username, m_charinven, m_etcineven, InitializeUserStatus.GetInstance.m_inititem, InitializeUserStatus.GetInstance.m_initgold, InitializeUserStatus.GetInstance.m_inithp, InitializeUserStatus.GetInstance.m_initmp, InitializeUserStatus.GetInstance.m_initattack, InitializeUserStatus.GetInstance.m_initdefence, InitializeUserStatus.GetInstance.m_initscore, InitializeUserStatus.GetInstance.m_initstatpoint, InitializeUserStatus.GetInstance.m_initmaincharacter);
             InitializeUserStatus.GetInstance.m_goolgleid = m_userid;
         }
-        PlayerPrefs.SetString("UserIdCode", m_userid);
+        
         m_balready_SignCheck = false;
         m_accountCheck = 3;
         m_createName.SetActive(false);
+        PlayerPrefs.SetString("UserIdCode", m_userid);
     }
 
     public void SetInputUserCode()
@@ -257,6 +260,7 @@ public class LoginManager : MonoBehaviour {
         
         m_accountCheck = 1;
         m_balready_SignCheck = false;
+        
     }
     public void ContinueButton()
     {
@@ -267,11 +271,13 @@ public class LoginManager : MonoBehaviour {
     public void InputUserCodeCancelButton()
     {
         m_accountCheck = 4;
+        m_balready_SignCheck = true;
     }
 
     public void NewAccountCancelButton()
     {
         m_accountCheck = 4;
+        m_balready_SignCheck = true;
     }
 
     void CreateUserIdCode()
@@ -291,18 +297,20 @@ public class LoginManager : MonoBehaviour {
             string str2 = str[ran2];
             sb.Append(str2);
         }
-        int ran3 = Random.Range(1, 10);
+        //int ran3 = Random.Range(1, 10);
         if (PlayerPrefs.HasKey("UserIdCode") == true)
         {
-            m_createNewId = PlayerPrefs.GetString("UserIdCode");
+            m_userid = PlayerPrefs.GetString("UserIdCode");
+            //m_createNewId = PlayerPrefs.GetString("UserIdCode");
         }
         else
         {
-            m_createNewId =   ran3.ToString();  // sb.ToString();        
+            m_userid = sb.ToString();
+            //m_createNewId =   sb.ToString();//ran3.ToString();  //         
         }
 
-        Debug.Log("create new ID : " + ran3);
-        //Debug.Log("ID : " + sb.ToString());
+        //Debug.Log("create new ID : " + ran3);
+        Debug.Log("ID : " + sb.ToString());
     }
 
     void InitializeNewUser()
@@ -331,7 +339,7 @@ public class LoginManager : MonoBehaviour {
         form.AddField("maincharacterPost", _maincharacter);
 
 
-        PlayerPrefs.SetString("UserName", _username);
+        //PlayerPrefs.SetString("UserName", _username);
         PlayerPrefs.SetString("UserIdCode", _userIdCode);
         WWW www = new WWW(m_addUserUrl, form);
     }
