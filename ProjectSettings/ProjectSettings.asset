@@ -107,7 +107,7 @@ PlayerSettings:
   iPhoneScriptCallOptimization: 0
   iPhoneBuildNumber: 0
   ForceInternetPermission: 0
-  ForceSDCardPermission: 1
+  ForceSDCardPermission: 0
   CreateWallpaper: 0
   APKExpansionFiles: 0
   preloadShaders: 0
@@ -158,8 +158,8 @@ PlayerSettings:
   AndroidTargetDevice: 3
   AndroidSplashScreenScale: 0
   androidSplashScreen: {fileID: 0}
-  AndroidKeystoreName: C:/Users/luputona/Desktop/GoogleConnectTest/user.keystore
-  AndroidKeyaliasName: testgame
+  AndroidKeystoreName: F:/GitHub/GoogleConnectTest/user.keystore
+  AndroidKeyaliasName: connecttest
   AndroidTVCompatibility: 0
   AndroidIsGame: 0
   androidEnableBanner: 1
