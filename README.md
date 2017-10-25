@@ -1,10 +1,7 @@
 <<<<<<< HEAD
 # TestGame_1
 
-@[youtube]
-
-<iframe width="560" height="315" src="https://www.youtube.com/embed/e2mAVvtyGAc" frameborder="0" allowfullscreen></iframe>
-
+[![IMAGE ALT TEXT](http://img.youtube.com/vi/e2mAVvtyGAc/0.jpg)](http://www.youtube.com/watch?v=e2mAVvtyGAc "Video Title")
 youtube : https://youtu.be/e2mAVvtyGAc
 
 e2mAVvtyGAc
