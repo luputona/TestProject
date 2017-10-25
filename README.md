@@ -1,7 +1,7 @@
 <<<<<<< HEAD
 # TestGame_1
 
-[![Video Label](http://img.youtube.com/vi/e2mAVvtyGAc/0.jpg)](https://youtu.be/e2mAVvtyGAc?t=0s) Video Label
+[![Video Label](<iframe width="560" height="315" src="https://www.youtube.com/embed/e2mAVvtyGAc" frameborder="0" allowfullscreen></iframe>)]
 
 youtube : https://youtu.be/e2mAVvtyGAc
 
